@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AgroRegistro 360 — Plataforma digital MAG</title>
+<style>
+  :root {
+    --purple: #5B2D90;
+    --purple-dark: #3f1e6b;
+    --purple-light: #EDE7F6;
+    --purple-lighter: #F5F0FA;
+    --green: #2E7D32;
+    --green-light: #E8F5E9;
+    --amber: #F57F17;
+    --amber-light: #FFF8E1;
+    --red: #C62828;
+    --red-light: #FFEBEE;
+    --blue: #1565C0;
+    --blue-light: #E3F2FD;
+    --grey-900: #212121;
+    --grey-700: #424242;
+    --grey-500: #757575;
+    --grey-300: #E0E0E0;
+    --grey-100: #F5F5F5;
+    --grey-50: #FAFAFA;
+    --white: #FFFFFF;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 12px rgba(0,0,0,0.12);
+    --radius: 10px;
+    --radius-sm: 6px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  :root[data-theme="dark"] {
+    --purple: #B39DDB;
+    --purple-dark: #9575CD;
+    --purple-light: #2E1F4C;
+    --purple-lighter: #241a3d;
+    --grey-900: #F5F5F5;
+    --grey-700: #E0E0E0;
+    --grey-500: #BDBDBD;
+    --grey-300: #424242;
+    --grey-100: #2A2A2A;
+    --grey-50: #1E1E1E;
+    --white: #121212;
+    --shadow: 0 1px 3px rgba(0,0,0,0.4);
+    --shadow-lg: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --purple: #B39DDB;
+      --purple-dark: #9575CD;
+      --purple-light: #2E1F4C;
+      --purple-lighter: #241a3d;
+      --grey-900: #F5F5F5;
+      --grey-700: #E0E0E0;
+      --grey-500: #BDBDBD;
+      --grey-300: #424242;
+      --grey-100: #2A2A2A;
+      --grey-50: #1E1E1E;
+      --white: #121212;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--grey-900);
+    background: var(--grey-50);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  a { color: var(--purple); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { font-family: inherit; }
+
+  /* HEADER */
+  .app-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-300);
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 100;
+    padding: env(safe-area-inset-top, 0px) 0 0 0;
+  }
+  .app-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--purple);
+    cursor: pointer;
+  }
+  .brand-badge {
+    width: 34px; height: 34px;
+    background: var(--purple);
+    color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px;
+  }
+  .brand small { display: block; font-size: 10px; color: var(--grey-500); font-weight: 500; letter-spacing: 0.5px; }
+  .nav { margin-left: auto; display: flex; gap: 4px; }
+  .nav button {
+    background: transparent; border: none;
+    color: var(--grey-700); padding: 8px 14px;
+    border-radius: var(--radius-sm); cursor: pointer;
+    font-size: 14px; font-weight: 500;
+  }
+  .nav button:hover { background: var(--grey-100); }
+  .nav button.active { background: var(--purple-light); color: var(--purple); }
+  .role-switch {
+    padding: 6px 12px; border-radius: 20px;
+    background: var(--purple-light); color: var(--purple);
+    font-size: 12px; font-weight: 600;
+    border: none; cursor: pointer;
+  }
+
+  /* LAYOUT */
+  .page { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+  .page-title { font-size: 24px; font-weight: 700; margin: 0 0 4px; color: var(--grey-900); }
+  .page-subtitle { color: var(--grey-500); margin: 0 0 24px; font-size: 14px; }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid var(--grey-300);
+  }
+  .card h3 { margin: 0 0 12px; font-size: 16px; color: var(--grey-900); }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; border-radius: var(--radius-sm);
+    background: var(--purple); color: white;
+    border: none; cursor: pointer; font-size: 14px; font-weight: 600;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: var(--purple-dark); }
+  .btn-secondary { background: transparent; color: var(--purple); border: 1px solid var(--purple); }
+  .btn-secondary:hover { background: var(--purple-light); }
+  .btn-ghost { background: transparent; color: var(--grey-700); border: 1px solid var(--grey-300); }
+  .btn-ghost:hover { background: var(--grey-100); }
+  .btn-danger { background: var(--red); }
+  .btn-success { background: var(--green); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* LANDING */
+  .hero {
+    background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+    color: white; border-radius: var(--radius);
+    padding: 40px 32px; margin-bottom: 24px;
+  }
+  .hero h1 { font-size: 32px; margin: 0 0 8px; font-weight: 800; }
+  .hero p { font-size: 16px; opacity: 0.95; margin: 0 0 20px; max-width: 640px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero .btn { background: white; color: var(--purple); }
+  .hero .btn-secondary { background: transparent; color: white; border-color: rgba(255,255,255,0.5); }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .kpi { background: var(--white); border-radius: var(--radius); padding: 16px; border: 1px solid var(--grey-300); box-shadow: var(--shadow); }
+  .kpi-label { font-size: 12px; color: var(--grey-500); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  .kpi-value { font-size: 26px; font-weight: 700; color: var(--purple); margin: 4px 0; }
+  .kpi-trend { font-size: 12px; color: var(--green); font-weight: 600; }
+  .kpi-trend.down { color: var(--red); }
+
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .feature {
+    background: var(--white); border-radius: var(--radius); padding: 18px;
+    border: 1px solid var(--grey-300);
+  }
+  .feature-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--purple-light); color: var(--purple);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 10px;
+  }
+  .feature h4 { margin: 0 0 6px; font-size: 15px; }
+  .feature p { margin: 0; font-size: 13px; color: var(--grey-500); }
+
+  /* FORMS */
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--grey-700); margin-bottom: 6px; }
+  .form-group label .req { color: var(--red); }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 10px 12px;
+    border: 1px solid var(--grey-300); border-radius: var(--radius-sm);
+    font-size: 14px; font-family: inherit;
+    background: var(--white); color: var(--grey-900);
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px var(--purple-light);
+  }
+  .form-help { font-size: 12px; color: var(--grey-500); margin-top: 4px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+  /* BADGES */
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+  .badge-grey { background: var(--grey-100); color: var(--grey-700); }
+
+  /* INTEROP */
+  .interop-panel {
+    background: var(--purple-lighter);
+    border: 1px solid var(--purple);
+    border-radius: var(--radius);
+    padding: 16px; margin: 16px 0;
+  }
+  .interop-title { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--purple); margin-bottom: 12px; font-size: 14px; }
+  .interop-list { display: grid; gap: 8px; }
+  .interop-item {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--white); padding: 10px 12px; border-radius: var(--radius-sm);
+    font-size: 13px;
+  }
+  .interop-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--grey-300); }
+  .interop-item.checking .dot { background: var(--amber); animation: pulse 1.2s infinite; }
+  .interop-item.ok .dot { background: var(--green); }
+  .interop-item.fail .dot { background: var(--red); }
+  .interop-item .name { flex: 1; font-weight: 500; }
+  .interop-item .status { font-size: 11px; color: var(--grey-500); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--grey-300); border-radius: var(--radius); }
+  table { width: 100%; border-collapse: collapse; background: var(--white); }
+  th, td { padding: 12px 14px; text-align: left; font-size: 13px; border-bottom: 1px solid var(--grey-100); }
+  th { background: var(--grey-50); font-weight: 600; color: var(--grey-700); font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:last-child td { border-bottom: none; }
+  tr.clickable { cursor: pointer; }
+  tr.clickable:hover { background: var(--purple-lighter); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 10px; top: 6px; bottom: 6px;
+    width: 2px; background: var(--grey-300);
+  }
+  .timeline-item { position: relative; padding-bottom: 20px; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -25px; top: 4px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--grey-300); border: 3px solid var(--white);
+  }
+  .timeline-item.done::before { background: var(--green); }
+  .timeline-item.active::before { background: var(--purple); box-shadow: 0 0 0 4px var(--purple-light); }
+  .timeline-item.pending::before { background: var(--grey-300); }
+  .timeline-title { font-weight: 600; font-size: 14px; margin: 0 0 2px; }
+  .timeline-meta { font-size: 12px; color: var(--grey-500); }
+  .timeline-desc { font-size: 13px; color: var(--grey-700); margin-top: 4px; }
+
+  /* MODAL / OVERLAYS */
+  .toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: var(--grey-900); color: white; padding: 12px 20px;
+    border-radius: var(--radius); box-shadow: var(--shadow-lg);
+    font-size: 14px; z-index: 200;
+    animation: slideup 0.25s;
+  }
+  @keyframes slideup { from { transform: translate(-50%, 20px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+
+  /* CHIPS */
+  .chip {
+    display: inline-block; padding: 4px 12px; border-radius: 14px;
+    background: var(--purple-light); color: var(--purple);
+    font-size: 12px; font-weight: 600; margin: 2px;
+  }
+
+  /* PROGRESS */
+  .progress {
+    height: 8px; background: var(--grey-100); border-radius: 4px; overflow: hidden;
+  }
+  .progress-bar { height: 100%; background: var(--purple); transition: width 0.4s; }
+
+  /* Split layout */
+  .split { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+
+  /* Notification bell */
+  .bell {
+    position: relative; background: none; border: none; cursor: pointer;
+    color: var(--grey-700); padding: 8px; border-radius: 50%;
+  }
+  .bell:hover { background: var(--grey-100); }
+  .bell-dot {
+    position: absolute; top: 6px; right: 6px;
+    width: 8px; height: 8px; background: var(--red); border-radius: 50%;
+  }
+
+  /* Utility */
+  .flex { display: flex; }
+  .flex-between { display: flex; justify-content: space-between; align-items: center; }
+  .gap-8 { gap: 8px; } .gap-12 { gap: 12px; } .gap-16 { gap: 16px; }
+  .muted { color: var(--grey-500); }
+  .small { font-size: 12px; }
+  .mono { font-family: "SFMono-Regular", Consolas, monospace; }
+  .mt-8 { margin-top: 8px; } .mt-16 { margin-top: 16px; } .mt-24 { margin-top: 24px; }
+  .hidden { display: none !important; }
+
+  /* Charts (SVG inline) */
+  .chart { width: 100%; height: 200px; }
+  .chart-legend { display: flex; gap: 16px; margin-top: 8px; font-size: 12px; }
+  .chart-legend-item { display: flex; align-items: center; gap: 6px; }
+  .chart-legend-item .sw { width: 10px; height: 10px; border-radius: 2px; }
+
+  footer.app-footer {
+    max-width: 1200px; margin: 40px auto 0;
+    padding: 20px; border-top: 1px solid var(--grey-300);
+    color: var(--grey-500); font-size: 12px; text-align: center;
+  }
+  footer.app-footer strong { color: var(--purple); }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="app-header-inner">
+    <div class="brand" onclick="nav('landing')">
+      <div class="brand-badge">A360</div>
+      <div>
+        AgroRegistro 360
+        <small>MAG · Dirección de Gestión de Musáceas</small>
+      </div>
+    </div>
+    <nav class="nav" id="mainNav"></nav>
+    <button class="bell" onclick="showNotifs()" title="Notificaciones">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="bell-dot" id="bellDot"></span>
+    </button>
+    <button class="role-switch" id="roleSwitch" onclick="switchRole()">Productor</button>
+  </div>
+</header>
+
+<main id="app" class="page"></main>
+
+<footer class="app-footer">
+  <strong>AgroRegistro 360</strong> · Prototipo académico · Proyecto de innovación pública ·
+  Diplomado en Innovación Pública 2026 · Equipo #2
+</footer>
+
+<script>
+// =============================================================================
+// MOCK DATA — Bases ficticias que simulan la interoperabilidad institucional
+// Todos los nombres, cédulas y datos son inventados para fines académicos.
+// =============================================================================
+
+const DB = {
+  // Registro Civil — datos de identidad
+  registroCivil: {
+    "0912345678": { nombres: "MARÍA ELENA", apellidos: "CEDEÑO VERA", fechaNacimiento: "1978-03-14", estadoCivil: "Casada", nacionalidad: "Ecuatoriana", estado: "VIGENTE" },
+    "0701234567": { nombres: "LUIS ALFREDO", apellidos: "MONTAÑO CHÁVEZ", fechaNacimiento: "1965-11-02", estadoCivil: "Casado", nacionalidad: "Ecuatoriana", estado: "VIGENTE" },
+    "1305678901": { nombres: "ROSA MARGARITA", apellidos: "ZAMBRANO LUCAS", fechaNacimiento: "1982-07-21", estadoCivil: "Soltera", nacionalidad: "Ecuatoriana", estado: "VIGENTE" }
+  },
+  // SRI — información tributaria
+  sri: {
+    "0912345678001": { ruc: "0912345678001", razonSocial: "CEDEÑO VERA MARÍA ELENA", tipo: "Persona Natural", actividadEconomica: "Cultivo de banano", estado: "ACTIVO", direccionTributaria: "El Oro, Machala, Km 12 vía Pasaje", obligadaContabilidad: "NO", fechaInicio: "2005-04-10" },
+    "0701234567001": { ruc: "0701234567001", razonSocial: "MONTAÑO CHÁVEZ LUIS ALFREDO", tipo: "Persona Natural", actividadEconomica: "Cultivo de plátano", estado: "ACTIVO", direccionTributaria: "Los Ríos, Quevedo, Recinto San Camilo", obligadaContabilidad: "SI", fechaInicio: "1998-08-15" },
+    "1305678901001": { ruc: "1305678901001", razonSocial: "ZAMBRANO LUCAS ROSA MARGARITA", tipo: "Persona Natural", actividadEconomica: "Cultivo de banano orgánico", estado: "ACTIVO", direccionTributaria: "Manabí, Chone, Sector Santa Rita", obligadaContabilidad: "NO", fechaInicio: "2015-06-01" }
+  },
+  // IESS — afiliación al seguro social
+  iess: {
+    "0912345678": { afiliada: true, estado: "ACTIVO", tipoAfiliacion: "Trabajadora Autónoma", empleador: "Cuenta propia", ultimaAportacion: "2026-09-01" },
+    "0701234567": { afiliada: true, estado: "ACTIVO", tipoAfiliacion: "Empleador", empleador: "Bananera San Camilo", ultimaAportacion: "2026-09-01" },
+    "1305678901": { afiliada: false, estado: "SIN AFILIACIÓN", tipoAfiliacion: "-", empleador: "-", ultimaAportacion: "-" }
+  },
+  // Registro de la Propiedad — datos catastrales
+  registroPropiedad: {
+    "070101-001-0234": { claveCatastral: "070101-001-0234", ubicacion: "El Oro, Machala, Parroquia La Providencia", superficie: 18.5, unidad: "ha", propietario: "0912345678", tipoTenencia: "PROPIETARIO", linderos: "Norte: Río Jubones · Sur: Vía Pasaje · Este: Predio 235 · Oeste: Predio 233", gravamenes: "NINGUNO" },
+    "120801-045-1102": { claveCatastral: "120801-045-1102", ubicacion: "Los Ríos, Quevedo, Recinto San Camilo", superficie: 42.0, unidad: "ha", propietario: "0701234567", tipoTenencia: "PROPIETARIO", linderos: "Norte: Estero Chila · Sur: Camino vecinal · Este: Predio 1103 · Oeste: Río Quevedo", gravamenes: "HIPOTECA VIGENTE (BanEcuador)" },
+    "130404-012-0789": { claveCatastral: "130404-012-0789", ubicacion: "Manabí, Chone, Sector Santa Rita", superficie: 6.2, unidad: "ha", propietario: "1305678901", tipoTenencia: "PROPIETARIO", linderos: "Norte: Vía a Flavio Alfaro · Sur: Estero Chila · Este: Predio 0790 · Oeste: Predio 0788", gravamenes: "NINGUNO" }
+  },
+  // Agrocalidad — certificaciones fitosanitarias
+  agrocalidad: {
+    "0912345678": { tieneRegistro: true, tipoCertificacion: "BPA (Buenas Prácticas Agrícolas)", fechaVigencia: "2027-05-30", planFitosanitario: "Aprobado 2026", estado: "VIGENTE" },
+    "0701234567": { tieneRegistro: true, tipoCertificacion: "Global GAP", fechaVigencia: "2026-12-15", planFitosanitario: "Aprobado 2026", estado: "VIGENTE" },
+    "1305678901": { tieneRegistro: true, tipoCertificacion: "Producción Orgánica", fechaVigencia: "2027-08-01", planFitosanitario: "Aprobado 2026", estado: "VIGENTE" }
+  }
+};
+
+// Trámites en curso (estado inicial del sistema)
+let TRAMITES = [
+  {
+    id: "MAG-2026-000842",
+    tipo: "Renovación de registro",
+    productor: "María Elena Cedeño Vera",
+    cedula: "0912345678",
+    predio: "070101-001-0234",
+    fechaIngreso: "2026-09-18",
+    estado: "En inspección",
+    progreso: 60,
+    superficie: 18.5,
+    provincia: "El Oro",
+    responsable: "Ing. Andrés Villamar",
+    observaciones: [],
+    linea: [
+      { titulo: "Solicitud recibida", fecha: "2026-09-18 09:15", desc: "Verificada automáticamente con Registro Civil y SRI." },
+      { titulo: "Requisitos validados", fecha: "2026-09-18 09:16", desc: "Interoperabilidad completa: 5/5 entidades consultadas." },
+      { titulo: "Informe jurídico emitido", fecha: "2026-09-19 14:30", desc: "Cumplimiento de requisitos: SÍ." },
+      { titulo: "Inspección de predio agendada", fecha: "2026-09-24 (agenda)", desc: "Ing. Andrés Villamar. Coordenadas registradas." },
+      { titulo: "Informe técnico", fecha: "-", desc: "Pendiente de la inspección." },
+      { titulo: "Registro emitido", fecha: "-", desc: "Notificación automática y firma electrónica." }
+    ]
+  },
+  {
+    id: "MAG-2026-000839",
+    tipo: "Registro nuevo",
+    productor: "Luis Alfredo Montaño Chávez",
+    cedula: "0701234567",
+    predio: "120801-045-1102",
+    fechaIngreso: "2026-09-15",
+    estado: "Aprobado",
+    progreso: 100,
+    superficie: 42.0,
+    provincia: "Los Ríos",
+    responsable: "Abg. Cecilia Andrade",
+    observaciones: [],
+    linea: [
+      { titulo: "Solicitud recibida", fecha: "2026-09-15 08:02", desc: "" },
+      { titulo: "Requisitos validados", fecha: "2026-09-15 08:03", desc: "5/5 entidades OK" },
+      { titulo: "Informe jurídico emitido", fecha: "2026-09-16 11:00", desc: "" },
+      { titulo: "Inspección de predio", fecha: "2026-09-19", desc: "" },
+      { titulo: "Informe técnico", fecha: "2026-09-19 16:20", desc: "Predio conforme." },
+      { titulo: "Registro emitido", fecha: "2026-09-20 09:00", desc: "Notificado por correo y SMS." }
+    ]
+  },
+  {
+    id: "MAG-2026-000851",
+    tipo: "Registro nuevo — orgánico",
+    productor: "Rosa Margarita Zambrano Lucas",
+    cedula: "1305678901",
+    predio: "130404-012-0789",
+    fechaIngreso: "2026-09-22",
+    estado: "Observado",
+    progreso: 30,
+    superficie: 6.2,
+    provincia: "Manabí",
+    responsable: "Abg. Cecilia Andrade",
+    observaciones: [
+      { texto: "Falta constancia de plan de fertilización orgánica firmada por el técnico responsable.", fecha: "2026-09-24", autor: "Abg. Cecilia Andrade" }
+    ],
+    linea: [
+      { titulo: "Solicitud recibida", fecha: "2026-09-22 15:40", desc: "" },
+      { titulo: "Requisitos validados", fecha: "2026-09-22 15:41", desc: "4/5 entidades OK — 1 observación." },
+      { titulo: "Observación notificada", fecha: "2026-09-24 10:00", desc: "Notificada al productor. En espera de subsanación." },
+      { titulo: "Informe jurídico", fecha: "-", desc: "Pendiente." },
+      { titulo: "Inspección de predio", fecha: "-", desc: "" },
+      { titulo: "Registro emitido", fecha: "-", desc: "" }
+    ]
+  }
+];
+
+// Notificaciones simuladas
+const NOTIFICACIONES = [
+  { id: 1, tipo: "info", titulo: "Inspección agendada", mensaje: "MAG-2026-000842 — Ing. Andrés Villamar el 24/09/2026.", fecha: "hace 2 h", leida: false },
+  { id: 2, tipo: "warning", titulo: "Observación en tu trámite", mensaje: "MAG-2026-000851: falta plan de fertilización orgánica.", fecha: "hace 6 h", leida: false },
+  { id: 3, tipo: "success", titulo: "Registro emitido", mensaje: "MAG-2026-000839 aprobado y notificado.", fecha: "hace 2 d", leida: true }
+];
+
+// Estado global de la UI
+const state = {
+  role: 'productor',        // productor | funcionario
+  view: 'landing',
+  currentCedula: null,
+  currentPredio: null,
+  currentTramite: null,
+  interopResults: null,
+  form: {}
+};
+
+// =============================================================================
+// NAVEGACIÓN Y RENDERIZADO
+// =============================================================================
+function nav(view, params) {
+  state.view = view;
+  Object.assign(state, params || {});
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function switchRole() {
+  state.role = state.role === 'productor' ? 'funcionario' : 'productor';
+  document.getElementById('roleSwitch').textContent =
+    state.role === 'productor' ? 'Productor' : 'Funcionario MAG';
+  document.getElementById('roleSwitch').style.background =
+    state.role === 'productor' ? 'var(--purple-light)' : 'var(--amber-light)';
+  document.getElementById('roleSwitch').style.color =
+    state.role === 'productor' ? 'var(--purple)' : 'var(--amber)';
+  state.view = state.role === 'productor' ? 'landing' : 'bandeja';
+  render();
+}
+
+function toast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+function showNotifs() {
+  const lines = NOTIFICACIONES.map(n =>
+    `• ${n.titulo}\n  ${n.mensaje}\n  ${n.fecha}`
+  ).join('\n\n');
+  alert(`Notificaciones\n\n${lines}`);
+}
+
+function render() {
+  renderNav();
+  const app = document.getElementById('app');
+  if (state.role === 'productor') {
+    if (state.view === 'landing')      app.innerHTML = viewLanding();
+    else if (state.view === 'login')   app.innerHTML = viewLogin();
+    else if (state.view === 'nueva')   app.innerHTML = viewNuevaSolicitud();
+    else if (state.view === 'mis')     app.innerHTML = viewMisTramites();
+    else if (state.view === 'detalle') app.innerHTML = viewDetalleTramite();
+    else if (state.view === 'tablero') app.innerHTML = viewTablero();
+    else app.innerHTML = viewLanding();
+  } else {
+    if (state.view === 'bandeja')      app.innerHTML = viewBandeja();
+    else if (state.view === 'expediente') app.innerHTML = viewExpediente();
+    else if (state.view === 'tablero') app.innerHTML = viewTablero();
+    else app.innerHTML = viewBandeja();
+  }
+  attachEvents();
+}
+
+function renderNav() {
+  const nav = document.getElementById('mainNav');
+  const items = state.role === 'productor'
+    ? [
+        { id: 'landing', label: 'Inicio' },
+        { id: 'nueva', label: 'Nueva solicitud' },
+        { id: 'mis', label: 'Mis trámites' },
+        { id: 'tablero', label: 'Indicadores' }
+      ]
+    : [
+        { id: 'bandeja', label: 'Bandeja' },
+        { id: 'tablero', label: 'Tablero KPI' }
+      ];
+  nav.innerHTML = items.map(i =>
+    `<button class="${state.view === i.id ? 'active' : ''}" onclick="nav('${i.id}')">${i.label}</button>`
+  ).join('');
+}
+
+// =============================================================================
+// VISTA: LANDING
+// =============================================================================
+function viewLanding() {
+  return `
+    <div class="hero">
+      <h1>Tu registro como productor, en línea</h1>
+      <p>AgroRegistro 360 digitaliza de extremo a extremo el trámite de registro, actualización y
+      renovación como productor de banano y plátano ante el MAG. Menos viajes, menos papel,
+      información validada automáticamente con las entidades del Estado.</p>
+      <div class="hero-cta">
+        <button class="btn" onclick="nav('nueva')">Iniciar una solicitud</button>
+        <button class="btn btn-secondary" onclick="nav('mis')">Consultar mis trámites</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Tiempo promedio</div>
+        <div class="kpi-value">4 días</div>
+        <div class="kpi-trend">↓ 78% vs. antes (22 días)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Trazabilidad</div>
+        <div class="kpi-value">100%</div>
+        <div class="kpi-trend">↑ desde 0% en el proceso físico</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Interoperabilidad</div>
+        <div class="kpi-value">5 entidades</div>
+        <div class="kpi-trend">SRI · IESS · RC · RP · Agrocalidad</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Trámites disponibles</div>
+        <div class="kpi-value">20+</div>
+        <div class="kpi-trend">Todos los del subproceso</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:32px">¿Qué puedes hacer aquí?</h3>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">${icon('file')}</div>
+        <h4>Expediente único</h4>
+        <p>Toda tu información del predio y del trámite en un solo lugar.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">${icon('link')}</div>
+        <h4>Interoperabilidad</h4>
+        <p>El Estado no te pide de nuevo lo que ya tiene. Consulta automática al SRI, IESS, Registro Civil, Registro de la Propiedad y Agrocalidad.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">${icon('clock')}</div>
+        <h4>Seguimiento en tiempo real</h4>
+        <p>Sabes en todo momento en qué paso está tu trámite y quién lo tiene.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">${icon('bell')}</div>
+        <h4>Notificaciones automáticas</h4>
+        <p>Correo y SMS cuando hay una observación o una decisión sobre tu expediente.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">${icon('shield')}</div>
+        <h4>Firma electrónica</h4>
+        <p>El registro se emite firmado electrónicamente, con validez legal según la LOTD.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">${icon('map')}</div>
+        <h4>Agenda de inspecciones</h4>
+        <p>Elige fecha para la inspección técnica del predio con georreferenciación.</p>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <h3>Bases interoperables (simuladas)</h3>
+      <p class="muted small">Este prototipo utiliza datos ficticios que representan la consulta a:</p>
+      <div class="mt-8">
+        <span class="chip">Registro Civil — identidad</span>
+        <span class="chip">SRI — RUC y actividad económica</span>
+        <span class="chip">IESS — afiliación</span>
+        <span class="chip">Registro de la Propiedad — datos catastrales</span>
+        <span class="chip">Agrocalidad — certificaciones</span>
+      </div>
+      <p class="small muted mt-16">
+        Puedes probar el flujo con las cédulas: <span class="mono">0912345678</span>,
+        <span class="mono">0701234567</span> o <span class="mono">1305678901</span>.
+      </p>
+    </div>
+  `;
+}
+
+// =============================================================================
+// VISTA: NUEVA SOLICITUD (con interoperabilidad)
+// =============================================================================
+function viewNuevaSolicitud() {
+  return `
+    <h1 class="page-title">Nueva solicitud</h1>
+    <p class="page-subtitle">Paso 1 de 4 — Identificación del productor</p>
+
+    <div class="card">
+      <div class="form-group">
+        <label>Tipo de trámite <span class="req">*</span></label>
+        <select id="tipoTramite">
+          <option value="registro">Registro nuevo como productor</option>
+          <option value="renovacion">Renovación de registro</option>
+          <option value="actualizacion">Actualización de datos del predio</option>
+          <option value="tenencia">Cambio de propietario o tenencia</option>
+          <option value="siembra">Autorización de siembra nueva</option>
+          <option value="organico">Registro como productor orgánico</option>
+          <option value="certificado">Certificado de estado de predio</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Cédula de identidad <span class="req">*</span></label>
+        <input id="cedulaInput" type="text" maxlength="10" placeholder="Ej. 0912345678" oninput="onCedulaInput(this.value)">
+        <div class="form-help">Al ingresar tu cédula, el sistema consultará automáticamente las bases del Estado.</div>
+      </div>
+
+      <div id="interopBox"></div>
+
+      <div id="datosPersonales" class="hidden"></div>
+
+      <div class="flex-between mt-16">
+        <button class="btn-ghost btn" onclick="nav('landing')">Cancelar</button>
+        <button id="btnContinuar" class="btn" disabled onclick="continuarPaso2()">Continuar →</button>
+      </div>
+    </div>
+  `;
+}
+
+function onCedulaInput(v) {
+  if (v.length === 10) {
+    consultarInterop(v);
+  } else {
+    document.getElementById('interopBox').innerHTML = '';
+    document.getElementById('datosPersonales').classList.add('hidden');
+    document.getElementById('btnContinuar').disabled = true;
+  }
+}
+
+async function consultarInterop(cedula) {
+  const entidades = [
+    { key: 'rc', nombre: 'Registro Civil', sub: 'Identidad y estado civil', data: DB.registroCivil[cedula] },
+    { key: 'sri', nombre: 'SRI', sub: 'RUC y actividad económica', data: DB.sri[cedula + '001'] },
+    { key: 'iess', nombre: 'IESS', sub: 'Afiliación al seguro social', data: DB.iess[cedula] },
+    { key: 'rp', nombre: 'Registro de la Propiedad', sub: 'Datos catastrales del predio', data: Object.values(DB.registroPropiedad).find(p => p.propietario === cedula) },
+    { key: 'agro', nombre: 'Agrocalidad', sub: 'Certificaciones fitosanitarias', data: DB.agrocalidad[cedula] }
+  ];
+
+  const box = document.getElementById('interopBox');
+  box.innerHTML = `
+    <div class="interop-panel">
+      <div class="interop-title">
+        ${icon('link')} Consulta interoperable en curso
+      </div>
+      <div class="interop-list" id="interopList">
+        ${entidades.map(e => `
+          <div class="interop-item checking" id="interop-${e.key}">
+            <span class="dot"></span>
+            <span class="name">${e.nombre}</span>
+            <span class="status">consultando…</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // Simular latencia con pequeños delays escalonados
+  for (const e of entidades) {
+    await sleep(400 + Math.random() * 600);
+    const item = document.getElementById('interop-' + e.key);
+    if (!item) return;
+    if (e.data) {
+      item.classList.remove('checking');
+      item.classList.add('ok');
+      item.querySelector('.status').innerHTML = `<span class="badge badge-green">${icon('check', 12)} OK</span>`;
+    } else {
+      item.classList.remove('checking');
+      item.classList.add(e.key === 'iess' ? 'fail' : 'ok');
+      item.querySelector('.status').innerHTML = e.key === 'iess'
+        ? `<span class="badge badge-amber">sin afiliación</span>`
+        : `<span class="badge badge-red">no encontrado</span>`;
+    }
+  }
+
+  // Datos consolidados
+  const rc = DB.registroCivil[cedula];
+  const sri = DB.sri[cedula + '001'];
+  const iess = DB.iess[cedula];
+  const predio = Object.values(DB.registroPropiedad).find(p => p.propietario === cedula);
+  const agro = DB.agrocalidad[cedula];
+
+  if (!rc) {
+    box.innerHTML += `
+      <div class="card mt-16" style="border-color:var(--red)">
+        <h3 style="color:var(--red)">Cédula no encontrada</h3>
+        <p class="small muted">No es posible continuar sin una identidad válida. Prueba con:
+          <span class="mono">0912345678</span>, <span class="mono">0701234567</span>,
+          <span class="mono">1305678901</span>.</p>
+      </div>`;
+    return;
+  }
+
+  state.currentCedula = cedula;
+  state.interopResults = { rc, sri, iess, predio, agro };
+
+  document.getElementById('datosPersonales').classList.remove('hidden');
+  document.getElementById('datosPersonales').innerHTML = `
+    <div class="card mt-16" style="background:var(--green-light);border-color:var(--green)">
+      <div style="display:flex;align-items:center;gap:8px;color:var(--green);font-weight:600">
+        ${icon('check')} Datos verificados automáticamente
+      </div>
+      <p class="small muted" style="margin:6px 0 12px">No necesitas volver a ingresar la siguiente información.</p>
+
+      <div class="form-row">
+        <div class="form-group"><label>Nombres completos</label>
+          <input type="text" value="${rc.nombres} ${rc.apellidos}" readonly></div>
+        <div class="form-group"><label>Fecha de nacimiento</label>
+          <input type="text" value="${rc.fechaNacimiento}" readonly></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>RUC (SRI)</label>
+          <input type="text" value="${sri ? sri.ruc : 'No registrado'}" readonly></div>
+        <div class="form-group"><label>Actividad económica</label>
+          <input type="text" value="${sri ? sri.actividadEconomica : '-'}" readonly></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>IESS</label>
+          <input type="text" value="${iess.afiliada ? iess.estado + ' — ' + iess.tipoAfiliacion : 'Sin afiliación'}" readonly></div>
+        <div class="form-group"><label>Certificación Agrocalidad</label>
+          <input type="text" value="${agro ? agro.tipoCertificacion + ' (vence ' + agro.fechaVigencia + ')' : 'No registrada'}" readonly></div>
+      </div>
+      ${predio ? `
+      <div style="border-top:1px solid var(--grey-300);margin:12px 0;padding-top:12px">
+        <label style="display:block;font-weight:600;margin-bottom:6px">Predio asociado (Registro de la Propiedad)</label>
+        <div class="small">
+          <div><strong>Clave catastral:</strong> <span class="mono">${predio.claveCatastral}</span></div>
+          <div><strong>Ubicación:</strong> ${predio.ubicacion}</div>
+          <div><strong>Superficie:</strong> ${predio.superficie} ${predio.unidad}</div>
+          <div><strong>Tenencia:</strong> ${predio.tipoTenencia}</div>
+          <div><strong>Gravámenes:</strong> ${predio.gravamenes}</div>
+        </div>
+      </div>` : `
+      <div style="background:var(--amber-light);padding:10px;border-radius:6px;color:var(--amber);font-size:13px;margin-top:10px">
+        ${icon('warn', 14)} No se encontró un predio a tu nombre en el Registro de la Propiedad.
+        Deberás adjuntar título de propiedad o contrato de tenencia en el paso 3.
+      </div>`}
+    </div>
+  `;
+  document.getElementById('btnContinuar').disabled = false;
+}
+
+function continuarPaso2() {
+  state.view = 'nueva2';
+  renderPaso2();
+}
+
+function renderPaso2() {
+  const { rc, sri, predio, agro } = state.interopResults;
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <h1 class="page-title">Nueva solicitud</h1>
+    <p class="page-subtitle">Paso 2 de 4 — Datos del predio y del cultivo</p>
+    <div class="card">
+      <div class="form-row">
+        <div class="form-group"><label>Provincia</label>
+          <input type="text" value="${predio ? predio.ubicacion.split(',')[0] : ''}" id="provincia"></div>
+        <div class="form-group"><label>Cantón</label>
+          <input type="text" value="${predio ? predio.ubicacion.split(',')[1] || '' : ''}" id="canton"></div>
+      </div>
+      <div class="form-group"><label>Ubicación exacta / Recinto</label>
+        <input type="text" value="${predio ? predio.ubicacion : ''}" id="ubicacion"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Superficie sembrada (ha) <span class="req">*</span></label>
+          <input type="number" step="0.1" value="${predio ? predio.superficie : ''}" id="superficie"></div>
+        <div class="form-group"><label>Tipo de cultivo <span class="req">*</span></label>
+          <select id="cultivo">
+            <option>Banano convencional</option>
+            <option>Banano orgánico</option>
+            <option>Plátano barraganete</option>
+            <option>Plátano de exportación</option>
+          </select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Coordenadas GPS del predio</label>
+          <input type="text" placeholder="Se registran al agendar la inspección" readonly></div>
+        <div class="form-group"><label>Densidad estimada (plantas/ha)</label>
+          <input type="number" placeholder="Ej. 1800"></div>
+      </div>
+      <div class="flex-between mt-16">
+        <button class="btn btn-ghost" onclick="nav('nueva')">← Atrás</button>
+        <button class="btn" onclick="renderPaso3()">Continuar →</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderPaso3() {
+  const { predio } = state.interopResults;
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <h1 class="page-title">Nueva solicitud</h1>
+    <p class="page-subtitle">Paso 3 de 4 — Documentación requerida</p>
+    <div class="card">
+      <p class="small muted">La plataforma valida automáticamente los documentos ya disponibles en el Estado.
+      Solo necesitas cargar lo que no se puede verificar por interoperabilidad.</p>
+
+      <div class="interop-panel mt-16">
+        <div class="interop-title">${icon('check')} Verificado automáticamente</div>
+        <div class="interop-list">
+          <div class="interop-item ok"><span class="dot"></span><span class="name">Copia de cédula</span>
+            <span class="status"><span class="badge badge-green">Registro Civil</span></span></div>
+          <div class="interop-item ok"><span class="dot"></span><span class="name">RUC vigente</span>
+            <span class="status"><span class="badge badge-green">SRI</span></span></div>
+          ${predio ? `<div class="interop-item ok"><span class="dot"></span><span class="name">Título de propiedad</span>
+            <span class="status"><span class="badge badge-green">Registro Prop.</span></span></div>` : ''}
+          <div class="interop-item ok"><span class="dot"></span><span class="name">Certificación fitosanitaria</span>
+            <span class="status"><span class="badge badge-green">Agrocalidad</span></span></div>
+        </div>
+      </div>
+
+      <div class="mt-16">
+        <label style="display:block;font-weight:600;margin-bottom:8px">Documentos a cargar</label>
+        <div class="card" style="background:var(--grey-50);border-style:dashed">
+          <div class="flex gap-12" style="align-items:center">
+            ${icon('upload')}
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:14px">Croquis del predio (PDF o imagen)</div>
+              <div class="small muted">Máximo 5 MB · Requerido</div>
+            </div>
+            <button class="btn btn-secondary" onclick="toast('Documento cargado ✓')">Cargar</button>
+          </div>
+        </div>
+        <div class="card mt-8" style="background:var(--grey-50);border-style:dashed">
+          <div class="flex gap-12" style="align-items:center">
+            ${icon('upload')}
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:14px">Plan de manejo del cultivo</div>
+              <div class="small muted">Máximo 5 MB · Opcional</div>
+            </div>
+            <button class="btn btn-secondary" onclick="toast('Documento cargado ✓')">Cargar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-between mt-16">
+        <button class="btn btn-ghost" onclick="renderPaso2()">← Atrás</button>
+        <button class="btn" onclick="renderPaso4()">Continuar →</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderPaso4() {
+  const { rc, sri, predio, agro } = state.interopResults;
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <h1 class="page-title">Nueva solicitud</h1>
+    <p class="page-subtitle">Paso 4 de 4 — Revisión y firma electrónica</p>
+    <div class="card">
+      <h3>Resumen de la solicitud</h3>
+      <div class="small" style="line-height:1.9">
+        <div><strong>Tipo de trámite:</strong> Registro nuevo como productor</div>
+        <div><strong>Productor:</strong> ${rc.nombres} ${rc.apellidos}</div>
+        <div><strong>Cédula:</strong> ${state.currentCedula}</div>
+        <div><strong>RUC:</strong> ${sri ? sri.ruc : 'No disponible'}</div>
+        <div><strong>Predio:</strong> ${predio ? predio.claveCatastral + ' — ' + predio.ubicacion : 'A validar'}</div>
+        <div><strong>Superficie:</strong> ${predio ? predio.superficie + ' ha' : '-'}</div>
+        <div><strong>Cultivo:</strong> Banano convencional</div>
+      </div>
+
+      <div class="card mt-16" style="background:var(--purple-lighter);border-color:var(--purple)">
+        <h3 style="color:var(--purple);display:flex;align-items:center;gap:8px">${icon('shield')} Firma electrónica</h3>
+        <p class="small">Al firmar declaras que la información es verídica y autorizas al MAG a
+        consultar tus datos en el marco de la Ley Orgánica de Protección de Datos Personales.</p>
+        <div class="form-group mt-8">
+          <label>Ingresa tu clave de firma electrónica</label>
+          <input type="password" placeholder="••••••••" value="demo1234">
+        </div>
+      </div>
+
+      <div class="flex-between mt-16">
+        <button class="btn btn-ghost" onclick="renderPaso3()">← Atrás</button>
+        <button class="btn btn-success" onclick="enviarSolicitud()">Firmar y enviar solicitud</button>
+      </div>
+    </div>
+  `;
+}
+
+function enviarSolicitud() {
+  const { rc } = state.interopResults;
+  const nuevoId = "MAG-2026-000" + (900 + Math.floor(Math.random() * 99));
+  const nuevo = {
+    id: nuevoId,
+    tipo: "Registro nuevo",
+    productor: rc.nombres + " " + rc.apellidos,
+    cedula: state.currentCedula,
+    predio: state.interopResults.predio ? state.interopResults.predio.claveCatastral : "-",
+    fechaIngreso: new Date().toISOString().slice(0,10),
+    estado: "En validación",
+    progreso: 20,
+    superficie: state.interopResults.predio ? state.interopResults.predio.superficie : 0,
+    provincia: state.interopResults.predio ? state.interopResults.predio.ubicacion.split(',')[0] : '-',
+    responsable: "Por asignar",
+    observaciones: [],
+    linea: [
+      { titulo: "Solicitud recibida", fecha: "recién", desc: "Firmada electrónicamente." },
+      { titulo: "Requisitos validados", fecha: "recién", desc: "5/5 entidades OK — interoperabilidad completa." },
+      { titulo: "Análisis jurídico", fecha: "-", desc: "En cola de asignación." },
+      { titulo: "Inspección de predio", fecha: "-", desc: "" },
+      { titulo: "Informe técnico", fecha: "-", desc: "" },
+      { titulo: "Registro emitido", fecha: "-", desc: "" }
+    ]
+  };
+  TRAMITES.unshift(nuevo);
+  state.currentTramite = nuevoId;
+
+  document.getElementById('app').innerHTML = `
+    <div class="card" style="text-align:center;padding:48px 20px;border-color:var(--green)">
+      <div style="width:64px;height:64px;background:var(--green-light);color:var(--green);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px">
+        ${icon('check', 32)}
+      </div>
+      <h2 style="margin:0 0 8px">¡Solicitud enviada!</h2>
+      <p class="muted">Tu número de trámite es <strong class="mono" style="color:var(--purple)">${nuevoId}</strong></p>
+      <p class="small muted mt-16">Recibirás notificaciones por correo y SMS en cada paso del proceso.</p>
+      <div class="flex gap-12" style="justify-content:center;margin-top:24px">
+        <button class="btn btn-secondary" onclick="nav('landing')">Ir al inicio</button>
+        <button class="btn" onclick="nav('detalle', {currentTramite: '${nuevoId}'})">Ver detalle del trámite</button>
+      </div>
+    </div>
+  `;
+}
+
+// =============================================================================
+// VISTA: MIS TRÁMITES
+// =============================================================================
+function viewMisTramites() {
+  return `
+    <h1 class="page-title">Mis trámites</h1>
+    <p class="page-subtitle">Todos los expedientes asociados a tu cédula.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>N.º trámite</th><th>Tipo</th><th>Ingreso</th><th>Estado</th><th>Avance</th><th></th>
+        </tr></thead>
+        <tbody>
+          ${TRAMITES.map(t => `
+            <tr class="clickable" onclick="nav('detalle', {currentTramite: '${t.id}'})">
+              <td class="mono" style="color:var(--purple);font-weight:600">${t.id}</td>
+              <td>${t.tipo}</td>
+              <td class="small">${t.fechaIngreso}</td>
+              <td>${estadoBadge(t.estado)}</td>
+              <td style="width:140px">
+                <div class="progress"><div class="progress-bar" style="width:${t.progreso}%"></div></div>
+                <div class="small muted mt-8">${t.progreso}%</div>
+              </td>
+              <td class="small muted">Ver →</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function estadoBadge(estado) {
+  const map = {
+    'En validación': 'badge-blue',
+    'En inspección': 'badge-amber',
+    'Observado': 'badge-red',
+    'Aprobado': 'badge-green',
+    'Emitido': 'badge-green',
+    'Rechazado': 'badge-red'
+  };
+  return `<span class="badge ${map[estado] || 'badge-grey'}">${estado}</span>`;
+}
+
+// =============================================================================
+// VISTA: DETALLE DE TRÁMITE
+// =============================================================================
+function viewDetalleTramite() {
+  const t = TRAMITES.find(x => x.id === state.currentTramite);
+  if (!t) return `<div class="card">Trámite no encontrado.</div>`;
+  const currentIdx = t.linea.findIndex(l => l.fecha === '-');
+  return `
+    <div class="flex-between">
+      <div>
+        <h1 class="page-title">${t.id}</h1>
+        <p class="page-subtitle">${t.tipo} · Ingresado el ${t.fechaIngreso}</p>
+      </div>
+      <div>${estadoBadge(t.estado)}</div>
+    </div>
+
+    <div class="split">
+      <div>
+        <div class="card">
+          <h3>Recorrido del trámite</h3>
+          <div class="timeline mt-16">
+            ${t.linea.map((l, i) => {
+              let cls = 'pending';
+              if (l.fecha !== '-') cls = 'done';
+              if (currentIdx === i) cls = 'active';
+              return `
+                <div class="timeline-item ${cls}">
+                  <div class="timeline-title">${l.titulo}</div>
+                  <div class="timeline-meta">${l.fecha}</div>
+                  ${l.desc ? `<div class="timeline-desc">${l.desc}</div>` : ''}
+                </div>`;
+            }).join('')}
+          </div>
+        </div>
+
+        ${t.observaciones.length ? `
+        <div class="card" style="border-color:var(--amber)">
+          <h3 style="color:var(--amber);display:flex;align-items:center;gap:8px">${icon('warn')} Observaciones</h3>
+          ${t.observaciones.map(o => `
+            <div style="padding:10px;background:var(--amber-light);border-radius:6px;margin-bottom:8px">
+              <div class="small">${o.texto}</div>
+              <div class="small muted mt-8">${o.autor} · ${o.fecha}</div>
+            </div>`).join('')}
+          <button class="btn" onclick="toast('Subsanación enviada')">Responder observación</button>
+        </div>` : ''}
+      </div>
+
+      <div>
+        <div class="card">
+          <h3>Información del expediente</h3>
+          <div class="small" style="line-height:2">
+            <div><strong>Productor:</strong><br>${t.productor}</div>
+            <div><strong>Cédula:</strong> <span class="mono">${t.cedula}</span></div>
+            <div><strong>Predio:</strong> <span class="mono">${t.predio}</span></div>
+            <div><strong>Superficie:</strong> ${t.superficie} ha</div>
+            <div><strong>Provincia:</strong> ${t.provincia}</div>
+            <div><strong>Responsable:</strong> ${t.responsable}</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Acciones</h3>
+          <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-bottom:8px" onclick="toast('Descarga simulada')">${icon('download', 14)} Descargar expediente (PDF)</button>
+          <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="nav('mis')">← Volver a mis trámites</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// =============================================================================
+// VISTA: BANDEJA (Funcionario)
+// =============================================================================
+function viewBandeja() {
+  return `
+    <h1 class="page-title">Bandeja de expedientes</h1>
+    <p class="page-subtitle">Dirección de Gestión de Musáceas · Vista de analista</p>
+
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-label">En mi bandeja</div><div class="kpi-value">${TRAMITES.length}</div></div>
+      <div class="kpi"><div class="kpi-label">Vencen esta semana</div><div class="kpi-value" style="color:var(--amber)">2</div></div>
+      <div class="kpi"><div class="kpi-label">Tiempo prom. respuesta</div><div class="kpi-value">1.8 d</div></div>
+      <div class="kpi"><div class="kpi-label">Aprobados este mes</div><div class="kpi-value" style="color:var(--green)">47</div></div>
+    </div>
+
+    <div class="card">
+      <div class="flex-between" style="margin-bottom:12px">
+        <h3 style="margin:0">Expedientes activos</h3>
+        <div class="flex gap-8">
+          <button class="btn btn-ghost" style="padding:6px 12px;font-size:12px">Filtrar</button>
+          <button class="btn btn-ghost" style="padding:6px 12px;font-size:12px">Exportar</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>N.º</th><th>Productor</th><th>Tipo</th><th>Prov.</th><th>Sup. (ha)</th><th>Estado</th><th>Interop.</th><th></th>
+          </tr></thead>
+          <tbody>
+            ${TRAMITES.map(t => `
+              <tr class="clickable" onclick="nav('expediente', {currentTramite: '${t.id}'})">
+                <td class="mono small" style="color:var(--purple);font-weight:600">${t.id}</td>
+                <td class="small">${t.productor}</td>
+                <td class="small">${t.tipo}</td>
+                <td class="small">${t.provincia}</td>
+                <td class="small">${t.superficie}</td>
+                <td>${estadoBadge(t.estado)}</td>
+                <td><span class="badge badge-green">5/5</span></td>
+                <td class="small muted">Abrir →</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+// =============================================================================
+// VISTA: EXPEDIENTE (Funcionario)
+// =============================================================================
+function viewExpediente() {
+  const t = TRAMITES.find(x => x.id === state.currentTramite);
+  if (!t) return `<div class="card">Expediente no encontrado.</div>`;
+  const rc = DB.registroCivil[t.cedula];
+  const sri = DB.sri[t.cedula + '001'];
+  const iess = DB.iess[t.cedula];
+  const predio = Object.values(DB.registroPropiedad).find(p => p.claveCatastral === t.predio);
+  const agro = DB.agrocalidad[t.cedula];
+
+  return `
+    <div class="flex-between">
+      <div>
+        <h1 class="page-title">${t.id}</h1>
+        <p class="page-subtitle">${t.tipo} · ${t.productor}</p>
+      </div>
+      <div class="flex gap-8">
+        <button class="btn btn-ghost" onclick="nav('bandeja')">← Bandeja</button>
+      </div>
+    </div>
+
+    <div class="split">
+      <div>
+        <div class="card">
+          <h3>Verificación de requisitos (interoperabilidad)</h3>
+          <div class="interop-list mt-8">
+            <div class="interop-item ok"><span class="dot"></span><span class="name">Registro Civil — Identidad</span>
+              <span class="status"><span class="badge badge-green">Verificado</span></span></div>
+            <div class="interop-item ok"><span class="dot"></span><span class="name">SRI — RUC activo</span>
+              <span class="status"><span class="badge badge-green">Verificado</span></span></div>
+            <div class="interop-item ${iess && iess.afiliada ? 'ok' : 'fail'}"><span class="dot"></span>
+              <span class="name">IESS — Afiliación</span>
+              <span class="status">${iess && iess.afiliada
+                ? '<span class="badge badge-green">Activo</span>'
+                : '<span class="badge badge-amber">Sin afiliación</span>'}</span></div>
+            <div class="interop-item ok"><span class="dot"></span><span class="name">Registro de la Propiedad — Predio</span>
+              <span class="status"><span class="badge badge-green">Titular confirmado</span></span></div>
+            <div class="interop-item ok"><span class="dot"></span><span class="name">Agrocalidad — Certificación</span>
+              <span class="status"><span class="badge badge-green">${agro ? agro.estado : '-'}</span></span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Datos consolidados del productor y del predio</h3>
+          <div class="form-row">
+            <div class="form-group"><label>Nombres</label><input value="${rc.nombres} ${rc.apellidos}" readonly></div>
+            <div class="form-group"><label>RUC</label><input value="${sri ? sri.ruc : '-'}" readonly></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Actividad económica</label><input value="${sri ? sri.actividadEconomica : '-'}" readonly></div>
+            <div class="form-group"><label>Certificación</label><input value="${agro ? agro.tipoCertificacion : '-'}" readonly></div>
+          </div>
+          ${predio ? `
+          <div class="form-row">
+            <div class="form-group"><label>Clave catastral</label><input value="${predio.claveCatastral}" readonly></div>
+            <div class="form-group"><label>Superficie</label><input value="${predio.superficie} ha" readonly></div>
+          </div>
+          <div class="form-group"><label>Ubicación</label><input value="${predio.ubicacion}" readonly></div>
+          <div class="form-group"><label>Gravámenes</label><input value="${predio.gravamenes}" readonly></div>
+          ` : ''}
+        </div>
+
+        <div class="card">
+          <h3>Informe jurídico</h3>
+          <div class="form-group">
+            <label>Observación (opcional)</label>
+            <textarea rows="3" placeholder="Escribe una observación si procede…"></textarea>
+          </div>
+          <div class="flex gap-12">
+            <button class="btn btn-success" onclick="aprobar('${t.id}')">${icon('check', 14)} Emitir informe favorable</button>
+            <button class="btn" style="background:var(--amber)" onclick="observar('${t.id}')">Notificar observación</button>
+            <button class="btn btn-danger" onclick="rechazar('${t.id}')">Rechazar</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3>Estado</h3>
+          <div style="margin-bottom:12px">${estadoBadge(t.estado)}</div>
+          <div class="progress"><div class="progress-bar" style="width:${t.progreso}%"></div></div>
+          <div class="small muted mt-8">Avance: ${t.progreso}%</div>
+        </div>
+        <div class="card">
+          <h3>Recorrido</h3>
+          <div class="timeline">
+            ${t.linea.slice(0, 4).map((l, i) => `
+              <div class="timeline-item ${l.fecha !== '-' ? 'done' : 'pending'}">
+                <div class="timeline-title small">${l.titulo}</div>
+                <div class="timeline-meta">${l.fecha}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function aprobar(id) {
+  const t = TRAMITES.find(x => x.id === id);
+  t.estado = 'Aprobado'; t.progreso = 100;
+  toast('Informe emitido y registro aprobado ✓');
+  setTimeout(() => nav('bandeja'), 700);
+}
+function observar(id) {
+  const t = TRAMITES.find(x => x.id === id);
+  t.estado = 'Observado';
+  toast('Observación notificada al productor');
+  setTimeout(() => nav('bandeja'), 700);
+}
+function rechazar(id) {
+  const t = TRAMITES.find(x => x.id === id);
+  t.estado = 'Rechazado'; t.progreso = 100;
+  toast('Solicitud rechazada');
+  setTimeout(() => nav('bandeja'), 700);
+}
+
+// =============================================================================
+// VISTA: TABLERO DE INDICADORES (comparativo antes/después)
+// =============================================================================
+function viewTablero() {
+  return `
+    <h1 class="page-title">Tablero de indicadores</h1>
+    <p class="page-subtitle">Comparativo antes y después de la implementación de AgroRegistro 360</p>
+
+    <div class="kpi-grid">
+      ${kpiCard('Tiempo de trámite', '22 días', '4 días', '-82%', 'green')}
+      ${kpiCard('Visitas presenciales', '3.4', '1.0', '-71%', 'green')}
+      ${kpiCard('Costo p/productor', 'USD 84', 'USD 22', '-74%', 'green')}
+      ${kpiCard('Tasa de reprocesos', '38%', '9%', '-76%', 'green')}
+      ${kpiCard('Satisfacción (1-5)', '2.4', '4.3', '+79%', 'green')}
+      ${kpiCard('Trazabilidad', '0%', '100%', '+100%', 'green')}
+    </div>
+
+    <div class="split">
+      <div class="card">
+        <h3>Tiempo promedio del trámite (días)</h3>
+        ${chartBars([
+          {label:'Antes', value:22, color:'#C62828'},
+          {label:'Meta', value:11, color:'#F57F17'},
+          {label:'Después', value:4, color:'#2E7D32'}
+        ], 25)}
+      </div>
+      <div class="card">
+        <h3>Interoperabilidad efectiva</h3>
+        ${chartDonut([
+          {label:'Docs verificados por interop.', value:74, color:'#5B2D90'},
+          {label:'Docs aportados por el usuario', value:26, color:'#E0E0E0'}
+        ])}
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="card">
+        <h3>Cumplimiento por criterio (Design Thinking · Evaluar)</h3>
+        <div class="mt-16">
+          ${critBar('Eficiencia', 82)}
+          ${critBar('Eficacia', 88)}
+          ${critBar('Igualdad y equidad', 71)}
+          ${critBar('Calidad y experiencia', 86)}
+          ${critBar('Transparencia', 95)}
+          ${critBar('Sostenibilidad', 79)}
+        </div>
+      </div>
+      <div class="card">
+        <h3>Indicadores de igualdad</h3>
+        <div class="small" style="line-height:1.9">
+          <div><strong>IG-01</strong> Brecha de tiempo pequeños vs grandes:
+            <span class="badge badge-green">↓ de 12 a 3 días</span></div>
+          <div><strong>IG-04</strong> Usuarios con 2+ viajes largos:
+            <span class="badge badge-green">↓ de 41% a 8%</span></div>
+          <div><strong>IG-05</strong> Cobertura canal asistido:
+            <span class="badge badge-green">100% de oficinas</span></div>
+          <div><strong>IG-06</strong> Cobertura de usuarios sin internet:
+            <span class="badge badge-amber">76%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Solicitudes procesadas — últimas 8 semanas</h3>
+      ${chartLine([12,18,25,31,44,52,68,79])}
+    </div>
+  `;
+}
+
+function kpiCard(label, antes, despues, delta, color) {
+  return `
+    <div class="kpi">
+      <div class="kpi-label">${label}</div>
+      <div style="display:flex;align-items:baseline;gap:8px">
+        <div class="kpi-value" style="font-size:22px">${despues}</div>
+        <div class="small muted" style="text-decoration:line-through">${antes}</div>
+      </div>
+      <div class="kpi-trend">${delta} vs. línea base</div>
+    </div>`;
+}
+
+function critBar(label, pct) {
+  return `
+    <div style="margin-bottom:12px">
+      <div class="flex-between small" style="margin-bottom:4px">
+        <span style="font-weight:600">${label}</span><span class="muted">${pct}%</span>
+      </div>
+      <div class="progress"><div class="progress-bar" style="width:${pct}%"></div></div>
+    </div>`;
+}
+
+// =============================================================================
+// SVG helpers (charts sin libraries)
+// =============================================================================
+function chartBars(bars, max) {
+  const w = 400, h = 200, pad = 30;
+  return `
+    <svg viewBox="0 0 ${w} ${h}" class="chart">
+      ${bars.map((b, i) => {
+        const bw = (w - pad*2) / bars.length * 0.6;
+        const bx = pad + i * ((w - pad*2) / bars.length) + ((w - pad*2) / bars.length - bw) / 2;
+        const bh = (h - pad*2) * (b.value / max);
+        const by = h - pad - bh;
+        return `
+          <rect x="${bx}" y="${by}" width="${bw}" height="${bh}" fill="${b.color}" rx="4"/>
+          <text x="${bx + bw/2}" y="${by - 6}" text-anchor="middle" font-size="14" font-weight="700" fill="${b.color}">${b.value}</text>
+          <text x="${bx + bw/2}" y="${h - 8}" text-anchor="middle" font-size="12" fill="var(--grey-500)">${b.label}</text>
+        `;
+      }).join('')}
+    </svg>`;
+}
+
+function chartDonut(slices) {
+  const total = slices.reduce((a, b) => a + b.value, 0);
+  let acc = 0;
+  const cx = 100, cy = 100, r = 70, sw = 24;
+  const arcs = slices.map(s => {
+    const a1 = (acc / total) * 2 * Math.PI - Math.PI/2;
+    acc += s.value;
+    const a2 = (acc / total) * 2 * Math.PI - Math.PI/2;
+    const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+    const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+    const large = (a2 - a1) > Math.PI ? 1 : 0;
+    return `<path d="M ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2}" fill="none" stroke="${s.color}" stroke-width="${sw}" stroke-linecap="butt"/>`;
+  }).join('');
+  return `
+    <div style="display:flex;align-items:center;gap:20px">
+      <svg viewBox="0 0 200 200" width="180" height="180">${arcs}
+        <text x="100" y="95" text-anchor="middle" font-size="30" font-weight="700" fill="var(--purple)">${slices[0].value}%</text>
+        <text x="100" y="115" text-anchor="middle" font-size="10" fill="var(--grey-500)">automático</text>
+      </svg>
+      <div>
+        ${slices.map(s => `<div class="chart-legend-item"><span class="sw" style="background:${s.color}"></span>${s.label} (${s.value}%)</div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function chartLine(data) {
+  const w = 800, h = 200, pad = 30;
+  const max = Math.max(...data);
+  const pts = data.map((v, i) => {
+    const x = pad + i * ((w - pad*2) / (data.length - 1));
+    const y = h - pad - (v / max) * (h - pad*2);
+    return [x, y];
+  });
+  const path = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0] + ' ' + p[1]).join(' ');
+  const area = `${path} L ${pts[pts.length-1][0]} ${h - pad} L ${pts[0][0]} ${h - pad} Z`;
+  return `
+    <svg viewBox="0 0 ${w} ${h}" class="chart" style="height:220px">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#5B2D90" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#5B2D90" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="${area}" fill="url(#g1)"/>
+      <path d="${path}" fill="none" stroke="#5B2D90" stroke-width="3"/>
+      ${pts.map((p, i) => `
+        <circle cx="${p[0]}" cy="${p[1]}" r="5" fill="white" stroke="#5B2D90" stroke-width="2"/>
+        <text x="${p[0]}" y="${p[1] - 12}" text-anchor="middle" font-size="12" font-weight="600" fill="#5B2D90">${data[i]}</text>
+        <text x="${p[0]}" y="${h - 8}" text-anchor="middle" font-size="11" fill="var(--grey-500)">S${i+1}</text>
+      `).join('')}
+    </svg>`;
+}
+
+// =============================================================================
+// ICONS (inline SVG)
+// =============================================================================
+function icon(name, size) {
+  const s = size || 16;
+  const c = 'currentColor';
+  const map = {
+    file: `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>`,
+    link: `<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>`,
+    clock: `<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>`,
+    bell: `<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>`,
+    shield: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+    map: `<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>`,
+    check: `<polyline points="20 6 9 17 4 12"/>`,
+    warn: `<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>`,
+    upload: `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>`,
+    download: `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>`
+  };
+  return `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${map[name] || ''}</svg>`;
+}
+
+function attachEvents() {}
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// Init
+render();
+</script>
+</body>
+</html>
