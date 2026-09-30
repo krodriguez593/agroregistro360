@@ -1,0 +1,156 @@
+{
+  "_meta": {
+    "descripcion": "Bases de datos ficticias que simulan la interoperabilidad institucional del prototipo AgroRegistro 360",
+    "advertencia": "Todos los datos son inventados para fines académicos. No corresponden a personas reales.",
+    "entidades_simuladas": [
+      "Registro Civil del Ecuador",
+      "Servicio de Rentas Internas (SRI)",
+      "Instituto Ecuatoriano de Seguridad Social (IESS)",
+      "Registro de la Propiedad",
+      "Agrocalidad"
+    ],
+    "version": "1.0.0",
+    "fecha_actualizacion": "2026-09-28"
+  },
+
+  "registroCivil": {
+    "0912345678": {
+      "nombres": "MARÍA ELENA",
+      "apellidos": "CEDEÑO VERA",
+      "fechaNacimiento": "1978-03-14",
+      "estadoCivil": "Casada",
+      "nacionalidad": "Ecuatoriana",
+      "estado": "VIGENTE"
+    },
+    "0701234567": {
+      "nombres": "LUIS ALFREDO",
+      "apellidos": "MONTAÑO CHÁVEZ",
+      "fechaNacimiento": "1965-11-02",
+      "estadoCivil": "Casado",
+      "nacionalidad": "Ecuatoriana",
+      "estado": "VIGENTE"
+    },
+    "1305678901": {
+      "nombres": "ROSA MARGARITA",
+      "apellidos": "ZAMBRANO LUCAS",
+      "fechaNacimiento": "1982-07-21",
+      "estadoCivil": "Soltera",
+      "nacionalidad": "Ecuatoriana",
+      "estado": "VIGENTE"
+    }
+  },
+
+  "sri": {
+    "0912345678001": {
+      "ruc": "0912345678001",
+      "razonSocial": "CEDEÑO VERA MARÍA ELENA",
+      "tipo": "Persona Natural",
+      "actividadEconomica": "Cultivo de banano",
+      "estado": "ACTIVO",
+      "direccionTributaria": "El Oro, Machala, Km 12 vía Pasaje",
+      "obligadaContabilidad": "NO",
+      "fechaInicio": "2005-04-10"
+    },
+    "0701234567001": {
+      "ruc": "0701234567001",
+      "razonSocial": "MONTAÑO CHÁVEZ LUIS ALFREDO",
+      "tipo": "Persona Natural",
+      "actividadEconomica": "Cultivo de plátano",
+      "estado": "ACTIVO",
+      "direccionTributaria": "Los Ríos, Quevedo, Recinto San Camilo",
+      "obligadaContabilidad": "SI",
+      "fechaInicio": "1998-08-15"
+    },
+    "1305678901001": {
+      "ruc": "1305678901001",
+      "razonSocial": "ZAMBRANO LUCAS ROSA MARGARITA",
+      "tipo": "Persona Natural",
+      "actividadEconomica": "Cultivo de banano orgánico",
+      "estado": "ACTIVO",
+      "direccionTributaria": "Manabí, Chone, Sector Santa Rita",
+      "obligadaContabilidad": "NO",
+      "fechaInicio": "2015-06-01"
+    }
+  },
+
+  "iess": {
+    "0912345678": {
+      "afiliada": true,
+      "estado": "ACTIVO",
+      "tipoAfiliacion": "Trabajadora Autónoma",
+      "empleador": "Cuenta propia",
+      "ultimaAportacion": "2026-09-01"
+    },
+    "0701234567": {
+      "afiliada": true,
+      "estado": "ACTIVO",
+      "tipoAfiliacion": "Empleador",
+      "empleador": "Bananera San Camilo",
+      "ultimaAportacion": "2026-09-01"
+    },
+    "1305678901": {
+      "afiliada": false,
+      "estado": "SIN AFILIACIÓN",
+      "tipoAfiliacion": "-",
+      "empleador": "-",
+      "ultimaAportacion": "-"
+    }
+  },
+
+  "registroPropiedad": {
+    "070101-001-0234": {
+      "claveCatastral": "070101-001-0234",
+      "ubicacion": "El Oro, Machala, Parroquia La Providencia",
+      "superficie": 18.5,
+      "unidad": "ha",
+      "propietario": "0912345678",
+      "tipoTenencia": "PROPIETARIO",
+      "linderos": "Norte: Río Jubones · Sur: Vía Pasaje · Este: Predio 235 · Oeste: Predio 233",
+      "gravamenes": "NINGUNO"
+    },
+    "120801-045-1102": {
+      "claveCatastral": "120801-045-1102",
+      "ubicacion": "Los Ríos, Quevedo, Recinto San Camilo",
+      "superficie": 42.0,
+      "unidad": "ha",
+      "propietario": "0701234567",
+      "tipoTenencia": "PROPIETARIO",
+      "linderos": "Norte: Estero Chila · Sur: Camino vecinal · Este: Predio 1103 · Oeste: Río Quevedo",
+      "gravamenes": "HIPOTECA VIGENTE (BanEcuador)"
+    },
+    "130404-012-0789": {
+      "claveCatastral": "130404-012-0789",
+      "ubicacion": "Manabí, Chone, Sector Santa Rita",
+      "superficie": 6.2,
+      "unidad": "ha",
+      "propietario": "1305678901",
+      "tipoTenencia": "PROPIETARIO",
+      "linderos": "Norte: Vía a Flavio Alfaro · Sur: Estero Chila · Este: Predio 0790 · Oeste: Predio 0788",
+      "gravamenes": "NINGUNO"
+    }
+  },
+
+  "agrocalidad": {
+    "0912345678": {
+      "tieneRegistro": true,
+      "tipoCertificacion": "BPA (Buenas Prácticas Agrícolas)",
+      "fechaVigencia": "2027-05-30",
+      "planFitosanitario": "Aprobado 2026",
+      "estado": "VIGENTE"
+    },
+    "0701234567": {
+      "tieneRegistro": true,
+      "tipoCertificacion": "Global GAP",
+      "fechaVigencia": "2026-12-15",
+      "planFitosanitario": "Aprobado 2026",
+      "estado": "VIGENTE"
+    },
+    "1305678901": {
+      "tieneRegistro": true,
+      "tipoCertificacion": "Producción Orgánica",
+      "fechaVigencia": "2027-08-01",
+      "planFitosanitario": "Aprobado 2026",
+      "estado": "VIGENTE"
+    }
+  }
+}

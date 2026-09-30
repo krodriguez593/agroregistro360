@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AgroRegistro 360 — Plataforma digital MAG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --leaf-900: #0F2E1E; --leaf-800: #1B4332; --leaf-700: #2D6A4F; --leaf-600: #40916C; --leaf-500: #52B788; --leaf-100: #E8F5EC; --leaf-50: #F4FAF5;
+    --banana-700: #B8860B; --banana-600: #DAA520; --banana-500: #F4C430; --banana-400: #FDD835; --banana-100: #FFF8DC; --banana-50: #FFFDF5;
+    --earth-700: #6F4E37; --earth-500: #A0826D; --earth-100: #F5EEE3;
+    --ink-900: #1A1A1A; --ink-700: #333333; --ink-500: #666666; --ink-400: #8A8A8A; --ink-300: #C4C4C4; --ink-200: #E5E5E5; --ink-100: #F2F2F2; --ink-50: #FAFAFA;
+    --white: #FFFFFF;
+    --green: var(--leaf-600); --green-light: var(--leaf-100);
+    --amber: var(--banana-700); --amber-light: var(--banana-100);
+    --red: #C62828; --red-light: #FDEBEB;
+    --blue: #1565C0; --blue-light: #E3F2FD;
+    --purple: var(--leaf-700); --purple-dark: var(--leaf-800); --purple-light: var(--leaf-100); --purple-lighter: var(--leaf-50);
+    --grey-900: var(--ink-900); --grey-700: var(--ink-700); --grey-500: var(--ink-500); --grey-300: var(--ink-200); --grey-100: var(--ink-100); --grey-50: var(--ink-50);
+    --shadow-sm: 0 1px 2px rgba(15,46,30,0.06);
+    --shadow: 0 2px 6px rgba(15,46,30,0.08), 0 1px 3px rgba(15,46,30,0.05);
+    --shadow-lg: 0 8px 24px rgba(15,46,30,0.12), 0 3px 8px rgba(15,46,30,0.06);
+    --shadow-xl: 0 20px 40px rgba(15,46,30,0.16), 0 8px 16px rgba(15,46,30,0.08);
+    --radius: 14px; --radius-sm: 8px; --radius-lg: 20px;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-display: 'Fraunces', Georgia, serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  :root[data-theme="dark"] {
+    --leaf-100: #1B3D2A; --leaf-50: #14291C; --banana-100: #3D3320;
+    --ink-900: #F5F5F5; --ink-700: #E0E0E0; --ink-500: #B5B5B5; --ink-300: #4A4A4A; --ink-200: #333333; --ink-100: #262626; --ink-50: #1A1A1A;
+    --white: #0F1B14;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.4); --shadow: 0 2px 6px rgba(0,0,0,0.4); --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --leaf-100: #1B3D2A; --leaf-50: #14291C; --banana-100: #3D3320;
+      --ink-900: #F5F5F5; --ink-700: #E0E0E0; --ink-500: #B5B5B5; --ink-300: #4A4A4A; --ink-200: #333333; --ink-100: #262626; --ink-50: #1A1A1A;
+      --white: #0F1B14;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    font-family: var(--font-body);
+    color: var(--ink-900);
+    background: var(--ink-50);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; }
+  a { color: var(--leaf-700); text-decoration: none; transition: color 0.15s; }
+  a:hover { color: var(--leaf-800); text-decoration: underline; }
+  button { font-family: inherit; }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='%2352B788' stroke-width='0.5' opacity='0.06'><path d='M60 20 Q80 40 60 100 Q40 40 60 20 Z'/><path d='M60 30 Q55 60 60 95 M60 40 Q75 55 65 75 M60 40 Q45 55 55 75'/></g></svg>");
+    background-size: 200px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .app-header {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--ink-200);
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 100;
+    padding: env(safe-area-inset-top, 0px) 0 0 0;
+  }
+  :root[data-theme="dark"] .app-header { background: rgba(15,27,20,0.9); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .app-header { background: rgba(15,27,20,0.9); } }
+  .app-header-inner { max-width: 1240px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; color: inherit; }
+  .brand-mark {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--leaf-700) 0%, var(--leaf-500) 100%);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(45,106,79,0.3);
+    position: relative; overflow: hidden;
+  }
+  .brand-mark::after {
+    content: ''; position: absolute; top: -50%; right: -50%;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+  }
+  .brand-name { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--leaf-800); line-height: 1; }
+  :root[data-theme="dark"] .brand-name { color: var(--leaf-500); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .brand-name { color: var(--leaf-500); } }
+  .brand-tag { display: block; font-family: var(--font-body); font-size: 10px; color: var(--ink-500); font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; margin-top: 3px; }
+  .nav { margin-left: auto; display: flex; gap: 2px; }
+  .nav button { background: transparent; border: none; color: var(--ink-700); padding: 9px 16px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.15s; font-family: inherit; }
+  .nav button:hover { background: var(--leaf-50); color: var(--leaf-700); }
+  .nav button.active { background: var(--leaf-100); color: var(--leaf-800); font-weight: 600; }
+  .role-switch { padding: 7px 14px; border-radius: 20px; background: var(--leaf-100); color: var(--leaf-800); font-size: 12px; font-weight: 600; border: 1px solid var(--leaf-500); cursor: pointer; transition: all 0.15s; font-family: inherit; }
+  .role-switch:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+  .page { max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px; position: relative; z-index: 1; }
+  .page-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; margin: 0 0 6px; color: var(--ink-900); letter-spacing: -0.02em; }
+  .page-subtitle { color: var(--ink-500); margin: 0 0 32px; font-size: 15px; }
+  .card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; margin-bottom: 18px; border: 1px solid var(--ink-200); transition: transform 0.2s, box-shadow 0.2s; }
+  .card h3 { margin: 0 0 16px; font-size: 17px; color: var(--ink-900); font-family: var(--font-display); font-weight: 600; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px; background: var(--leaf-700); color: white; border: none; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s; box-shadow: 0 2px 6px rgba(45,106,79,0.25); font-family: inherit; }
+  .btn:hover { background: var(--leaf-800); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(45,106,79,0.35); }
+  .btn:active { transform: translateY(0); }
+  .btn-secondary { background: white; color: var(--leaf-800); border: 1.5px solid var(--leaf-500); box-shadow: var(--shadow-sm); }
+  .btn-secondary:hover { background: var(--leaf-50); border-color: var(--leaf-700); }
+  .btn-ghost { background: transparent; color: var(--ink-700); border: 1px solid var(--ink-200); box-shadow: none; }
+  .btn-ghost:hover { background: var(--ink-100); border-color: var(--ink-300); }
+  .btn-danger { background: var(--red); box-shadow: 0 2px 6px rgba(198,40,40,0.25); }
+  .btn-danger:hover { background: #8B1E1E; }
+  .btn-success { background: var(--leaf-600); box-shadow: 0 2px 6px rgba(64,145,108,0.3); }
+  .btn-success:hover { background: var(--leaf-700); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .hero { background: linear-gradient(135deg, var(--leaf-800) 0%, var(--leaf-700) 50%, var(--leaf-600) 100%); color: white; border-radius: var(--radius-lg); padding: 48px 40px; margin-bottom: 32px; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); }
+  .hero::before {
+    content: ''; position: absolute; top: -20%; right: -10%;
+    width: 500px; height: 500px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><path d='M100 20 Q150 60 130 180 Q100 100 100 20 Z M100 20 Q50 60 70 180 Q100 100 100 20 Z' fill='none' stroke='%23FDD835' stroke-width='1.5' opacity='0.15'/><path d='M100 40 Q120 80 110 160 M100 40 Q80 80 90 160' fill='none' stroke='%23FDD835' stroke-width='0.8' opacity='0.15'/></svg>");
+    background-size: contain; background-repeat: no-repeat;
+    pointer-events: none; transform: rotate(20deg);
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -30%; left: -10%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, var(--banana-500) 0%, transparent 60%);
+    opacity: 0.12; pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(253,216,53,0.2); border: 1px solid rgba(253,216,53,0.4); border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--banana-500); margin-bottom: 20px; }
+  .hero h1 { font-size: 42px; margin: 0 0 14px; font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; }
+  .hero h1 em { font-style: normal; color: var(--banana-500); }
+  .hero p { font-size: 17px; opacity: 0.95; margin: 0 0 28px; line-height: 1.55; max-width: 580px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero .btn { background: var(--banana-500); color: var(--leaf-900); font-weight: 700; }
+  .hero .btn:hover { background: var(--banana-400); }
+  .hero .btn-secondary { background: transparent; color: white; border-color: rgba(255,255,255,0.4); backdrop-filter: blur(8px); }
+  .hero .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: white; }
+  @media (max-width: 640px) { .hero { padding: 36px 24px; } .hero h1 { font-size: 30px; } .hero p { font-size: 15px; } }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 32px; }
+  .kpi { background: var(--white); border-radius: var(--radius); padding: 20px; border: 1px solid var(--ink-200); box-shadow: var(--shadow-sm); transition: all 0.2s; position: relative; overflow: hidden; }
+  .kpi::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: linear-gradient(180deg, var(--leaf-500), var(--leaf-700)); }
+  .kpi:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .kpi-label { font-size: 11px; color: var(--ink-500); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
+  .kpi-value { font-family: var(--font-display); font-size: 30px; font-weight: 700; color: var(--leaf-800); margin: 6px 0; letter-spacing: -0.02em; }
+  :root[data-theme="dark"] .kpi-value { color: var(--leaf-500); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .kpi-value { color: var(--leaf-500); } }
+  .kpi-trend { font-size: 12px; color: var(--leaf-600); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+  .kpi-trend.down { color: var(--red); }
+  .section-title { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin: 40px 0 8px; color: var(--ink-900); letter-spacing: -0.02em; }
+  .section-subtitle { color: var(--ink-500); margin: 0 0 24px; font-size: 15px; }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .feature { background: var(--white); border-radius: var(--radius); padding: 24px; border: 1px solid var(--ink-200); box-shadow: var(--shadow-sm); transition: all 0.25s; }
+  .feature:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--leaf-500); }
+  .feature-icon { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--leaf-100), var(--banana-100)); color: var(--leaf-700); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; box-shadow: inset 0 0 0 1px rgba(45,106,79,0.1); }
+  .feature h4 { margin: 0 0 8px; font-size: 17px; color: var(--ink-900); font-family: var(--font-display); font-weight: 600; }
+  .feature p { margin: 0; font-size: 14px; color: var(--ink-500); line-height: 1.55; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-700); margin-bottom: 8px; letter-spacing: 0.1px; }
+  .form-group label .req { color: var(--red); }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--ink-200); border-radius: 10px; font-size: 14px; font-family: inherit; background: var(--white); color: var(--ink-900); transition: all 0.15s; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--leaf-600); box-shadow: 0 0 0 3px rgba(64,145,108,0.15); }
+  .form-group input[readonly] { background: var(--ink-50); color: var(--ink-700); cursor: default; }
+  .form-help { font-size: 12px; color: var(--ink-500); margin-top: 6px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+  .badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+  .badge-green { background: var(--leaf-100); color: var(--leaf-800); }
+  .badge-amber { background: var(--banana-100); color: var(--banana-700); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-purple { background: var(--leaf-100); color: var(--leaf-800); }
+  .badge-grey { background: var(--ink-100); color: var(--ink-700); }
+  .interop-panel { background: linear-gradient(135deg, var(--leaf-50) 0%, var(--banana-50) 100%); border: 1.5px solid var(--leaf-500); border-radius: var(--radius); padding: 20px; margin: 20px 0; box-shadow: var(--shadow-sm); }
+  .interop-title { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--leaf-800); margin-bottom: 14px; font-size: 14px; font-family: var(--font-display); }
+  .interop-list { display: grid; gap: 8px; }
+  .interop-item { display: flex; align-items: center; gap: 12px; background: var(--white); padding: 12px 14px; border-radius: 10px; font-size: 13px; border: 1px solid var(--ink-200); transition: all 0.2s; }
+  .interop-item .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ink-300); box-shadow: 0 0 0 3px transparent; transition: all 0.2s; }
+  .interop-item.checking .dot { background: var(--banana-600); box-shadow: 0 0 0 4px rgba(218,165,32,0.2); animation: pulse 1.2s infinite; }
+  .interop-item.ok .dot { background: var(--leaf-600); box-shadow: 0 0 0 3px rgba(64,145,108,0.2); }
+  .interop-item.fail .dot { background: var(--red); box-shadow: 0 0 0 3px rgba(198,40,40,0.15); }
+  .interop-item .name { flex: 1; font-weight: 600; color: var(--ink-900); }
+  .interop-item .status { font-size: 11px; color: var(--ink-500); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--ink-200); border-radius: var(--radius); background: var(--white); box-shadow: var(--shadow-sm); }
+  table { width: 100%; border-collapse: collapse; background: var(--white); }
+  th, td { padding: 14px 16px; text-align: left; font-size: 13.5px; border-bottom: 1px solid var(--ink-100); }
+  th { background: linear-gradient(180deg, var(--leaf-50), var(--white)); font-weight: 600; color: var(--ink-700); font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 2px solid var(--leaf-500); }
+  tr:last-child td { border-bottom: none; }
+  tr.clickable { cursor: pointer; transition: background 0.15s; }
+  tr.clickable:hover { background: var(--leaf-50); }
+  .timeline { position: relative; padding-left: 34px; }
+  .timeline::before { content: ''; position: absolute; left: 12px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, var(--leaf-500), var(--ink-200)); }
+  .timeline-item { position: relative; padding-bottom: 22px; }
+  .timeline-item::before { content: ''; position: absolute; left: -28px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink-200); border: 3px solid var(--white); box-shadow: 0 0 0 1px var(--ink-200); }
+  .timeline-item.done::before { background: var(--leaf-600); box-shadow: 0 0 0 1px var(--leaf-600); }
+  .timeline-item.active::before { background: var(--banana-500); box-shadow: 0 0 0 4px rgba(244,196,48,0.3); }
+  .timeline-title { font-weight: 600; font-size: 14.5px; margin: 0 0 3px; color: var(--ink-900); font-family: var(--font-display); }
+  .timeline-meta { font-size: 12px; color: var(--ink-500); font-weight: 500; }
+  .timeline-desc { font-size: 13px; color: var(--ink-700); margin-top: 5px; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--leaf-800); color: white; padding: 14px 22px; border-radius: 12px; box-shadow: var(--shadow-xl); font-size: 14px; font-weight: 500; z-index: 200; animation: slideup 0.3s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes slideup { from { transform: translate(-50%, 24px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 16px; background: var(--leaf-50); color: var(--leaf-800); border: 1px solid var(--leaf-500); font-size: 12.5px; font-weight: 600; margin: 3px; }
+  .progress { height: 8px; background: var(--ink-100); border-radius: 4px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--leaf-500), var(--leaf-700)); transition: width 0.5s cubic-bezier(0.16,1,0.3,1); border-radius: 4px; }
+  .split { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .bell { position: relative; background: none; border: none; cursor: pointer; color: var(--ink-700); padding: 10px; border-radius: 12px; transition: all 0.15s; }
+  .bell:hover { background: var(--leaf-50); color: var(--leaf-700); }
+  .bell-dot { position: absolute; top: 7px; right: 7px; width: 9px; height: 9px; background: var(--banana-500); border: 2px solid var(--white); border-radius: 50%; }
+  .flex { display: flex; }
+  .flex-between { display: flex; justify-content: space-between; align-items: center; }
+  .gap-8 { gap: 8px; } .gap-12 { gap: 12px; } .gap-16 { gap: 16px; }
+  .muted { color: var(--ink-500); }
+  .small { font-size: 12.5px; }
+  .mono { font-family: "SF Mono", "Monaco", "Cascadia Code", Consolas, monospace; }
+  .mt-8 { margin-top: 8px; } .mt-16 { margin-top: 16px; } .mt-24 { margin-top: 24px; }
+  .hidden { display: none !important; }
+  .chart { width: 100%; height: 220px; }
+  .chart-legend { display: flex; gap: 18px; margin-top: 12px; font-size: 12.5px; flex-wrap: wrap; }
+  .chart-legend-item { display: flex; align-items: center; gap: 6px; color: var(--ink-700); }
+  .chart-legend-item .sw { width: 12px; height: 12px; border-radius: 3px; }
+  footer.app-footer { max-width: 1240px; margin: 60px auto 0; padding: 28px 24px; border-top: 1px solid var(--ink-200); color: var(--ink-500); font-size: 12.5px; text-align: center; position: relative; z-index: 1; }
+  footer.app-footer strong { color: var(--leaf-700); font-family: var(--font-display); font-weight: 600; }
+  .footer-brand { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px; font-family: var(--font-display); font-weight: 600; color: var(--leaf-800); }
+  .success-card { text-align: center; padding: 60px 32px; background: linear-gradient(180deg, var(--leaf-50), var(--white)); border-color: var(--leaf-500); }
+  .success-icon { width: 80px; height: 80px; background: var(--leaf-600); color: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 8px 24px rgba(64,145,108,0.35); animation: bounceIn 0.5s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes bounceIn { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+  .stepper { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; padding: 14px 20px; background: var(--white); border-radius: var(--radius); border: 1px solid var(--ink-200); box-shadow: var(--shadow-sm); overflow-x: auto; }
+  .step { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--ink-200); color: var(--ink-700); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; transition: all 0.2s; }
+  .step.done .step-num { background: var(--leaf-600); color: white; }
+  .step.active .step-num { background: var(--banana-500); color: var(--leaf-900); box-shadow: 0 0 0 4px rgba(244,196,48,0.25); }
+  .step-label { font-size: 13px; font-weight: 500; color: var(--ink-700); white-space: nowrap; }
+  .step.active .step-label { color: var(--ink-900); font-weight: 600; }
+  .step-line { flex: 1; height: 2px; background: var(--ink-200); min-width: 20px; }
+  .step-line.done { background: var(--leaf-600); }
+  .card-highlight { background: linear-gradient(135deg, var(--leaf-50) 0%, var(--banana-50) 100%); border-color: var(--leaf-500); }
+  .card-warn { background: var(--banana-50); border-color: var(--banana-600); }
+  .dropzone { background: var(--leaf-50); border: 2px dashed var(--leaf-500); border-radius: 12px; padding: 16px; transition: all 0.2s; }
+  .dropzone:hover { background: var(--leaf-100); border-color: var(--leaf-700); }
+  @media (max-width: 640px) {
+    .app-header-inner { padding: 12px 16px; gap: 12px; }
+    .brand-tag { display: none; }
+    .nav { order: 3; width: 100%; overflow-x: auto; }
+    .page { padding: 20px 16px 60px; }
+    .page-title { font-size: 26px; }
+    .kpi-value { font-size: 26px; }
+    .section-title { font-size: 22px; }
+    .role-switch { padding: 6px 10px; font-size: 11px; }
+  }
+  @media print {
+    body::before, .app-header, footer.app-footer, .btn { display: none; }
+    .card { box-shadow: none; border: 1px solid #ccc; }
+  }
+</style>
+</head>
+<body>
+<header class="app-header">
+  <div class="app-header-inner">
+    <a class="brand" onclick="nav('landing')">
+      <div class="brand-mark">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 4C6 4 8 3 10 4C13 5.5 14.5 8 15.5 11C16.5 14 17 17 18 19C19 21 20 21 20 21C20 21 19 20 17 19C15 18 12 18 9 16C6 14 4 11 4 8C4 5.5 6 4 6 4Z" fill="#FDD835" stroke="#0F2E1E" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M6 4L4 6" stroke="#0F2E1E" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">AgroRegistro 360</div>
+        <span class="brand-tag">MAG · Dirección de Musáceas</span>
+      </div>
+    </a>
+    <nav class="nav" id="mainNav"></nav>
+    <button class="bell" onclick="showNotifs()" title="Notificaciones" aria-label="Notificaciones">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="bell-dot" id="bellDot"></span>
+    </button>
+    <button class="role-switch" id="roleSwitch" onclick="switchRole()">Productor</button>
+  </div>
+</header>
+<main id="app" class="page"></main>
+<footer class="app-footer">
+  <div class="footer-brand">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 4C6 4 8 3 10 4C13 5.5 14.5 8 15.5 11C16.5 14 17 17 18 19C19 21 20 21 20 21C20 21 19 20 17 19C15 18 12 18 9 16C6 14 4 11 4 8C4 5.5 6 4 6 4Z" fill="#F4C430" stroke="#0F2E1E" stroke-width="1.5"/></svg>
+    <strong>AgroRegistro 360</strong>
+  </div>
+  <div>Prototipo académico · Proyecto de innovación pública · Diplomado 2026 · Equipo #2 · Guayaquil, Ecuador</div>
+</footer>
+<script>
+const DB = {
+  registroCivil: {
+    "0912345678": { nombres: "MARÍA ELENA", apellidos: "CEDEÑO VERA", fechaNacimiento: "1978-03-14", estadoCivil: "Casada", nacionalidad: "Ecuatoriana", estado: "VIGENTE" },
+    "0701234567": { nombres: "LUIS ALFREDO", apellidos: "MONTAÑO CHÁVEZ", fechaNacimiento: "1965-11-02", estadoCivil: "Casado", nacionalidad: "Ecuatoriana", estado: "VIGENTE" },
+    "1305678901": { nombres: "ROSA MARGARITA", apellidos: "ZAMBRANO LUCAS", fechaNacimiento: "1982-07-21", estadoCivil: "Soltera", nacionalidad: "Ecuatoriana", estado: "VIGENTE" }
+  },
+  sri: {
+    "0912345678001": { ruc: "0912345678001", razonSocial: "CEDEÑO VERA MARÍA ELENA", tipo: "Persona Natural", actividadEconomica: "Cultivo de banano", estado: "ACTIVO", direccionTributaria: "El Oro, Machala, Km 12 vía Pasaje", obligadaContabilidad: "NO", fechaInicio: "2005-04-10" },
+    "0701234567001": { ruc: "0701234567001", razonSocial: "MONTAÑO CHÁVEZ LUIS ALFREDO", tipo: "Persona Natural", actividadEconomica: "Cultivo de plátano", estado: "ACTIVO", direccionTributaria: "Los Ríos, Quevedo, Recinto San Camilo", obligadaContabilidad: "SI", fechaInicio: "1998-08-15" },
+    "1305678901001": { ruc: "1305678901001", razonSocial: "ZAMBRANO LUCAS ROSA MARGARITA", tipo: "Persona Natural", actividadEconomica: "Cultivo de banano orgánico", estado: "ACTIVO", direccionTributaria: "Manabí, Chone, Sector Santa Rita", obligadaContabilidad: "NO", fechaInicio: "2015-06-01" }
+  },
+  iess: {
+    "0912345678": { afiliada: true, estado: "ACTIVO", tipoAfiliacion: "Trabajadora Autónoma", empleador: "Cuenta propia", ultimaAportacion: "2026-09-01" },
+    "0701234567": { afiliada: true, estado: "ACTIVO", tipoAfiliacion: "Empleador", empleador: "Bananera San Camilo", ultimaAportacion: "2026-09-01" },
+    "1305678901": { afiliada: false, estado: "SIN AFILIACIÓN", tipoAfiliacion: "-", empleador: "-", ultimaAportacion: "-" }
+  },
+  registroPropiedad: {
+    "070101-001-0234": { claveCatastral: "070101-001-0234", ubicacion: "El Oro, Machala, Parroquia La Providencia", superficie: 18.5, unidad: "ha", propietario: "0912345678", tipoTenencia: "PROPIETARIO", linderos: "Norte: Río Jubones · Sur: Vía Pasaje · Este: Predio 235 · Oeste: Predio 233", gravamenes: "NINGUNO" },
+    "120801-045-1102": { claveCatastral: "120801-045-1102", ubicacion: "Los Ríos, Quevedo, Recinto San Camilo", superficie: 42.0, unidad: "ha", propietario: "0701234567", tipoTenencia: "PROPIETARIO", linderos: "Norte: Estero Chila · Sur: Camino vecinal · Este: Predio 1103 · Oeste: Río Quevedo", gravamenes: "HIPOTECA VIGENTE (BanEcuador)" },
+    "130404-012-0789": { claveCatastral: "130404-012-0789", ubicacion: "Manabí, Chone, Sector Santa Rita", superficie: 6.2, unidad: "ha", propietario: "1305678901", tipoTenencia: "PROPIETARIO", linderos: "Norte: Vía a Flavio Alfaro · Sur: Estero Chila · Este: Predio 0790 · Oeste: Predio 0788", gravamenes: "NINGUNO" }
+  },
+  agrocalidad: {
+    "0912345678": { tieneRegistro: true, tipoCertificacion: "BPA (Buenas Prácticas Agrícolas)", fechaVigencia: "2027-05-30", planFitosanitario: "Aprobado 2026", estado: "VIGENTE" },
+    "0701234567": { tieneRegistro: true, tipoCertificacion: "Global GAP", fechaVigencia: "2026-12-15", planFitosanitario: "Aprobado 2026", estado: "VIGENTE" },
+    "1305678901": { tieneRegistro: true, tipoCertificacion: "Producción Orgánica", fechaVigencia: "2027-08-01", planFitosanitario: "Aprobado 2026", estado: "VIGENTE" }
+  }
+};
+let TRAMITES = [
+  { id: "MAG-2026-000842", tipo: "Renovación de registro", productor: "María Elena Cedeño Vera", cedula: "0912345678", predio: "070101-001-0234", fechaIngreso: "2026-09-18", estado: "En inspección", progreso: 60, superficie: 18.5, provincia: "El Oro", responsable: "Ing. Andrés Villamar", observaciones: [], linea: [
+    { titulo: "Solicitud recibida", fecha: "2026-09-18 09:15", desc: "Verificada automáticamente con Registro Civil y SRI." },
+    { titulo: "Requisitos validados", fecha: "2026-09-18 09:16", desc: "Interoperabilidad completa: 5/5 entidades consultadas." },
+    { titulo: "Informe jurídico emitido", fecha: "2026-09-19 14:30", desc: "Cumplimiento de requisitos: SÍ." },
+    { titulo: "Inspección de predio agendada", fecha: "2026-09-24 (agenda)", desc: "Ing. Andrés Villamar. Coordenadas registradas." },
+    { titulo: "Informe técnico", fecha: "-", desc: "Pendiente de la inspección." },
+    { titulo: "Registro emitido", fecha: "-", desc: "Notificación automática y firma electrónica." }
+  ]},
+  { id: "MAG-2026-000839", tipo: "Registro nuevo", productor: "Luis Alfredo Montaño Chávez", cedula: "0701234567", predio: "120801-045-1102", fechaIngreso: "2026-09-15", estado: "Aprobado", progreso: 100, superficie: 42.0, provincia: "Los Ríos", responsable: "Abg. Cecilia Andrade", observaciones: [], linea: [
+    { titulo: "Solicitud recibida", fecha: "2026-09-15 08:02", desc: "" },
+    { titulo: "Requisitos validados", fecha: "2026-09-15 08:03", desc: "5/5 entidades OK" },
+    { titulo: "Informe jurídico emitido", fecha: "2026-09-16 11:00", desc: "" },
+    { titulo: "Inspección de predio", fecha: "2026-09-19", desc: "" },
+    { titulo: "Informe técnico", fecha: "2026-09-19 16:20", desc: "Predio conforme." },
+    { titulo: "Registro emitido", fecha: "2026-09-20 09:00", desc: "Notificado por correo y SMS." }
+  ]},
+  { id: "MAG-2026-000851", tipo: "Registro nuevo — orgánico", productor: "Rosa Margarita Zambrano Lucas", cedula: "1305678901", predio: "130404-012-0789", fechaIngreso: "2026-09-22", estado: "Observado", progreso: 30, superficie: 6.2, provincia: "Manabí", responsable: "Abg. Cecilia Andrade",
+    observaciones: [{ texto: "Falta constancia de plan de fertilización orgánica firmada por el técnico responsable.", fecha: "2026-09-24", autor: "Abg. Cecilia Andrade" }],
+    linea: [
+      { titulo: "Solicitud recibida", fecha: "2026-09-22 15:40", desc: "" },
+      { titulo: "Requisitos validados", fecha: "2026-09-22 15:41", desc: "4/5 entidades OK — 1 observación." },
+      { titulo: "Observación notificada", fecha: "2026-09-24 10:00", desc: "Notificada al productor. En espera de subsanación." },
+      { titulo: "Informe jurídico", fecha: "-", desc: "Pendiente." },
+      { titulo: "Inspección de predio", fecha: "-", desc: "" },
+      { titulo: "Registro emitido", fecha: "-", desc: "" }
+    ]}
+];
+const NOTIFICACIONES = [
+  { id: 1, tipo: "info", titulo: "Inspección agendada", mensaje: "MAG-2026-000842 — Ing. Andrés Villamar el 24/09/2026.", fecha: "hace 2 h", leida: false },
+  { id: 2, tipo: "warning", titulo: "Observación en tu trámite", mensaje: "MAG-2026-000851: falta plan de fertilización orgánica.", fecha: "hace 6 h", leida: false },
+  { id: 3, tipo: "success", titulo: "Registro emitido", mensaje: "MAG-2026-000839 aprobado y notificado.", fecha: "hace 2 d", leida: true }
+];
+const state = { role: 'productor', view: 'landing', currentCedula: null, currentPredio: null, currentTramite: null, interopResults: null, form: {} };
+function nav(view, params) { state.view = view; Object.assign(state, params || {}); render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function switchRole() {
+  state.role = state.role === 'productor' ? 'funcionario' : 'productor';
+  const btn = document.getElementById('roleSwitch');
+  btn.textContent = state.role === 'productor' ? 'Productor' : 'Funcionario MAG';
+  if (state.role === 'funcionario') { btn.style.background = 'var(--banana-100)'; btn.style.color = 'var(--banana-700)'; btn.style.borderColor = 'var(--banana-600)'; }
+  else { btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = ''; }
+  state.view = state.role === 'productor' ? 'landing' : 'bandeja';
+  render();
+}
+function toast(msg) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3000); }
+function showNotifs() { const lines = NOTIFICACIONES.map(n => `• ${n.titulo}\n  ${n.mensaje}\n  ${n.fecha}`).join('\n\n'); alert(`Notificaciones\n\n${lines}`); }
+function render() {
+  renderNav();
+  const app = document.getElementById('app');
+  if (state.role === 'productor') {
+    if (state.view === 'landing') app.innerHTML = viewLanding();
+    else if (state.view === 'nueva') app.innerHTML = viewNuevaSolicitud();
+    else if (state.view === 'mis') app.innerHTML = viewMisTramites();
+    else if (state.view === 'detalle') app.innerHTML = viewDetalleTramite();
+    else if (state.view === 'tablero') app.innerHTML = viewTablero();
+    else app.innerHTML = viewLanding();
+  } else {
+    if (state.view === 'bandeja') app.innerHTML = viewBandeja();
+    else if (state.view === 'expediente') app.innerHTML = viewExpediente();
+    else if (state.view === 'tablero') app.innerHTML = viewTablero();
+    else app.innerHTML = viewBandeja();
+  }
+}
+function renderNav() {
+  const nav = document.getElementById('mainNav');
+  const items = state.role === 'productor'
+    ? [{ id: 'landing', label: 'Inicio' }, { id: 'nueva', label: 'Nueva solicitud' }, { id: 'mis', label: 'Mis trámites' }, { id: 'tablero', label: 'Indicadores' }]
+    : [{ id: 'bandeja', label: 'Bandeja' }, { id: 'tablero', label: 'Tablero KPI' }];
+  nav.innerHTML = items.map(i => `<button class="${state.view === i.id ? 'active' : ''}" onclick="nav('${i.id}')">${i.label}</button>`).join('');
+}
+function stepperHtml(current) {
+  const steps = [{ n: 1, label: 'Identificación' }, { n: 2, label: 'Predio y cultivo' }, { n: 3, label: 'Documentación' }, { n: 4, label: 'Firma y envío' }];
+  let html = '<div class="stepper">';
+  steps.forEach((s, i) => {
+    const cls = current === s.n ? 'active' : (current > s.n ? 'done' : '');
+    html += `<div class="step ${cls}"><div class="step-num">${current > s.n ? '✓' : s.n}</div><div class="step-label">${s.label}</div></div>`;
+    if (i < steps.length - 1) html += `<div class="step-line ${current > s.n ? 'done' : ''}"></div>`;
+  });
+  return html + '</div>';
+}
+function viewLanding() {
+  return `
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-eyebrow">${icon('leaf', 14)} Plataforma oficial · MAG Ecuador</div>
+        <h1>Tu registro como <em>productor bananero</em>, ahora en línea</h1>
+        <p>AgroRegistro 360 digitaliza de extremo a extremo el trámite de registro, actualización y renovación como productor de banano y plátano ante el Ministerio de Agricultura y Ganadería. Menos viajes, menos papel, tu información validada al instante con las entidades del Estado.</p>
+        <div class="hero-cta">
+          <button class="btn" onclick="nav('nueva')">${icon('plus', 16)} Iniciar una solicitud</button>
+          <button class="btn btn-secondary" onclick="nav('mis')">Consultar mis trámites</button>
+        </div>
+      </div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-label">Tiempo promedio</div><div class="kpi-value">4 días</div><div class="kpi-trend">${icon('arrow-down', 12)} 78% vs. antes (22 días)</div></div>
+      <div class="kpi"><div class="kpi-label">Trazabilidad</div><div class="kpi-value">100%</div><div class="kpi-trend">${icon('arrow-up', 12)} desde 0% en papel</div></div>
+      <div class="kpi"><div class="kpi-label">Interoperabilidad</div><div class="kpi-value">5 entidades</div><div class="kpi-trend">SRI · IESS · RC · RP · Agrocalidad</div></div>
+      <div class="kpi"><div class="kpi-label">Trámites disponibles</div><div class="kpi-value">20+</div><div class="kpi-trend">Todos los del subproceso</div></div>
+    </div>
+    <h2 class="section-title">¿Qué puedes hacer aquí?</h2>
+    <p class="section-subtitle">Una plataforma diseñada con el productor en el centro.</p>
+    <div class="features">
+      <div class="feature"><div class="feature-icon">${icon('file', 22)}</div><h4>Expediente digital único</h4><p>Toda la información de tu predio, cultivo y trámites en un solo lugar, siempre disponible.</p></div>
+      <div class="feature"><div class="feature-icon">${icon('link', 22)}</div><h4>Interoperabilidad total</h4><p>El Estado no te vuelve a pedir lo que ya tiene. Consulta automática al SRI, IESS, Registro Civil, Registro de la Propiedad y Agrocalidad.</p></div>
+      <div class="feature"><div class="feature-icon">${icon('clock', 22)}</div><h4>Seguimiento en tiempo real</h4><p>Sabes en todo momento en qué paso está tu trámite y quién lo tiene bajo revisión.</p></div>
+      <div class="feature"><div class="feature-icon">${icon('bell', 22)}</div><h4>Notificaciones automáticas</h4><p>Correo y SMS al instante cuando hay una observación o una decisión sobre tu expediente.</p></div>
+      <div class="feature"><div class="feature-icon">${icon('shield', 22)}</div><h4>Firma electrónica</h4><p>Tu registro se emite firmado electrónicamente, con plena validez legal según la LOTD.</p></div>
+      <div class="feature"><div class="feature-icon">${icon('map', 22)}</div><h4>Agenda de inspecciones</h4><p>Elige fecha para la inspección técnica de tu predio con georreferenciación automática.</p></div>
+    </div>
+    <div class="card mt-24 card-highlight">
+      <h3>${icon('leaf', 18)} Bases interoperables (simuladas)</h3>
+      <p class="small muted">Este prototipo utiliza datos ficticios que representan la consulta a:</p>
+      <div class="mt-8">
+        <span class="chip">${icon('user', 12)} Registro Civil</span>
+        <span class="chip">${icon('file', 12)} SRI</span>
+        <span class="chip">${icon('shield', 12)} IESS</span>
+        <span class="chip">${icon('map', 12)} Registro de la Propiedad</span>
+        <span class="chip">${icon('leaf', 12)} Agrocalidad</span>
+      </div>
+      <p class="small muted mt-16">Cédulas de prueba: <span class="mono" style="background:var(--white);padding:2px 8px;border-radius:6px;color:var(--leaf-800);font-weight:600">0912345678</span> <span class="mono" style="background:var(--white);padding:2px 8px;border-radius:6px;color:var(--leaf-800);font-weight:600">0701234567</span> <span class="mono" style="background:var(--white);padding:2px 8px;border-radius:6px;color:var(--leaf-800);font-weight:600">1305678901</span></p>
+    </div>
+  `;
+}
+function viewNuevaSolicitud() {
+  return `
+    <h1 class="page-title">Nueva solicitud</h1>
+    <p class="page-subtitle">Completa los cuatro pasos. Tomará menos de 5 minutos.</p>
+    ${stepperHtml(1)}
+    <div class="card">
+      <h3>${icon('user', 18)} Identificación del productor</h3>
+      <div class="form-group"><label>Tipo de trámite <span class="req">*</span></label>
+        <select id="tipoTramite">
+          <option value="registro">Registro nuevo como productor</option>
+          <option value="renovacion">Renovación de registro</option>
+          <option value="actualizacion">Actualización de datos del predio</option>
+          <option value="tenencia">Cambio de propietario o tenencia</option>
+          <option value="siembra">Autorización de siembra nueva</option>
+          <option value="organico">Registro como productor orgánico</option>
+          <option value="certificado">Certificado de estado de predio</option>
+        </select></div>
+      <div class="form-group"><label>Cédula de identidad <span class="req">*</span></label>
+        <input id="cedulaInput" type="text" maxlength="10" placeholder="Ej. 0912345678" oninput="onCedulaInput(this.value)">
+        <div class="form-help">Al ingresar tu cédula, el sistema consultará automáticamente las bases del Estado.</div></div>
+      <div id="interopBox"></div>
+      <div id="datosPersonales" class="hidden"></div>
+      <div class="flex-between mt-16">
+        <button class="btn btn-ghost" onclick="nav('landing')">${icon('arrow-left', 14)} Cancelar</button>
+        <button id="btnContinuar" class="btn" disabled onclick="continuarPaso2()">Continuar ${icon('arrow-right', 14)}</button>
+      </div>
+    </div>`;
+}
+function onCedulaInput(v) {
+  if (v.length === 10) consultarInterop(v);
+  else { document.getElementById('interopBox').innerHTML = ''; document.getElementById('datosPersonales').classList.add('hidden'); document.getElementById('btnContinuar').disabled = true; }
+}
+async function consultarInterop(cedula) {
+  const entidades = [
+    { key: 'rc', nombre: 'Registro Civil', sub: 'Identidad', data: DB.registroCivil[cedula] },
+    { key: 'sri', nombre: 'SRI', sub: 'RUC y actividad', data: DB.sri[cedula + '001'] },
+    { key: 'iess', nombre: 'IESS', sub: 'Afiliación', data: DB.iess[cedula] },
+    { key: 'rp', nombre: 'Registro de la Propiedad', sub: 'Predio', data: Object.values(DB.registroPropiedad).find(p => p.propietario === cedula) },
+    { key: 'agro', nombre: 'Agrocalidad', sub: 'Certificaciones', data: DB.agrocalidad[cedula] }
+  ];
+  const box = document.getElementById('interopBox');
+  box.innerHTML = `<div class="interop-panel"><div class="interop-title">${icon('link', 16)} Consulta interoperable en curso</div><div class="interop-list" id="interopList">${entidades.map(e => `<div class="interop-item checking" id="interop-${e.key}"><span class="dot"></span><span class="name">${e.nombre}</span><span class="status">consultando…</span></div>`).join('')}</div></div>`;
+  for (const e of entidades) {
+    await sleep(400 + Math.random() * 600);
+    const item = document.getElementById('interop-' + e.key);
+    if (!item) return;
+    if (e.data) { item.classList.remove('checking'); item.classList.add('ok'); item.querySelector('.status').innerHTML = `<span class="badge badge-green">${icon('check', 12)} OK</span>`; }
+    else { item.classList.remove('checking'); item.classList.add(e.key === 'iess' ? 'fail' : 'ok'); item.querySelector('.status').innerHTML = e.key === 'iess' ? `<span class="badge badge-amber">sin afiliación</span>` : `<span class="badge badge-red">no encontrado</span>`; }
+  }
+  const rc = DB.registroCivil[cedula]; const sri = DB.sri[cedula + '001']; const iess = DB.iess[cedula]; const predio = Object.values(DB.registroPropiedad).find(p => p.propietario === cedula); const agro = DB.agrocalidad[cedula];
+  if (!rc) { box.innerHTML += `<div class="card mt-16" style="border-color:var(--red)"><h3 style="color:var(--red)">${icon('warn', 18)} Cédula no encontrada</h3><p class="small muted">Prueba con: <span class="mono">0912345678</span>, <span class="mono">0701234567</span>, <span class="mono">1305678901</span>.</p></div>`; return; }
+  state.currentCedula = cedula;
+  state.interopResults = { rc, sri, iess, predio, agro };
+  document.getElementById('datosPersonales').classList.remove('hidden');
+  document.getElementById('datosPersonales').innerHTML = `
+    <div class="card mt-16 card-highlight">
+      <div style="display:flex;align-items:center;gap:10px;color:var(--leaf-800);font-weight:700;font-family:var(--font-display)">${icon('check-circle', 20)} Datos verificados automáticamente</div>
+      <p class="small muted" style="margin:8px 0 16px">No necesitas volver a ingresar la siguiente información.</p>
+      <div class="form-row"><div class="form-group"><label>Nombres completos</label><input type="text" value="${rc.nombres} ${rc.apellidos}" readonly></div><div class="form-group"><label>Fecha de nacimiento</label><input type="text" value="${rc.fechaNacimiento}" readonly></div></div>
+      <div class="form-row"><div class="form-group"><label>RUC (SRI)</label><input type="text" value="${sri ? sri.ruc : 'No registrado'}" readonly></div><div class="form-group"><label>Actividad económica</label><input type="text" value="${sri ? sri.actividadEconomica : '-'}" readonly></div></div>
+      <div class="form-row"><div class="form-group"><label>IESS</label><input type="text" value="${iess.afiliada ? iess.estado + ' — ' + iess.tipoAfiliacion : 'Sin afiliación'}" readonly></div><div class="form-group"><label>Certificación Agrocalidad</label><input type="text" value="${agro ? agro.tipoCertificacion + ' (vence ' + agro.fechaVigencia + ')' : 'No registrada'}" readonly></div></div>
+      ${predio ? `<div style="border-top:1px solid var(--leaf-500);margin:14px 0;padding-top:14px"><label style="display:block;font-weight:700;margin-bottom:8px;color:var(--leaf-800);font-family:var(--font-display)">${icon('map', 14)} Predio asociado</label><div class="small" style="line-height:1.9"><div><strong>Clave catastral:</strong> <span class="mono" style="background:var(--white);padding:2px 8px;border-radius:6px">${predio.claveCatastral}</span></div><div><strong>Ubicación:</strong> ${predio.ubicacion}</div><div><strong>Superficie:</strong> ${predio.superficie} ${predio.unidad}</div><div><strong>Tenencia:</strong> ${predio.tipoTenencia}</div><div><strong>Gravámenes:</strong> ${predio.gravamenes}</div></div></div>` : `<div class="card-warn" style="padding:12px 14px;border-radius:10px;color:var(--banana-700);font-size:13px;margin-top:12px;border:1px solid var(--banana-600)">${icon('warn', 14)} No se encontró un predio a tu nombre en el Registro de la Propiedad.</div>`}
+    </div>`;
+  document.getElementById('btnContinuar').disabled = false;
+}
+function continuarPaso2() { state.view = 'nueva2'; renderPaso2(); }
+function renderPaso2() {
+  const { predio } = state.interopResults;
+  document.getElementById('app').innerHTML = `
+    <h1 class="page-title">Nueva solicitud</h1>
+    <p class="page-subtitle">Datos del predio y del cultivo</p>
+    ${stepperHtml(2)}
+    <div class="card">
+      <h3>${icon('map', 18)} Ubicación y cultivo</h3>
+      <div class="form-row"><div class="form-group"><label>Provincia</label><input type="text" value="${predio ? predio.ubicacion.split(',')[0] : ''}" id="provincia"></div><div class="form-group"><label>Cantón</label><input type="text" value="${predio ? predio.ubicacion.split(',')[1] || '' : ''}" id="canton"></div></div>
+      <div class="form-group"><label>Ubicación exacta / Recinto</label><input type="text" value="${predio ? predio.ubicacion : ''}" id="ubicacion"></div>
+      <div class="form-row"><div class="form-group"><label>Superficie sembrada (ha) <span class="req">*</span></label><input type="number" step="0.1" value="${predio ? predio.superficie : ''}" id="superficie"></div><div class="form-group"><label>Tipo de cultivo <span class="req">*</span></label><select id="cultivo"><option>Banano convencional</option><option>Banano orgánico</option><option>Plátano barraganete</option><option>Plátano de exportación</option></select></div></div>
+      <div class="form-row"><div class="form-group"><label>Coordenadas GPS del predio</label><input type="text" placeholder="Se registran al agendar la inspección" readonly></div><div class="form-group"><label>Densidad estimada (plantas/ha)</label><input type="number" placeholder="Ej. 1800"></div></div>
+      <div class="flex-between mt-16"><button class="btn btn-ghost" onclick="nav('nueva')">${icon('arrow-left', 14)} Atrás</button><button class="btn" onclick="renderPaso3()">Continuar ${icon('arrow-right', 14)}</button></div>
+    </div>`;
+}
+function renderPaso3() {
+  const { predio } = state.interopResults;
+  document.getElementById('app').innerHTML = `
+    <h1 class="page-title">Nueva solicitud</h1>
+    <p class="page-subtitle">Documentación requerida</p>
+    ${stepperHtml(3)}
+    <div class="card">
+      <h3>${icon('file', 18)} Documentos del expediente</h3>
+      <p class="small muted">La plataforma valida automáticamente los documentos ya disponibles en el Estado. Solo cargas lo que no se puede verificar por interoperabilidad.</p>
+      <div class="interop-panel mt-16">
+        <div class="interop-title">${icon('check-circle', 16)} Verificado automáticamente</div>
+        <div class="interop-list">
+          <div class="interop-item ok"><span class="dot"></span><span class="name">Copia de cédula</span><span class="status"><span class="badge badge-green">Registro Civil</span></span></div>
+          <div class="interop-item ok"><span class="dot"></span><span class="name">RUC vigente</span><span class="status"><span class="badge badge-green">SRI</span></span></div>
+          ${predio ? `<div class="interop-item ok"><span class="dot"></span><span class="name">Título de propiedad</span><span class="status"><span class="badge badge-green">Registro Prop.</span></span></div>` : ''}
+          <div class="interop-item ok"><span class="dot"></span><span class="name">Certificación fitosanitaria</span><span class="status"><span class="badge badge-green">Agrocalidad</span></span></div>
+        </div>
+      </div>
+      <div class="mt-16">
+        <label style="display:block;font-weight:600;margin-bottom:10px;color:var(--ink-700)">Documentos a cargar</label>
+        <div class="dropzone"><div class="flex gap-12" style="align-items:center"><div style="width:44px;height:44px;background:var(--white);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--leaf-700)">${icon('upload', 20)}</div><div style="flex:1"><div style="font-weight:600;font-size:14px;color:var(--ink-900)">Croquis del predio (PDF o imagen)</div><div class="small muted">Máximo 5 MB · Requerido</div></div><button class="btn btn-secondary" onclick="toast('Documento cargado correctamente')">Cargar</button></div></div>
+        <div class="dropzone mt-8"><div class="flex gap-12" style="align-items:center"><div style="width:44px;height:44px;background:var(--white);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--leaf-700)">${icon('upload', 20)}</div><div style="flex:1"><div style="font-weight:600;font-size:14px;color:var(--ink-900)">Plan de manejo del cultivo</div><div class="small muted">Máximo 5 MB · Opcional</div></div><button class="btn btn-secondary" onclick="toast('Documento cargado correctamente')">Cargar</button></div></div>
+      </div>
+      <div class="flex-between mt-16"><button class="btn btn-ghost" onclick="renderPaso2()">${icon('arrow-left', 14)} Atrás</button><button class="btn" onclick="renderPaso4()">Continuar ${icon('arrow-right', 14)}</button></div>
+    </div>`;
+}
+function renderPaso4() {
+  const { rc, sri, predio } = state.interopResults;
+  document.getElementById('app').innerHTML = `
+    <h1 class="page-title">Nueva solicitud</h1>
+    <p class="page-subtitle">Revisión y firma electrónica</p>
+    ${stepperHtml(4)}
+    <div class="card">
+      <h3>${icon('file', 18)} Resumen de la solicitud</h3>
+      <div class="small" style="line-height:2">
+        <div><strong>Tipo de trámite:</strong> Registro nuevo como productor</div>
+        <div><strong>Productor:</strong> ${rc.nombres} ${rc.apellidos}</div>
+        <div><strong>Cédula:</strong> <span class="mono">${state.currentCedula}</span></div>
+        <div><strong>RUC:</strong> ${sri ? sri.ruc : 'No disponible'}</div>
+        <div><strong>Predio:</strong> ${predio ? predio.claveCatastral + ' — ' + predio.ubicacion : 'A validar'}</div>
+        <div><strong>Superficie:</strong> ${predio ? predio.superficie + ' ha' : '-'}</div>
+        <div><strong>Cultivo:</strong> Banano convencional</div>
+      </div>
+    </div>
+    <div class="card card-highlight">
+      <h3 style="color:var(--leaf-800);display:flex;align-items:center;gap:10px">${icon('shield', 20)} Firma electrónica</h3>
+      <p class="small">Al firmar declaras que la información es verídica y autorizas al MAG a consultar tus datos en el marco de la Ley Orgánica de Protección de Datos Personales.</p>
+      <div class="form-group mt-8"><label>Ingresa tu clave de firma electrónica</label><input type="password" placeholder="••••••••" value="demo1234"></div>
+    </div>
+    <div class="flex-between mt-16">
+      <button class="btn btn-ghost" onclick="renderPaso3()">${icon('arrow-left', 14)} Atrás</button>
+      <button class="btn btn-success" onclick="enviarSolicitud()">${icon('check', 14)} Firmar y enviar solicitud</button>
+    </div>`;
+}
+function enviarSolicitud() {
+  const { rc } = state.interopResults;
+  const nuevoId = "MAG-2026-000" + (900 + Math.floor(Math.random() * 99));
+  const nuevo = {
+    id: nuevoId, tipo: "Registro nuevo", productor: rc.nombres + " " + rc.apellidos, cedula: state.currentCedula,
+    predio: state.interopResults.predio ? state.interopResults.predio.claveCatastral : "-",
+    fechaIngreso: new Date().toISOString().slice(0,10), estado: "En validación", progreso: 20,
+    superficie: state.interopResults.predio ? state.interopResults.predio.superficie : 0,
+    provincia: state.interopResults.predio ? state.interopResults.predio.ubicacion.split(',')[0] : '-',
+    responsable: "Por asignar", observaciones: [],
+    linea: [
+      { titulo: "Solicitud recibida", fecha: "recién", desc: "Firmada electrónicamente." },
+      { titulo: "Requisitos validados", fecha: "recién", desc: "5/5 entidades OK — interoperabilidad completa." },
+      { titulo: "Análisis jurídico", fecha: "-", desc: "En cola de asignación." },
+      { titulo: "Inspección de predio", fecha: "-", desc: "" },
+      { titulo: "Informe técnico", fecha: "-", desc: "" },
+      { titulo: "Registro emitido", fecha: "-", desc: "" }
+    ]
+  };
+  TRAMITES.unshift(nuevo);
+  state.currentTramite = nuevoId;
+  document.getElementById('app').innerHTML = `
+    <div class="card success-card">
+      <div class="success-icon">${icon('check', 40)}</div>
+      <h2 style="font-family:var(--font-display);font-size:28px;margin:0 0 10px">¡Solicitud enviada con éxito!</h2>
+      <p class="muted">Tu número de trámite es</p>
+      <div style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--leaf-800);margin:8px 0 20px;letter-spacing:0.5px">${nuevoId}</div>
+      <p class="small muted">Recibirás notificaciones por correo y SMS en cada paso del proceso.</p>
+      <div class="flex gap-12" style="justify-content:center;margin-top:28px;flex-wrap:wrap">
+        <button class="btn btn-secondary" onclick="nav('landing')">Ir al inicio</button>
+        <button class="btn" onclick="nav('detalle', {currentTramite: '${nuevoId}'})">Ver detalle ${icon('arrow-right', 14)}</button>
+      </div>
+    </div>`;
+}
+function viewMisTramites() {
+  return `
+    <h1 class="page-title">Mis trámites</h1>
+    <p class="page-subtitle">Todos los expedientes asociados a tu cédula.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>N.º trámite</th><th>Tipo</th><th>Ingreso</th><th>Estado</th><th>Avance</th><th></th></tr></thead>
+        <tbody>
+          ${TRAMITES.map(t => `
+            <tr class="clickable" onclick="nav('detalle', {currentTramite: '${t.id}'})">
+              <td class="mono" style="color:var(--leaf-800);font-weight:700">${t.id}</td>
+              <td>${t.tipo}</td>
+              <td class="small">${t.fechaIngreso}</td>
+              <td>${estadoBadge(t.estado)}</td>
+              <td style="width:160px"><div class="progress"><div class="progress-bar" style="width:${t.progreso}%"></div></div><div class="small muted mt-8">${t.progreso}%</div></td>
+              <td class="small muted">Ver ${icon('arrow-right', 12)}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+function estadoBadge(estado) {
+  const map = { 'En validación': 'badge-blue', 'En inspección': 'badge-amber', 'Observado': 'badge-red', 'Aprobado': 'badge-green', 'Emitido': 'badge-green', 'Rechazado': 'badge-red' };
+  return `<span class="badge ${map[estado] || 'badge-grey'}">${estado}</span>`;
+}
+function viewDetalleTramite() {
+  const t = TRAMITES.find(x => x.id === state.currentTramite);
+  if (!t) return `<div class="card">Trámite no encontrado.</div>`;
+  const currentIdx = t.linea.findIndex(l => l.fecha === '-');
+  return `
+    <div class="flex-between" style="flex-wrap:wrap;gap:12px">
+      <div><h1 class="page-title">${t.id}</h1><p class="page-subtitle">${t.tipo} · Ingresado el ${t.fechaIngreso}</p></div>
+      <div>${estadoBadge(t.estado)}</div>
+    </div>
+    <div class="split">
+      <div>
+        <div class="card">
+          <h3>${icon('clock', 18)} Recorrido del trámite</h3>
+          <div class="timeline mt-16">
+            ${t.linea.map((l, i) => {
+              let cls = 'pending';
+              if (l.fecha !== '-') cls = 'done';
+              if (currentIdx === i) cls = 'active';
+              return `<div class="timeline-item ${cls}"><div class="timeline-title">${l.titulo}</div><div class="timeline-meta">${l.fecha}</div>${l.desc ? `<div class="timeline-desc">${l.desc}</div>` : ''}</div>`;
+            }).join('')}
+          </div>
+        </div>
+        ${t.observaciones.length ? `
+        <div class="card card-warn">
+          <h3 style="color:var(--banana-700);display:flex;align-items:center;gap:8px">${icon('warn', 18)} Observaciones</h3>
+          ${t.observaciones.map(o => `<div style="padding:14px;background:var(--white);border-radius:10px;margin-bottom:10px;border-left:4px solid var(--banana-500)"><div class="small">${o.texto}</div><div class="small muted mt-8">${o.autor} · ${o.fecha}</div></div>`).join('')}
+          <button class="btn" onclick="toast('Subsanación enviada')">Responder observación</button>
+        </div>` : ''}
+      </div>
+      <div>
+        <div class="card">
+          <h3>${icon('user', 18)} Expediente</h3>
+          <div class="small" style="line-height:2">
+            <div><strong>Productor:</strong><br>${t.productor}</div>
+            <div><strong>Cédula:</strong> <span class="mono">${t.cedula}</span></div>
+            <div><strong>Predio:</strong> <span class="mono">${t.predio}</span></div>
+            <div><strong>Superficie:</strong> ${t.superficie} ha</div>
+            <div><strong>Provincia:</strong> ${t.provincia}</div>
+            <div><strong>Responsable:</strong> ${t.responsable}</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Acciones</h3>
+          <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-bottom:10px" onclick="toast('Descarga simulada')">${icon('download', 14)} Descargar expediente (PDF)</button>
+          <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="nav('mis')">${icon('arrow-left', 14)} Volver a mis trámites</button>
+        </div>
+      </div>
+    </div>`;
+}
+function viewBandeja() {
+  return `
+    <h1 class="page-title">Bandeja de expedientes</h1>
+    <p class="page-subtitle">Dirección de Gestión de Musáceas · Vista de analista</p>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-label">En mi bandeja</div><div class="kpi-value">${TRAMITES.length}</div></div>
+      <div class="kpi"><div class="kpi-label">Vencen esta semana</div><div class="kpi-value" style="color:var(--banana-700)">2</div></div>
+      <div class="kpi"><div class="kpi-label">Tiempo prom. respuesta</div><div class="kpi-value">1.8 d</div></div>
+      <div class="kpi"><div class="kpi-label">Aprobados este mes</div><div class="kpi-value" style="color:var(--leaf-600)">47</div></div>
+    </div>
+    <div class="card">
+      <div class="flex-between" style="margin-bottom:16px">
+        <h3 style="margin:0">${icon('file', 18)} Expedientes activos</h3>
+        <div class="flex gap-8">
+          <button class="btn btn-ghost" style="padding:8px 14px;font-size:12.5px">Filtrar</button>
+          <button class="btn btn-ghost" style="padding:8px 14px;font-size:12.5px">Exportar</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>N.º</th><th>Productor</th><th>Tipo</th><th>Prov.</th><th>Sup. (ha)</th><th>Estado</th><th>Interop.</th><th></th></tr></thead>
+          <tbody>
+            ${TRAMITES.map(t => `
+              <tr class="clickable" onclick="nav('expediente', {currentTramite: '${t.id}'})">
+                <td class="mono small" style="color:var(--leaf-800);font-weight:700">${t.id}</td>
+                <td class="small">${t.productor}</td>
+                <td class="small">${t.tipo}</td>
+                <td class="small">${t.provincia}</td>
+                <td class="small">${t.superficie}</td>
+                <td>${estadoBadge(t.estado)}</td>
+                <td><span class="badge badge-green">5/5</span></td>
+                <td class="small muted">Abrir ${icon('arrow-right', 12)}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+function viewExpediente() {
+  const t = TRAMITES.find(x => x.id === state.currentTramite);
+  if (!t) return `<div class="card">Expediente no encontrado.</div>`;
+  const rc = DB.registroCivil[t.cedula]; const sri = DB.sri[t.cedula + '001']; const iess = DB.iess[t.cedula];
+  const predio = Object.values(DB.registroPropiedad).find(p => p.claveCatastral === t.predio); const agro = DB.agrocalidad[t.cedula];
+  return `
+    <div class="flex-between" style="flex-wrap:wrap;gap:12px">
+      <div><h1 class="page-title">${t.id}</h1><p class="page-subtitle">${t.tipo} · ${t.productor}</p></div>
+      <div class="flex gap-8"><button class="btn btn-ghost" onclick="nav('bandeja')">${icon('arrow-left', 14)} Bandeja</button></div>
+    </div>
+    <div class="split">
+      <div>
+        <div class="card">
+          <h3>${icon('link', 18)} Verificación de requisitos</h3>
+          <div class="interop-list mt-8">
+            <div class="interop-item ok"><span class="dot"></span><span class="name">Registro Civil — Identidad</span><span class="status"><span class="badge badge-green">Verificado</span></span></div>
+            <div class="interop-item ok"><span class="dot"></span><span class="name">SRI — RUC activo</span><span class="status"><span class="badge badge-green">Verificado</span></span></div>
+            <div class="interop-item ${iess && iess.afiliada ? 'ok' : 'fail'}"><span class="dot"></span><span class="name">IESS — Afiliación</span><span class="status">${iess && iess.afiliada ? '<span class="badge badge-green">Activo</span>' : '<span class="badge badge-amber">Sin afiliación</span>'}</span></div>
+            <div class="interop-item ok"><span class="dot"></span><span class="name">Registro de la Propiedad — Predio</span><span class="status"><span class="badge badge-green">Titular confirmado</span></span></div>
+            <div class="interop-item ok"><span class="dot"></span><span class="name">Agrocalidad — Certificación</span><span class="status"><span class="badge badge-green">${agro ? agro.estado : '-'}</span></span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>${icon('user', 18)} Datos consolidados</h3>
+          <div class="form-row"><div class="form-group"><label>Nombres</label><input value="${rc.nombres} ${rc.apellidos}" readonly></div><div class="form-group"><label>RUC</label><input value="${sri ? sri.ruc : '-'}" readonly></div></div>
+          <div class="form-row"><div class="form-group"><label>Actividad económica</label><input value="${sri ? sri.actividadEconomica : '-'}" readonly></div><div class="form-group"><label>Certificación</label><input value="${agro ? agro.tipoCertificacion : '-'}" readonly></div></div>
+          ${predio ? `<div class="form-row"><div class="form-group"><label>Clave catastral</label><input value="${predio.claveCatastral}" readonly></div><div class="form-group"><label>Superficie</label><input value="${predio.superficie} ha" readonly></div></div><div class="form-group"><label>Ubicación</label><input value="${predio.ubicacion}" readonly></div><div class="form-group"><label>Gravámenes</label><input value="${predio.gravamenes}" readonly></div>` : ''}
+        </div>
+        <div class="card">
+          <h3>${icon('file', 18)} Informe jurídico</h3>
+          <div class="form-group"><label>Observación (opcional)</label><textarea rows="3" placeholder="Escribe una observación si procede…"></textarea></div>
+          <div class="flex gap-12" style="flex-wrap:wrap">
+            <button class="btn btn-success" onclick="aprobar('${t.id}')">${icon('check', 14)} Emitir informe favorable</button>
+            <button class="btn" style="background:var(--banana-600)" onclick="observar('${t.id}')">${icon('warn', 14)} Notificar observación</button>
+            <button class="btn btn-danger" onclick="rechazar('${t.id}')">Rechazar</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card"><h3>Estado</h3><div style="margin-bottom:14px">${estadoBadge(t.estado)}</div><div class="progress"><div class="progress-bar" style="width:${t.progreso}%"></div></div><div class="small muted mt-8">Avance: ${t.progreso}%</div></div>
+        <div class="card"><h3>Recorrido</h3><div class="timeline">${t.linea.slice(0, 4).map(l => `<div class="timeline-item ${l.fecha !== '-' ? 'done' : 'pending'}"><div class="timeline-title small">${l.titulo}</div><div class="timeline-meta">${l.fecha}</div></div>`).join('')}</div></div>
+      </div>
+    </div>`;
+}
+function aprobar(id) { const t = TRAMITES.find(x => x.id === id); t.estado = 'Aprobado'; t.progreso = 100; toast('Informe emitido y registro aprobado'); setTimeout(() => nav('bandeja'), 700); }
+function observar(id) { const t = TRAMITES.find(x => x.id === id); t.estado = 'Observado'; toast('Observación notificada al productor'); setTimeout(() => nav('bandeja'), 700); }
+function rechazar(id) { const t = TRAMITES.find(x => x.id === id); t.estado = 'Rechazado'; t.progreso = 100; toast('Solicitud rechazada'); setTimeout(() => nav('bandeja'), 700); }
+function viewTablero() {
+  return `
+    <h1 class="page-title">Tablero de indicadores</h1>
+    <p class="page-subtitle">Comparativo antes y después de la implementación de AgroRegistro 360</p>
+    <div class="kpi-grid">
+      ${kpiCard('Tiempo de trámite', '22 días', '4 días', '-82%')}
+      ${kpiCard('Visitas presenciales', '3.4', '1.0', '-71%')}
+      ${kpiCard('Costo p/productor', 'USD 84', 'USD 22', '-74%')}
+      ${kpiCard('Tasa de reprocesos', '38%', '9%', '-76%')}
+      ${kpiCard('Satisfacción (1-5)', '2.4', '4.3', '+79%')}
+      ${kpiCard('Trazabilidad', '0%', '100%', '+100%')}
+    </div>
+    <div class="split">
+      <div class="card">
+        <h3>Tiempo promedio del trámite (días)</h3>
+        ${chartBars([{label:'Antes', value:22, color:'#C62828'},{label:'Meta', value:11, color:'#DAA520'},{label:'Después', value:4, color:'#2D6A4F'}], 25)}
+      </div>
+      <div class="card">
+        <h3>Interoperabilidad efectiva</h3>
+        ${chartDonut([{label:'Docs verificados por interop.', value:74, color:'#2D6A4F'},{label:'Aportados por el usuario', value:26, color:'#E5E5E5'}])}
+      </div>
+    </div>
+    <div class="split">
+      <div class="card">
+        <h3>Cumplimiento por criterio (Design Thinking · Evaluar)</h3>
+        <div class="mt-16">
+          ${critBar('Eficiencia', 82)}
+          ${critBar('Eficacia', 88)}
+          ${critBar('Igualdad y equidad', 71)}
+          ${critBar('Calidad y experiencia', 86)}
+          ${critBar('Transparencia', 95)}
+          ${critBar('Sostenibilidad', 79)}
+        </div>
+      </div>
+      <div class="card">
+        <h3>Indicadores de igualdad</h3>
+        <div class="small" style="line-height:2.1">
+          <div><strong>IG-01</strong> Brecha pequeños vs grandes: <span class="badge badge-green">↓ 12 a 3 días</span></div>
+          <div><strong>IG-04</strong> Usuarios con 2+ viajes largos: <span class="badge badge-green">↓ 41% a 8%</span></div>
+          <div><strong>IG-05</strong> Cobertura canal asistido: <span class="badge badge-green">100% de oficinas</span></div>
+          <div><strong>IG-06</strong> Cobertura sin internet: <span class="badge badge-amber">76%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Solicitudes procesadas — últimas 8 semanas</h3>
+      ${chartLine([12,18,25,31,44,52,68,79])}
+    </div>`;
+}
+function kpiCard(label, antes, despues, delta) {
+  return `<div class="kpi"><div class="kpi-label">${label}</div><div style="display:flex;align-items:baseline;gap:10px"><div class="kpi-value" style="font-size:26px">${despues}</div><div class="small muted" style="text-decoration:line-through">${antes}</div></div><div class="kpi-trend">${delta} vs. línea base</div></div>`;
+}
+function critBar(label, pct) {
+  return `<div style="margin-bottom:14px"><div class="flex-between small" style="margin-bottom:6px"><span style="font-weight:600;color:var(--ink-900)">${label}</span><span class="muted">${pct}%</span></div><div class="progress"><div class="progress-bar" style="width:${pct}%"></div></div></div>`;
+}
+function chartBars(bars, max) {
+  const w = 400, h = 220, pad = 32;
+  return `<svg viewBox="0 0 ${w} ${h}" class="chart">${bars.map((b, i) => {
+    const bw = (w - pad*2) / bars.length * 0.55;
+    const bx = pad + i * ((w - pad*2) / bars.length) + ((w - pad*2) / bars.length - bw) / 2;
+    const bh = (h - pad*2) * (b.value / max);
+    const by = h - pad - bh;
+    return `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" fill="${b.color}" rx="6"/><text x="${bx + bw/2}" y="${by - 8}" text-anchor="middle" font-size="15" font-weight="700" fill="${b.color}" font-family="Fraunces, serif">${b.value}</text><text x="${bx + bw/2}" y="${h - 10}" text-anchor="middle" font-size="12" fill="#666" font-weight="500">${b.label}</text>`;
+  }).join('')}</svg>`;
+}
+function chartDonut(slices) {
+  const total = slices.reduce((a, b) => a + b.value, 0);
+  let acc = 0; const cx = 100, cy = 100, r = 68, sw = 22;
+  const arcs = slices.map(s => {
+    const a1 = (acc / total) * 2 * Math.PI - Math.PI/2;
+    acc += s.value;
+    const a2 = (acc / total) * 2 * Math.PI - Math.PI/2;
+    const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+    const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+    const large = (a2 - a1) > Math.PI ? 1 : 0;
+    return `<path d="M ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2}" fill="none" stroke="${s.color}" stroke-width="${sw}" stroke-linecap="butt"/>`;
+  }).join('');
+  return `<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><svg viewBox="0 0 200 200" width="180" height="180">${arcs}<text x="100" y="95" text-anchor="middle" font-size="32" font-weight="700" fill="#1B4332" font-family="Fraunces, serif">${slices[0].value}%</text><text x="100" y="115" text-anchor="middle" font-size="10" fill="#666" font-weight="600" letter-spacing="1">AUTOMÁTICO</text></svg><div style="flex:1;min-width:150px">${slices.map(s => `<div class="chart-legend-item" style="margin-bottom:8px"><span class="sw" style="background:${s.color}"></span>${s.label} (${s.value}%)</div>`).join('')}</div></div>`;
+}
+function chartLine(data) {
+  const w = 800, h = 220, pad = 32;
+  const max = Math.max(...data);
+  const pts = data.map((v, i) => {
+    const x = pad + i * ((w - pad*2) / (data.length - 1));
+    const y = h - pad - (v / max) * (h - pad*2);
+    return [x, y];
+  });
+  const path = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0] + ' ' + p[1]).join(' ');
+  const area = `${path} L ${pts[pts.length-1][0]} ${h - pad} L ${pts[0][0]} ${h - pad} Z`;
+  return `<svg viewBox="0 0 ${w} ${h}" class="chart" style="height:240px"><defs><linearGradient id="g1" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#2D6A4F" stop-opacity="0.35"/><stop offset="100%" stop-color="#2D6A4F" stop-opacity="0"/></linearGradient></defs><path d="${area}" fill="url(#g1)"/><path d="${path}" fill="none" stroke="#2D6A4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${pts.map((p, i) => `<circle cx="${p[0]}" cy="${p[1]}" r="6" fill="white" stroke="#2D6A4F" stroke-width="2.5"/><text x="${p[0]}" y="${p[1] - 14}" text-anchor="middle" font-size="13" font-weight="700" fill="#2D6A4F" font-family="Fraunces, serif">${data[i]}</text><text x="${p[0]}" y="${h - 10}" text-anchor="middle" font-size="11" fill="#666" font-weight="500">S${i+1}</text>`).join('')}</svg>`;
+}
+function icon(name, size) {
+  const s = size || 16;
+  const map = {
+    file: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`,
+    link: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+    clock: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    bell: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+    shield: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    map: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>`,
+    check: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+    'check-circle': `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+    warn: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+    upload: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`,
+    download: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
+    user: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+    plus: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+    'arrow-left': `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`,
+    'arrow-right': `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`,
+    'arrow-up': `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>`,
+    'arrow-down': `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>`,
+    leaf: `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96a1 1 0 0 1 1.8.66c0 4.02-.75 8-3.06 10.38C15.69 16.3 12 17 9 17"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>`
+  };
+  return map[name] || '';
+}
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+render();
+</script>
+</body>
+</html>
