@@ -141,7 +141,7 @@ Este es un **prototipo académico**. Todos los datos, cédulas, RUCs y registros
 
 ## 📄 Licencia
 
-MIT — ver [LICENSE](LICENSE).
+KIRP — ver [LICENSE](LICENSE).
 
 ---
 
