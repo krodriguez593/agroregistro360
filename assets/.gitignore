@@ -1,0 +1,47 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# Node (por si se agregan herramientas)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Python (por si se agrega backend)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Build / temporales
+dist/
+build/
+*.log
+.cache/
+tmp/
+
+# Sensibles
+.env
+.env.local
+*.pem
+*.key
+credentials.json
+secrets/
+
+# Datos reales (nunca subir datos reales de productores)
+data/real/
+*.real.json
