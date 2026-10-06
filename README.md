@@ -51,6 +51,23 @@ Todos los datos son inventados para fines académicos:
 5. Cambiá a la vista **Funcionario MAG** (botón superior derecho) para aprobar u observar el expediente.
 6. Revisá el **Tablero KPI** con la comparativa antes/después.
 
+### Proceso interno completo (vista Funcionario MAG)
+
+Cada expediente avanza por cuatro etapas, y cada una genera su documento PDF (simulado):
+
+| Etapa | Acción del funcionario | Documento generado |
+|---|---|---|
+| 1. Revisión jurídica | Emitir informe favorable, observar o rechazar | Informe jurídico |
+| 2. Inspección del predio | Registrar fecha, GPS, superficie, lista de verificación, fotos y resultado | Acta de inspección |
+| 3. Informe técnico | Conclusión y recomendación (favorable / no favorable) | Informe técnico |
+| 4. Emisión del registro | Firmar electrónicamente | Registro de productor con código de verificación |
+
+El trámite `MAG-2026-000839` ya tiene el proceso completo para ver los cuatro PDF. El productor recibe una notificación en cada paso y descarga los documentos desde su trámite.
+
+### Asistente virtual "Don Agro"
+
+Botón flotante en la esquina inferior derecha. Responde preguntas frecuentes (requisitos, proceso, inspección, observaciones, descargas), consulta el estado de un trámite por su número (por ejemplo, *842*) y ofrece accesos directos. Funciona con reglas locales: no usa servicios externos ni inventa respuestas.
+
 ## 🧭 Metodología
 
 El proyecto aplica **Design Thinking** en sus cinco etapas:
@@ -141,7 +158,7 @@ Este es un **prototipo académico**. Todos los datos, cédulas, RUCs y registros
 
 ## 📄 Licencia
 
-KIRP — ver [LICENSE](LICENSE).
+MIT — ver [LICENSE](LICENSE).
 
 ---
 

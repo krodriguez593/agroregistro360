@@ -700,6 +700,78 @@ textarea.input{min-height:96px;resize:vertical;line-height:1.5}
   .card{border:1px solid #bbb}
   .reveal{opacity:1;transform:none}
 }
+
+/* Etapas internas del proceso */
+.stage-card{border-top:3px solid var(--green-600)}
+.stage-card--done{border-top-color:var(--success-solid)}
+.stage-head{display:flex;align-items:center;gap:12px}
+.stage-num{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--yellow-500);color:var(--on-accent);font-weight:700;font-size:15px;flex-shrink:0}
+.stage-card--done .stage-num{background:var(--success-solid);color:#fff}
+.checklist{border:1px solid var(--border);border-radius:var(--r-md);padding:12px 14px;margin:0 0 var(--s-5)}
+.checklist legend{display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px;padding:0 6px}
+.check-item{display:flex;gap:10px;align-items:flex-start;padding:8px 2px;font-size:14px;cursor:pointer;border-bottom:1px solid var(--border)}
+.check-item:last-child{border-bottom:0}
+.check-item input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--green-600);flex-shrink:0}
+.radio-cards{border:0;padding:0;margin:0 0 var(--s-4);display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.radio-cards legend{grid-column:1/-1;margin-bottom:6px;padding:0}
+.radio-card{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--border-strong);border-radius:var(--r-md);cursor:pointer;background:var(--surface);transition:border-color .15s,background-color .15s}
+.radio-card:hover{border-color:var(--text-3)}
+.radio-card input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--green-600)}
+.radio-card:has(input:checked){border-color:var(--green-600);background:var(--green-50)}
+.radio-card strong{display:block;font-size:14.5px}
+.radio-card small{display:block;font-size:12.5px;color:var(--text-3)}
+@media (max-width:640px){.radio-cards{grid-template-columns:1fr}}
+
+/* Asistente virtual */
+.bot-fab{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:90;width:66px;height:66px;border-radius:50%;padding:0;border:3px solid var(--yellow-500);background:#fff;box-shadow:var(--shadow-lg);cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s}
+.bot-fab img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.bot-fab:hover{transform:translateY(-2px) scale(1.04)}
+.bot-fab.is-open{transform:scale(.92)}
+.bot-online{position:absolute;right:2px;bottom:4px;width:14px;height:14px;border-radius:50%;background:#2DBE6C;border:2.5px solid #fff}
+.bot-teaser{position:fixed;right:calc(98px + env(safe-area-inset-right,0px));bottom:calc(30px + env(safe-area-inset-bottom,0px));z-index:89;max-width:240px;background:var(--surface);border:1px solid var(--border);border-radius:14px 14px 4px 14px;padding:12px 30px 12px 14px;box-shadow:var(--shadow-md);font-size:13.5px;display:flex;flex-direction:column;gap:2px;animation:popIn .3s var(--ease)}
+.bot-teaser span{color:var(--text-2)}
+.bot-teaser-x{position:absolute;top:4px;right:4px;width:28px;height:28px;border:0;background:none;color:var(--text-3);border-radius:6px;cursor:pointer;display:grid;place-items:center}
+.bot-panel{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(98px + env(safe-area-inset-bottom,0px));z-index:95;width:390px;height:min(620px,calc(100vh - 130px));display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);overflow:hidden;animation:popIn .22s var(--ease)}
+.bot-head{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 14px;color:#fff;background:linear-gradient(135deg,var(--green-950),var(--green-700))}
+.bot-head img{width:46px;height:46px;border-radius:50%;border:2px solid var(--yellow-500);background:#fff;object-fit:cover}
+.bot-head-text{flex:1;min-width:0}
+.bot-title{font-family:var(--font-serif);font-size:18px;font-weight:600;line-height:1.2}
+.bot-sub{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#CDE5D6}
+.bot-online-dot{width:8px;height:8px;border-radius:50%;background:#5BE08F}
+.bot-close{width:44px;height:44px;border:0;background:none;color:#fff;border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.bot-close:hover{background:rgba(255,255,255,.12)}
+.bot-log{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:12px;background:var(--surface-2)}
+.bot-welcome{display:flex;gap:6px;align-items:flex-end}
+.bot-welcome img{width:74px;height:auto;flex-shrink:0}
+.bot-row{display:flex;gap:8px;align-items:flex-end}
+.bot-row.user{justify-content:flex-end}
+.bot-mini{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#fff;border:1px solid var(--border);flex-shrink:0}
+.bmsg{max-width:84%;padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+.bmsg.bot{background:var(--surface);border:1px solid var(--border);border-bottom-left-radius:4px;color:var(--text)}
+.bmsg.user{background:var(--green-700);color:#fff;border-bottom-right-radius:4px}
+.bot-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.bact{min-height:36px;padding:6px 12px;border-radius:var(--r-sm);border:1px solid var(--green-600);background:var(--green-50);color:var(--brand-strong);font-weight:600;font-size:13px;cursor:pointer}
+.bact:hover{background:var(--green-100)}
+.typing{display:flex;gap:4px;align-items:center;padding:14px 16px}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--text-3);animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.bot-chips{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;border-top:1px solid var(--border);background:var(--surface);scrollbar-width:thin}
+.bchip{flex-shrink:0;min-height:36px;padding:6px 12px;border-radius:999px;border:1px solid var(--green-200);background:var(--green-50);color:var(--brand-strong);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
+.bchip:hover{border-color:var(--green-500)}
+.bot-form{display:flex;gap:8px;padding:10px 12px 6px;background:var(--surface)}
+.bot-form input{flex:1;min-width:0;min-height:44px;padding:0 16px;border:1.5px solid var(--border-strong);border-radius:999px;background:var(--surface);color:var(--text);font-size:15px}
+.bot-form input:focus{outline:none;border-color:var(--green-600);box-shadow:0 0 0 3px color-mix(in srgb,var(--green-500) 24%,transparent)}
+.bot-send{width:44px;height:44px;border-radius:50%;border:0;background:var(--primary);color:#fff;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
+.bot-send:hover{background:var(--primary-hover)}
+.bot-foot{font-size:11.5px;color:var(--text-3);text-align:center;padding:0 12px 10px;background:var(--surface)}
+@media (max-width:640px){
+  .bot-fab{width:58px;height:58px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+  .bot-teaser{right:82px;bottom:calc(22px + env(safe-area-inset-bottom,0px));max-width:200px}
+  .bot-panel{left:0;right:0;bottom:0;width:auto;height:min(86vh,680px);border-radius:var(--r-xl) var(--r-xl) 0 0;padding-bottom:env(safe-area-inset-bottom,0px)}
+  .toast-region{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+@media print{.bot-fab,.bot-panel,.bot-teaser{display:none!important}}
 </style>
 </head>
 <body>
@@ -836,7 +908,7 @@ const DOCS_REQ = [
   { key: 'croquis', titulo: 'Croquis del predio', hint: 'PDF, JPG o PNG, hasta 5 MB', req: true },
   { key: 'plan', titulo: 'Plan de manejo del cultivo', hint: 'PDF, JPG o PNG, hasta 5 MB', req: false }
 ];
-const GRUPOS = { proceso: ['En validación', 'En inspección'], accion: ['Observado'], completados: ['Aprobado', 'Emitido', 'Rechazado'] };
+const GRUPOS = { proceso: ['En validación', 'En inspección', 'En informe técnico', 'Por emitir registro'], accion: ['Observado'], completados: ['Aprobado', 'Emitido', 'Rechazado'] };
 const GRUPO_LABEL = { todos: 'Todos', proceso: 'En proceso', accion: 'Requieren acción', completados: 'Completados' };
 const KPIS_TABLERO = [
   ['Tiempo de trámite', '22 días', '4 días', '-82%'],
@@ -894,7 +966,7 @@ function switchRole() {
   render();
   toast(state.role === 'productor' ? 'Vista de productor activada' : 'Vista de funcionario MAG activada');
 }
-function setRole(r) { closeMenus(); if (r !== state.role) switchRole(); }
+function setRole(r) { closeMenus(); if (r !== state.role) { switchRole(); if (bot.started) botChips(chipsBase()); } }
 
 function toast(msg, type) {
   const region = document.getElementById('toastRegion');
@@ -1072,7 +1144,7 @@ function stageDots(t) {
   return `<ol class="stage-dots" aria-hidden="true">${t.linea.map((l, i) => `<li class="${i < e.done ? 'done' : (i === e.idx ? 'current' : '')}"></li>`).join('')}</ol>`;
 }
 function estadoBadge(estado) {
-  const map = { 'En validación': ['info', 'clock'], 'En inspección': ['info', 'map'], 'Observado': ['warning', 'alert-circle'], 'Aprobado': ['success', 'check-circle'], 'Emitido': ['success', 'check-circle'], 'Rechazado': ['danger', 'x'] };
+  const map = { 'En validación': ['info', 'clock'], 'En inspección': ['info', 'map'], 'En informe técnico': ['info', 'file-text'], 'Por emitir registro': ['info', 'pen'], 'Observado': ['warning', 'alert-circle'], 'Aprobado': ['success', 'check-circle'], 'Emitido': ['success', 'check-circle'], 'Rechazado': ['danger', 'x'] };
   const [v, ic] = map[estado] || ['neutral', 'info'];
   return `<span class="badge badge-${v}">${icon(ic, 13)}${estado}</span>`;
 }
@@ -1669,7 +1741,7 @@ function enviarSolicitud() {
     estado: "En validación", progreso: 20,
     superficie: state.form.superficie || (state.interopResults.predio ? state.interopResults.predio.superficie : 0),
     provincia: state.form.provincia || (state.interopResults.predio ? state.interopResults.predio.ubicacion.split(',')[0] : '-'),
-    responsable: "Por asignar", observaciones: [], documentos: docs,
+    responsable: "Por asignar", observaciones: [], documentos: docs, cultivo: state.form.cultivo || 'Banano convencional',
     linea: [
       { titulo: "Solicitud recibida", fecha: "recién", desc: "Firmada electrónicamente." },
       { titulo: "Requisitos validados", fecha: "recién", desc: "5/5 entidades OK — interoperabilidad completa." },
@@ -1714,14 +1786,17 @@ function docItem(d, verAction, bajarAction) {
     </div></li>`;
 }
 function docsCard(t) {
-  const docs = t.documentos || [];
+  const docs = (t.documentos || []).map((d, i) => ({ d, i }));
+  const mag = docs.filter(x => x.d.origen === 'MAG'), prod = docs.filter(x => x.d.origen !== 'MAG');
+  const lista = arr => `<ul class="doc-list">${arr.map(({ d, i }) => docItem(d, `verDocumento('${t.id}',${i})`, `descargarDocumento('${t.id}',${i})`)).join('')}</ul>`;
   return `<div class="card">
     <h2 class="card-title">${icon('file-text', 20)}Documentos</h2>
+    <p class="subgroup-title">Emitidos por el MAG</p>
+    ${mag.length ? lista(mag) : '<p class="empty-inline">Aún no hay documentos emitidos para este trámite.</p>'}
+    <p class="subgroup-title">Cargados por el productor</p>
+    ${prod.length ? lista(prod) : '<p class="empty-inline">Este trámite todavía no tiene archivos cargados.</p>'}
     <p class="subgroup-title">Verificados en línea</p>
-    <div class="vchips">${['Cédula · Registro Civil', 'RUC · SRI', 'Título · Registro de la Propiedad', 'Certificación · Agrocalidad'].map(v => `<span class="vchip">${icon('check', 13)}${v.replace(' · ', ', ')}</span>`).join('')}</div>
-    <p class="subgroup-title">Archivos cargados</p>
-    ${docs.length ? `<ul class="doc-list">${docs.map((d, i) => docItem(d, `verDocumento('${t.id}',${i})`, `descargarDocumento('${t.id}',${i})`)).join('')}</ul>`
-      : '<p class="empty-inline">Este trámite todavía no tiene archivos cargados.</p>'}
+    <div class="vchips">${['Cédula, Registro Civil', 'RUC, SRI', 'Título, Registro de la Propiedad', 'Certificación, Agrocalidad'].map(v => `<span class="vchip">${icon('check', 13)}${v}</span>`).join('')}</div>
   </div>`;
 }
 function verDocumento(id, i) { const d = (TRAMITES.find(x => x.id === id).documentos || [])[i]; if (d) abrirBlob(d.blob, d.name); }
@@ -1772,9 +1847,13 @@ function viewMisTramites() {
    ====================================================================== */
 function proximoPaso(t) {
   const e = etapaActual(t);
+  const bajar = (gen, txt) => docDe(t, gen) ? `<button class="btn btn-sm" type="button" onclick="descargarDocTipo('${t.id}','${gen}',this)">${icon('download', 15)}${txt}</button>` : '';
   if (t.estado === 'Observado') return callout('warning', 'Este trámite necesita tu respuesta', 'Revisa la observación y adjunta el documento solicitado.', `<button class="btn btn-sm" type="button" onclick="document.getElementById('obsCard').scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('obsFileBtn').focus({preventScroll:true})">Responder observación</button>`);
-  if (t.estado === 'Rechazado') return callout('danger', 'Solicitud rechazada', 'Descarga el expediente para revisar el detalle o inicia una nueva solicitud.');
-  if (grupoDe(t.estado) === 'completados') return callout('success', 'Trámite finalizado', e.idx === -1 ? 'Tu registro fue emitido y notificado.' : 'El MAG resolvió favorablemente tu solicitud.');
+  if (t.estado === 'Rechazado') return callout('danger', 'Solicitud rechazada', 'Descarga los informes para conocer el motivo o inicia una nueva solicitud.', bajar('tecnico', 'Informe técnico (PDF)'));
+  if (t.estado === 'Emitido' || t.estado === 'Aprobado') return callout('success', 'Tu registro fue emitido', t.registro ? `Registro ${t.registro.numero}, emitido el ${t.registro.fecha}. Código de verificación: ${t.registro.codigo}.` : 'Tu registro fue emitido y notificado.', bajar('registro', 'Descargar mi registro (PDF)'));
+  if (t.estado === 'En inspección') return callout('info', 'Siguiente paso: inspección de tu predio', t.agenda ? `Agendada para el ${t.agenda.fecha} con ${esc(t.agenda.inspector)}. Ten a mano tu cédula y permite el acceso al predio.` : `Responsable: ${esc(t.responsable)}.`, bajar('juridico', 'Informe jurídico (PDF)'));
+  if (t.estado === 'En informe técnico') return callout('info', 'Inspección realizada: se elabora el informe técnico', 'No necesitas hacer nada por ahora.', bajar('acta', 'Acta de inspección (PDF)'));
+  if (t.estado === 'Por emitir registro') return callout('info', 'Tu registro está por emitirse', 'El informe técnico fue favorable. Te avisaremos cuando esté firmado.', bajar('tecnico', 'Informe técnico (PDF)'));
   return callout('info', `Siguiente paso: ${esc(e.label)}`, `Responsable: ${esc(t.responsable)}. No necesitas hacer nada por ahora.`);
 }
 function timelineHtml(t, limit) {
@@ -1901,6 +1980,7 @@ function viewExpediente() {
   return `
   ${pageHeader({ back: { label: 'Bandeja', action: "nav('bandeja')" }, kicker: `Expediente ${t.id}`, title: esc(t.productor), subtitle: `${esc(t.tipo)}, ingresado el ${t.fechaIngreso}`,
     actions: `${estadoBadge(t.estado)}<button class="btn btn-secondary" type="button" onclick="descargarExpediente('${t.id}', this)">${icon('download', 16)}Descargar expediente (PDF)</button>` })}
+  ${procesoStepper(t)}
   <div class="split">
     <div class="stack">
       <div class="card">
@@ -1927,41 +2007,303 @@ function viewExpediente() {
           <div><dt>Gravámenes</dt><dd>${predio.gravamenes}</dd></div>` : ''}
         </dl>
       </div>
-      <div class="card">
-        <h2 class="card-title">${icon('pen', 20)}Informe jurídico</h2>
-        ${resuelto ? callout('info', 'Este expediente ya fue resuelto', `Estado actual: ${t.estado}.`) : ''}
-        <div class="form-group" style="margin-top:${resuelto ? '16px' : '0'}"><label class="form-label" for="obsTexto">Observación para el productor</label>
-          <textarea class="input" id="obsTexto" rows="3" placeholder="Por ejemplo: falta el plan de fertilización firmado por el técnico" aria-describedby="obsHelp"></textarea>
-          <p class="form-help" id="obsHelp">Se enviará al productor junto con la notificación.</p></div>
-        <div class="page-actions">
-          <button class="btn btn-success" type="button" onclick="aprobar('${t.id}', this)">${icon('check', 16)}Emitir informe favorable</button>
-          <button class="btn btn-warning" type="button" onclick="observar('${t.id}', this)">${icon('alert-circle', 16)}Notificar observación</button>
-          <button class="btn btn-danger" type="button" onclick="rechazar('${t.id}', this)">${icon('x', 16)}Rechazar</button>
-        </div>
-      </div>
+      ${panelProceso(t)}
     </div>
     <aside class="stack">
       <div class="card">
         <h2 class="card-title card-title--sm">Avance</h2>
         ${progressBar(t.progreso)}<p class="small text-3 num" style="margin-top:8px">${t.progreso}% completado</p>
-        <div style="margin-top:20px">${timelineHtml(t, 4)}</div>
+        <div style="margin-top:20px">${timelineHtml(t)}</div>
       </div>
       ${docsCard(t)}
     </aside>
   </div>`;
 }
-function aprobar(id, btn) {
+/* ======================================================================
+   PROCESO INTERNO COMPLETO (simulado):
+   revisión jurídica → inspección del predio → informe técnico → registro
+   ====================================================================== */
+const INSPECTOR = 'Ing. Andrés Villamar';
+const ANALISTA = 'Abg. Cecilia Andrade';
+const CHECK_INSP = [
+  'La ubicación coincide con la clave catastral',
+  'La superficie sembrada coincide con la declarada',
+  'Los linderos coinciden con el Registro de la Propiedad',
+  'El cultivo corresponde al tipo declarado',
+  'Manejo fitosanitario adecuado, sin plagas cuarentenarias visibles'
+];
+const COORDS = { 'El Oro': [-3.2581, -79.9554], 'Los Ríos': [-1.0225, -79.4604], 'Manabí': [-0.6903, -80.0937], 'Guayas': [-2.1962, -79.8862] };
+const ETAPAS = ['Revisión jurídica', 'Inspección del predio', 'Informe técnico', 'Emisión del registro'];
+function etapaIdx(t) {
+  return { 'En validación': 0, 'Observado': 0, 'En inspección': 1, 'En informe técnico': 2, 'Por emitir registro': 3, 'Emitido': 4, 'Aprobado': 4 }[t.estado] ?? (t.estado === 'Rechazado' ? -1 : 0);
+}
+function numDe(t) { return t.id.split('-').pop(); }
+function sumarDias(iso, n) { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); }
+function codigoVerif(txt) { let h = 2166136261; for (const c of txt) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return ('00000000' + (h >>> 0).toString(16)).slice(-8).toUpperCase(); }
+function notificar(tipo, titulo, mensaje) { NOTIFICACIONES.unshift({ id: Date.now() + Math.random(), tipo, titulo, mensaje, fecha: 'ahora', leida: false }); updateNotifCount(); }
+function marcarPaso(t, re, data) {
+  let i = t.linea.findIndex(l => re.test(l.titulo));
+  if (i < 0) { i = Math.max(0, t.linea.length - 1); t.linea.splice(i, 0, { titulo: data.titulo || '', fecha: '-', desc: '' }); }
+  Object.assign(t.linea[i], data);
+}
+function agregarDocMAG(t, gen, etiqueta, nombre, blob) {
+  t.documentos = (t.documentos || []).filter(d => d.gen !== gen);
+  t.documentos.push({ gen, etiqueta, name: nombre, size: blob.size, type: 'application/pdf', blob, origen: 'MAG', fecha: hoy() });
+}
+function docDe(t, gen) { return (t.documentos || []).find(d => d.gen === gen); }
+async function descargarDocTipo(id, gen, btn) {
+  const t = TRAMITES.find(x => x.id === id), d = t && docDe(t, gen);
+  if (!d) return toast('El documento todavía no ha sido emitido', 'error');
+  if (btn) setBusy(btn, 'Preparando…');
+  const ok = await saveFile(d.blob, d.name);
+  if (btn) clearBusy(btn);
+  if (ok) toast(`Descarga lista: ${d.name}`);
+}
+function verDocTipo(id, gen) { const t = TRAMITES.find(x => x.id === id), d = t && docDe(t, gen); if (d) abrirBlob(d.blob, d.name); }
+
+function procesoStepper(t) {
+  const k = etapaIdx(t);
+  if (k < 0) return `<div style="margin-bottom:20px">${callout('danger', 'Trámite rechazado', 'El proceso se cerró sin emisión del registro. Los documentos emitidos quedan en el expediente.')}</div>`;
+  return `<ol class="stepper" aria-label="Etapas internas del proceso">${ETAPAS.map((l, i) => {
+    const st = i < k ? 'done' : (i === k ? 'active' : '');
+    return `<li class="step ${st}" ${i === k ? 'aria-current="step"' : ''}><span class="step-bar"></span><span class="step-info"><span class="step-num" aria-hidden="true">${i < k ? icon('check', 13) : i + 1}</span><span class="step-label">${l}</span><span class="sr-only">${i < k ? ', completada' : (i === k ? ', etapa actual' : ', pendiente')}</span></span></li>`;
+  }).join('')}</ol>`;
+}
+function stageHead(n, titulo, sub) {
+  return `<div class="stage-head"><span class="stage-num" aria-hidden="true">${n}</span><div><h2 class="card-title" style="margin:0">${titulo}</h2>${sub ? `<p class="small text-3">${sub}</p>` : ''}</div></div>`;
+}
+function panelProceso(t) {
+  const k = etapaIdx(t);
+  if (k === 0) return panelJuridico(t);
+  if (k === 1) return panelInspeccion(t);
+  if (k === 2) return panelTecnico(t);
+  if (k === 3) return panelEmision(t);
+  const reg = docDe(t, 'registro');
+  if (t.estado === 'Rechazado') return `<div class="card">${callout('danger', 'Expediente cerrado: solicitud rechazada', 'No hay acciones pendientes.')}</div>`;
+  return `<div class="card stage-card stage-card--done">${stageHead('✓', 'Proceso completado', t.registro ? `Registro ${t.registro.numero} emitido el ${t.registro.fecha}` : 'Registro emitido')}
+    ${reg ? `<div class="page-actions" style="margin-top:16px"><button class="btn" type="button" onclick="descargarDocTipo('${t.id}','registro',this)">${icon('download', 16)}Descargar registro (PDF)</button><button class="btn btn-secondary" type="button" onclick="verDocTipo('${t.id}','registro')">${icon('eye', 16)}Ver</button></div>` : ''}</div>`;
+}
+
+/* ---------- Etapa 1: revisión jurídica ---------- */
+function panelJuridico(t) {
+  return `<div class="card stage-card">
+    ${stageHead(1, 'Revisión jurídica', t.estado === 'Observado' ? 'Hay una observación abierta. Revisa la respuesta del productor antes de decidir.' : 'Verifica los requisitos y emite el informe jurídico.')}
+    <div style="margin-top:16px">${callout('info', 'Qué sigue', 'Si el informe es favorable, se genera el informe jurídico en PDF y se agenda la inspección del predio.')}</div>
+    <div class="form-group" style="margin-top:16px"><label class="form-label" for="obsTexto">Observación para el productor</label>
+      <textarea class="input" id="obsTexto" rows="3" placeholder="Por ejemplo: falta el plan de fertilización firmado por el técnico" aria-describedby="obsHelp"></textarea>
+      <p class="form-help" id="obsHelp">Solo se usa si notificas una observación.</p></div>
+    <div class="page-actions">
+      <button class="btn btn-success" type="button" onclick="aprobar('${t.id}', this)">${icon('check', 16)}Emitir informe jurídico favorable</button>
+      <button class="btn btn-warning" type="button" onclick="observar('${t.id}', this)">${icon('alert-circle', 16)}Notificar observación</button>
+      <button class="btn btn-danger" type="button" onclick="rechazar('${t.id}', this)">${icon('x', 16)}Rechazar</button>
+    </div></div>`;
+}
+
+/* ---------- Etapa 2: inspección del predio ---------- */
+function panelInspeccion(t) {
+  const c = COORDS[String(t.provincia).trim()] || COORDS['Guayas'];
+  const ag = t.agenda || {};
+  const fotos = state.insFotos || [];
+  return `<div class="card stage-card">
+    ${stageHead(2, 'Inspección del predio', ag.fecha ? `Agendada para el ${ag.fecha} con ${esc(ag.inspector)}` : 'Registra lo verificado en campo.')}
+    <div class="form-row" style="margin-top:20px">
+      <div class="form-group"><label class="form-label" for="insFecha">Fecha de la inspección</label><input class="input" id="insFecha" type="date" value="${hoy()}"></div>
+      <div class="form-group"><label class="form-label" for="insInspector">Inspector responsable</label><input class="input" id="insInspector" type="text" value="${esc(ag.inspector || INSPECTOR)}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label" for="insGps">Coordenadas GPS del predio</label>
+        <div style="display:flex;gap:8px"><input class="input" id="insGps" type="text" value="" placeholder="Latitud, longitud">
+        <button class="btn btn-secondary" type="button" onclick="capturarGps(${c[0]},${c[1]})" aria-label="Capturar ubicación (simulada)">${icon('map', 16)}</button></div>
+        <p class="form-help">Captura simulada a partir de la provincia del predio.</p></div>
+      <div class="form-group"><label class="form-label" for="insSup">Superficie verificada (ha) <span class="req" aria-hidden="true">*</span></label><input class="input" id="insSup" type="number" step="0.1" min="0" value="${t.superficie}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label" for="insCultivo">Cultivo verificado</label><select class="input" id="insCultivo">${['Banano convencional', 'Banano orgánico', 'Plátano barraganete', 'Plátano de exportación'].map(o => `<option ${/org/i.test(t.tipo) && /org/i.test(o) ? 'selected' : ''}>${o}</option>`).join('')}</select></div>
+      <div class="form-group"><label class="form-label" for="insFito">Estado fitosanitario</label><select class="input" id="insFito"><option>Bueno</option><option>Regular</option><option>Deficiente</option></select></div>
+    </div>
+    <fieldset class="checklist"><legend>Lista de verificación en campo <button class="link-btn" type="button" onclick="document.querySelectorAll('.checklist input').forEach(i=>i.checked=true)">Marcar todo</button></legend>
+      ${CHECK_INSP.map((x, i) => `<label class="check-item"><input type="checkbox" id="insC${i}"><span>${x}</span></label>`).join('')}
+    </fieldset>
+    <div class="form-group"><span class="form-label">Evidencias fotográficas (opcional)</span>
+      <div class="upload ${fotos.length ? 'has-file' : ''}"><span class="upload-icon" aria-hidden="true">${icon(fotos.length ? 'check' : 'upload', 20)}</span>
+        <div class="upload-body"><p class="upload-title">Fotos del predio</p><p class="upload-hint">${fotos.length ? fotos.map(f => esc(f.name)).join(', ') : 'JPG o PNG, hasta 5 MB cada una'}</p></div>
+        <div class="upload-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="document.getElementById('insFotosIn').click()">${icon('upload', 15)}${fotos.length ? 'Agregar' : 'Cargar fotos'}</button>
+        <input type="file" id="insFotosIn" class="sr-only" tabindex="-1" aria-hidden="true" accept=".jpg,.jpeg,.png,image/jpeg,image/png" multiple onchange="cargarFotos(this.files); this.value='';"></div></div></div>
+    <fieldset class="radio-cards"><legend class="form-label">Resultado de la inspección <span class="req" aria-hidden="true">*</span></legend>
+      <label class="radio-card"><input type="radio" name="insRes" value="Conforme"><span><strong>Conforme</strong><small>El predio cumple lo verificado</small></span></label>
+      <label class="radio-card"><input type="radio" name="insRes" value="No conforme"><span><strong>No conforme</strong><small>Se notificará una observación</small></span></label>
+    </fieldset>
+    <div class="form-group"><label class="form-label" for="insObs">Observaciones de la inspección</label><textarea class="input" id="insObs" rows="3" placeholder="Hallazgos relevantes en campo"></textarea></div>
+    <div id="insError" aria-live="assertive"></div>
+    <button class="btn btn-success btn-lg" type="button" onclick="registrarInspeccion('${t.id}', this)" style="margin-top:8px">${icon('check', 18)}Registrar inspección y generar acta (PDF)</button>
+  </div>`;
+}
+function capturarGps(lat, lon) {
+  const j = () => (Math.random() - 0.5) * 0.02;
+  document.getElementById('insGps').value = `${(lat + j()).toFixed(5)}, ${(lon + j()).toFixed(5)}`;
+  toast('Ubicación capturada (simulación)');
+}
+function cargarFotos(files) {
+  const ok = [...files].filter(f => /image\/(jpeg|png)/.test(f.type) && f.size <= 5 * 1024 * 1024);
+  if (ok.length < files.length) toast('Algunas fotos se omitieron: solo JPG o PNG de hasta 5 MB', 'error');
+  state.insFotos = (state.insFotos || []).concat(ok);
+  const keep = {}; ['insFecha', 'insInspector', 'insGps', 'insSup', 'insCultivo', 'insFito', 'insObs'].forEach(id => { const el = document.getElementById(id); if (el) keep[id] = el.value; });
+  const checks = CHECK_INSP.map((_, i) => document.getElementById('insC' + i).checked);
+  const res = (document.querySelector('input[name="insRes"]:checked') || {}).value;
+  render();
+  Object.entries(keep).forEach(([id, v]) => { const el = document.getElementById(id); if (el) el.value = v; });
+  checks.forEach((c, i) => { document.getElementById('insC' + i).checked = c; });
+  if (res) document.querySelector(`input[name="insRes"][value="${res}"]`).checked = true;
+  if (ok.length) toast(`${ok.length} ${ok.length === 1 ? 'foto cargada' : 'fotos cargadas'}`);
+}
+async function registrarInspeccion(id, btn) {
   const t = TRAMITES.find(x => x.id === id);
-  t.estado = 'Aprobado'; t.progreso = 100;
-  setBusy(btn, 'Guardando…');
-  toast('Informe emitido y registro aprobado');
-  setTimeout(() => nav('bandeja'), 700);
+  const v = i => (document.getElementById(i) || {}).value || '';
+  const err = document.getElementById('insError');
+  const sup = parseFloat(v('insSup'));
+  const res = (document.querySelector('input[name="insRes"]:checked') || {}).value;
+  const checks = CHECK_INSP.map((x, i) => ({ punto: x, ok: document.getElementById('insC' + i).checked }));
+  if (!sup || sup <= 0) { err.innerHTML = callout('danger', 'Ingresa la superficie verificada', 'Debe ser mayor que 0.'); return document.getElementById('insSup').focus(); }
+  if (!res) { err.innerHTML = callout('danger', 'Selecciona el resultado de la inspección', ''); return document.querySelector('input[name="insRes"]').focus(); }
+  if (res === 'Conforme' && checks.some(c => !c.ok)) { err.innerHTML = callout('danger', 'La lista de verificación está incompleta', 'Para un resultado conforme, todos los puntos deben estar verificados. Si alguno no se cumple, marca “No conforme”.'); return; }
+  if (res === 'No conforme' && !v('insObs').trim()) { err.innerHTML = callout('danger', 'Describe el hallazgo', 'Para un resultado no conforme, la observación es obligatoria: se enviará al productor.'); return document.getElementById('insObs').focus(); }
+  setBusy(btn, 'Generando acta…');
+  await sleep(700);
+  const fotos = state.insFotos || [];
+  t.inspeccion = { numero: 'AI-2026-' + numDe(t), fecha: v('insFecha') || hoy(), inspector: v('insInspector') || INSPECTOR, gps: v('insGps') || 'No registradas',
+    supDeclarada: t.superficie, supVerificada: sup, cultivo: v('insCultivo'), fito: v('insFito'), checks, resultado: res, obs: v('insObs').trim(), fotos: fotos.map(f => f.name) };
+  agregarDocMAG(t, 'acta', 'Acta de inspección del predio', `acta-inspeccion-${t.id}.pdf`, generarPdfActaInspeccion(t));
+  fotos.forEach((f, i) => { t.documentos.push({ gen: 'foto' + i, etiqueta: 'Evidencia fotográfica de la inspección', name: f.name, size: f.size, type: f.type, blob: f, origen: 'MAG', fecha: hoy() }); });
+  state.insFotos = [];
+  marcarPaso(t, /^Inspecci/i, { titulo: 'Inspección de predio realizada', fecha: t.inspeccion.fecha, desc: `${t.inspeccion.inspector}. Resultado: ${res}. Acta ${t.inspeccion.numero}.` });
+  if (res === 'Conforme') {
+    t.estado = 'En informe técnico'; t.progreso = Math.max(t.progreso, 65); t.responsable = t.inspeccion.inspector;
+    notificar('info', 'Inspección realizada', `${t.id}: la inspección de tu predio fue conforme. Se elabora el informe técnico.`);
+    toast('Inspección registrada y acta generada');
+  } else {
+    t.estado = 'Observado';
+    t.observaciones.push({ texto: `Inspección no conforme: ${t.inspeccion.obs}`, fecha: hoy(), autor: t.inspeccion.inspector });
+    notificar('warning', 'Observación en tu trámite', `${t.id}: la inspección encontró una observación que debes atender.`);
+    toast('Inspección no conforme: se notificó la observación');
+  }
+  nav('expediente', { currentTramite: t.id });
+}
+
+/* ---------- Etapa 3: informe técnico ---------- */
+function panelTecnico(t) {
+  const ins = t.inspeccion;
+  if (!ins) return `<div class="card">${callout('warning', 'Falta el acta de inspección', 'Este expediente no tiene una inspección registrada.')}</div>`;
+  const dif = ((ins.supVerificada - ins.supDeclarada) / ins.supDeclarada * 100);
+  const concl = `Según la inspección del ${ins.fecha}, el predio ${t.predio} (${ins.supVerificada} ha de ${ins.cultivo.toLowerCase()}) cumple las condiciones verificadas en campo. Estado fitosanitario: ${ins.fito.toLowerCase()}.`;
+  return `<div class="card stage-card">
+    ${stageHead(3, 'Informe técnico', 'Analiza el acta de inspección y emite la recomendación técnica.')}
+    <dl class="data-grid" style="margin-top:20px">
+      <div><dt>Acta</dt><dd>${ins.numero}, ${ins.fecha}</dd></div><div><dt>Inspector</dt><dd>${esc(ins.inspector)}</dd></div>
+      <div><dt>Superficie declarada / verificada</dt><dd>${ins.supDeclarada} ha / ${ins.supVerificada} ha (${dif >= 0 ? '+' : ''}${dif.toFixed(1)}%)</dd></div>
+      <div><dt>Cultivo y estado fitosanitario</dt><dd>${esc(ins.cultivo)}, ${esc(ins.fito)}</dd></div>
+      <div><dt>Puntos verificados</dt><dd>${ins.checks.filter(c => c.ok).length} de ${ins.checks.length}</dd></div><div><dt>Resultado</dt><dd>${ins.resultado}</dd></div>
+    </dl>
+    <div class="page-actions" style="margin:16px 0 4px"><button class="btn btn-secondary btn-sm" type="button" onclick="verDocTipo('${t.id}','acta')">${icon('eye', 15)}Ver acta de inspección</button></div>
+    ${Math.abs(dif) > 10 ? `<div style="margin-top:12px">${callout('warning', 'Diferencia de superficie mayor al 10%', 'Considéralo en la conclusión técnica.')}</div>` : ''}
+    <div class="form-group" style="margin-top:16px"><label class="form-label" for="tecConcl">Conclusión técnica</label><textarea class="input" id="tecConcl" rows="4">${esc(concl)}</textarea></div>
+    <fieldset class="radio-cards"><legend class="form-label">Recomendación <span class="req" aria-hidden="true">*</span></legend>
+      <label class="radio-card"><input type="radio" name="tecRec" value="Favorable" checked><span><strong>Favorable</strong><small>Pasa a emisión del registro</small></span></label>
+      <label class="radio-card"><input type="radio" name="tecRec" value="No favorable"><span><strong>No favorable</strong><small>Se rechaza la solicitud</small></span></label>
+    </fieldset>
+    <button class="btn btn-success btn-lg" type="button" onclick="emitirInformeTecnico('${t.id}', this)" style="margin-top:8px">${icon('file-text', 18)}Emitir informe técnico (PDF)</button>
+  </div>`;
+}
+async function emitirInformeTecnico(id, btn) {
+  const t = TRAMITES.find(x => x.id === id);
+  const concl = (document.getElementById('tecConcl').value || '').trim();
+  const rec = (document.querySelector('input[name="tecRec"]:checked') || {}).value;
+  if (!concl) return toast('Escribe la conclusión técnica', 'error');
+  setBusy(btn, 'Generando informe…');
+  await sleep(700);
+  t.informeTecnico = { numero: 'IT-2026-' + numDe(t), fecha: hoy(), autor: (t.inspeccion && t.inspeccion.inspector) || INSPECTOR, conclusion: concl, recomendacion: rec };
+  agregarDocMAG(t, 'tecnico', 'Informe técnico', `informe-tecnico-${t.id}.pdf`, generarPdfInformeTecnico(t));
+  marcarPaso(t, /t[ée]cnico/i, { titulo: 'Informe técnico emitido', fecha: hoy(), desc: `Recomendación ${rec.toLowerCase()}. ${t.informeTecnico.numero}.` });
+  if (rec === 'Favorable') {
+    t.estado = 'Por emitir registro'; t.progreso = Math.max(t.progreso, 85);
+    notificar('info', 'Informe técnico favorable', `${t.id}: tu registro está listo para emitirse.`);
+    toast('Informe técnico emitido. El expediente pasa a emisión del registro');
+  } else {
+    t.estado = 'Rechazado'; t.progreso = 100;
+    notificar('warning', 'Solicitud rechazada', `${t.id}: el informe técnico no fue favorable. Descarga el informe para conocer el motivo.`);
+    toast('Informe técnico no favorable: solicitud rechazada');
+  }
+  nav('expediente', { currentTramite: t.id });
+}
+
+/* ---------- Etapa 4: emisión del registro ---------- */
+function panelEmision(t) {
+  const num = 'REG-MUS-2026-' + numDe(t);
+  const ok = [['Informe jurídico favorable', !!docDe(t, 'juridico') || t.linea.some(l => /jur[ií]dico/i.test(l.titulo) && l.fecha !== '-')],
+              ['Acta de inspección conforme', !!docDe(t, 'acta')], ['Informe técnico favorable', !!docDe(t, 'tecnico')]];
+  return `<div class="card stage-card">
+    ${stageHead(4, 'Emisión del registro', 'Revisa el expediente y firma electrónicamente el registro.')}
+    <ul class="interop-list" style="margin-top:16px">${ok.map(([l, v]) => `<li class="interop-item ${v ? 'is-ok' : 'is-warn'}" style="padding-inline:0"><span class="dot" aria-hidden="true"></span><span class="interop-name">${l}</span><span class="status">${v ? `<span class="badge badge-success">${icon('check', 13)}Listo</span>` : `<span class="badge badge-warning">${icon('alert-circle', 13)}Pendiente</span>`}</span></li>`).join('')}</ul>
+    <dl class="data-grid" style="margin-top:16px">
+      <div><dt>Número de registro</dt><dd class="num">${num}</dd></div><div><dt>Titular</dt><dd>${esc(t.productor)}</dd></div>
+      <div><dt>Predio</dt><dd class="num">${t.predio}</dd></div><div><dt>Superficie y cultivo</dt><dd>${t.inspeccion ? t.inspeccion.supVerificada : t.superficie} ha, ${esc(t.inspeccion ? t.inspeccion.cultivo : 'banano')}</dd></div>
+    </dl>
+    <div class="form-group" style="margin-top:16px"><label class="form-label" for="regFirma">Clave de firma electrónica institucional</label><input class="input" id="regFirma" type="password" value="demo1234" autocomplete="off" aria-describedby="regFirmaHelp"><p class="form-help" id="regFirmaHelp">En la demostración la clave ya está completada.</p></div>
+    <button class="btn btn-success btn-lg" type="button" onclick="emitirRegistro('${t.id}', this)">${icon('pen', 18)}Firmar y emitir registro (PDF)</button>
+  </div>`;
+}
+async function emitirRegistro(id, btn) {
+  const t = TRAMITES.find(x => x.id === id);
+  if (!document.getElementById('regFirma').value) return toast('Ingresa la clave de firma electrónica', 'error');
+  setBusy(btn, 'Firmando registro…');
+  await sleep(900);
+  emitirRegistroDatos(t, hoy());
+  notificar('success', 'Registro emitido', `${t.id}: tu registro de productor fue emitido. Ya puedes descargarlo.`);
+  toast('Registro emitido y notificado al productor');
+  nav('expediente', { currentTramite: t.id });
+}
+function emitirRegistroDatos(t, fecha) {
+  t.registro = { numero: 'REG-MUS-2026-' + numDe(t), fecha, firmante: 'Dirección de Gestión de Musáceas', codigo: codigoVerif(t.id + fecha) };
+  agregarDocMAG(t, 'registro', 'Registro de productor', `registro-productor-${t.id}.pdf`, generarPdfRegistro(t));
+  marcarPaso(t, /^Registro emitido/i, { titulo: 'Registro emitido', fecha, desc: `${t.registro.numero}. Firmado electrónicamente y notificado.` });
+  t.estado = 'Emitido'; t.progreso = 100;
+}
+
+/* ---------- Datos de demostración: un trámite con el proceso completo ---------- */
+function sembrarDemo() {
+  const t = TRAMITES.find(x => x.id === 'MAG-2026-000839');
+  if (!t || t.registro) return;
+  t.informeJuridico = { numero: 'IJ-2026-000839', fecha: '2026-09-16', autor: ANALISTA };
+  agregarDocMAG(t, 'juridico', 'Informe jurídico', 'informe-juridico-MAG-2026-000839.pdf', generarPdfInformeJuridico(t));
+  t.inspeccion = { numero: 'AI-2026-000839', fecha: '2026-09-19', inspector: INSPECTOR, gps: '-1.02311, -79.46102', supDeclarada: 42, supVerificada: 42, cultivo: 'Plátano de exportación', fito: 'Bueno',
+    checks: CHECK_INSP.map(x => ({ punto: x, ok: true })), resultado: 'Conforme', obs: 'Predio conforme.', fotos: [] };
+  agregarDocMAG(t, 'acta', 'Acta de inspección del predio', 'acta-inspeccion-MAG-2026-000839.pdf', generarPdfActaInspeccion(t));
+  t.informeTecnico = { numero: 'IT-2026-000839', fecha: '2026-09-19', autor: INSPECTOR, conclusion: 'El predio cumple las condiciones verificadas en campo. Estado fitosanitario: bueno.', recomendacion: 'Favorable' };
+  agregarDocMAG(t, 'tecnico', 'Informe técnico', 'informe-tecnico-MAG-2026-000839.pdf', generarPdfInformeTecnico(t));
+  emitirRegistroDatos(t, '2026-09-20');
+  t.linea.forEach(l => { if (l.fecha === '-') l.fecha = '2026-09-20'; });
+}
+
+async function aprobar(id, btn) {
+  const t = TRAMITES.find(x => x.id === id);
+  setBusy(btn, 'Generando informe…');
+  await sleep(600);
+  const fInsp = sumarDias(hoy(), 5);
+  t.informeJuridico = { numero: 'IJ-2026-' + numDe(t), fecha: hoy(), autor: ANALISTA };
+  t.agenda = { fecha: fInsp, inspector: INSPECTOR };
+  agregarDocMAG(t, 'juridico', 'Informe jurídico', `informe-juridico-${t.id}.pdf`, generarPdfInformeJuridico(t));
+  marcarPaso(t, /jur[ií]dico/i, { titulo: 'Informe jurídico emitido', fecha: hoy(), desc: `Favorable: cumple los requisitos documentales. ${t.informeJuridico.numero}.` });
+  marcarPaso(t, /^Inspecci/i, { titulo: 'Inspección de predio agendada', fecha: '-', desc: `Agendada para el ${fInsp} con ${INSPECTOR}.` });
+  t.estado = 'En inspección'; t.progreso = Math.max(t.progreso, 45); t.responsable = INSPECTOR;
+  notificar('info', 'Inspección agendada', `${t.id}: tu informe jurídico es favorable. Inspección del predio el ${fInsp}.`);
+  toast('Informe jurídico favorable emitido. Inspección agendada');
+  nav('expediente', { currentTramite: t.id });
 }
 function observar(id, btn) {
   const t = TRAMITES.find(x => x.id === id);
   const ta = document.getElementById('obsTexto');
   const txt = ta ? ta.value.trim() : '';
-  if (txt) t.observaciones.push({ texto: txt, fecha: hoy(), autor: 'Funcionario MAG' });
+  t.observaciones.push({ texto: txt || 'Revise y complete la documentación del expediente.', fecha: hoy(), autor: ANALISTA });
+  notificar('warning', 'Observación en tu trámite', `${t.id}: tienes una observación por responder.`);
   t.estado = 'Observado';
   setBusy(btn, 'Notificando…');
   toast('Observación notificada al productor');
@@ -2123,7 +2465,7 @@ const PDF = (() => {
         lines.forEach(l => { d.text(M, d.y - 19, l, { size: 19, bold: true, color: C.dark }); d.y -= 25; });
         if (sub) d.para(sub, { size: 10.5, color: C.ink2 }); d.y -= 6;
       },
-      heading(s) { d.ensure(44); d.y -= 14; d.text(M, d.y - 11, s, { size: 11.5, bold: true, color: C.green }); d.y -= 18; d.line(M, d.y, W - M, d.y, '#CDE5D6', 0.8); d.y -= 12; },
+      heading(s) { d.ensure(44); d.y -= 9; d.text(M, d.y - 11, s, { size: 11.5, bold: true, color: C.green }); d.y -= 18; d.line(M, d.y, W - M, d.y, '#CDE5D6', 0.8); d.y -= 12; },
       para(s, o) {
         o = o || {}; const size = o.size || 10, indent = o.indent || 0;
         wrap(s, size, W - 2 * M - indent, o.bold).forEach(l => { d.ensure(size + 6); d.text(M + indent, d.y - size, l, { size, color: o.color || C.ink2, bold: o.bold }); d.y -= size + 4.5; });
@@ -2142,7 +2484,7 @@ const PDF = (() => {
         const T = W - 2 * M, xs = []; let acc = M; cols.forEach(c => { xs.push(acc); acc += c.w * T; });
         const head = () => { d.ensure(28); d.rect(M, d.y - 22, T, 22, C.soft); cols.forEach((c, i) => d.text(xs[i] + 7, d.y - 14.5, c.h, { size: 8.5, bold: true, color: C.green })); d.y -= 22; };
         head();
-        rows.forEach(r => { if (d.y - 24 < M + 30) { d.addPage(); head(); } r.forEach((v, i) => d.text(xs[i] + 7, d.y - 15, fit(v, 9.5, cols[i].w * T - 14), { size: 9.5 })); d.y -= 24; d.line(M, d.y, M + T, d.y); });
+        rows.forEach(r => { if (d.y - 21 < M + 30) { d.addPage(); head(); } r.forEach((v, i) => d.text(xs[i] + 7, d.y - 13.5, fit(v, 9.5, cols[i].w * T - 14), { size: 9.5 })); d.y -= 21; d.line(M, d.y, M + T, d.y); });
         d.y -= 6;
       },
       finish() {
@@ -2231,6 +2573,102 @@ function generarPdfExpediente(t) {
   pdfDocs(d, t);
   return d.finish();
 }
+/* ---------- PDF de cada etapa del proceso (simulados) ---------- */
+function pdfFirma(d, nombre, cargo) {
+  d.ensure(58); d.gap(22);
+  d.line(d.M, d.y, d.M + 200, d.y, '#45514A', 0.6); d.gap(13);
+  d.text(d.M, d.y, nombre, { size: 10, bold: true }); d.gap(13);
+  d.text(d.M, d.y, cargo, { size: 9, color: d.C.ink3 }); d.gap(12);
+  d.text(d.M, d.y, 'Firmado electrónicamente (simulación del prototipo)', { size: 8.5, color: d.C.ink3 }); d.gap(10);
+}
+function pdfDatosTramite(d, t) {
+  d.heading('Datos del trámite');
+  d.kv([['Trámite', `${t.id}, ${t.tipo}`], ['Productor', t.productor], ['Cédula', t.cedula], ['Clave catastral del predio', t.predio], ['Superficie declarada', `${t.superficie} ha`], ['Provincia', t.provincia]]);
+}
+function generarPdfInformeJuridico(t) {
+  const ij = t.informeJuridico, d = PDF.create({ title: `Informe jurídico ${ij.numero}`, docType: 'INFORME JURÍDICO' });
+  d.title('Informe jurídico', `N.º ${ij.numero}. Fecha: ${ij.fecha}.`);
+  pdfDatosTramite(d, t);
+  const iess = DB.iess[t.cedula], ag = DB.agrocalidad[t.cedula], pr = Object.values(DB.registroPropiedad).find(p => p.claveCatastral === t.predio);
+  d.heading('Análisis de requisitos');
+  d.table([{ h: 'Requisito', w: .38 }, { h: 'Fuente', w: .32 }, { h: 'Resultado', w: .3 }], [
+    ['Identidad del solicitante', 'Registro Civil (interoperabilidad)', 'Verificado'],
+    ['RUC activo', 'SRI (interoperabilidad)', 'Verificado'],
+    ['Afiliación a la seguridad social', 'IESS (interoperabilidad)', iess && iess.afiliada ? 'Activa' : 'Sin afiliación (informativo)'],
+    ['Titularidad del predio', 'Registro de la Propiedad', pr ? 'Titular confirmado' : 'Por validar'],
+    ['Certificación fitosanitaria', 'Agrocalidad (interoperabilidad)', ag ? `Vigente hasta ${ag.fechaVigencia}` : 'No registrada'],
+    ['Documentos cargados', 'Productor', (t.documentos || []).some(x => x.origen === 'Productor') ? 'Recibidos' : 'Sin archivos'],
+  ]);
+  d.heading('Conclusión');
+  d.para('FAVORABLE. La solicitud cumple los requisitos documentales verificados. Se dispone la inspección técnica del predio' + (t.agenda ? ` para el ${t.agenda.fecha}, a cargo de ${t.agenda.inspector}.` : '.'), { size: 10.5, color: d.C.ink });
+  pdfFirma(d, ij.autor, 'Analista jurídica, Dirección de Gestión de Musáceas');
+  return d.finish();
+}
+function generarPdfActaInspeccion(t) {
+  const i = t.inspeccion, d = PDF.create({ title: `Acta de inspección ${i.numero}`, docType: 'ACTA DE INSPECCIÓN' });
+  const pr = Object.values(DB.registroPropiedad).find(p => p.claveCatastral === t.predio);
+  d.title('Acta de inspección del predio', `N.º ${i.numero}. Fecha de la inspección: ${i.fecha}.`);
+  d.heading('Identificación');
+  d.kv([['Trámite', t.id], ['Productor', t.productor], ['Clave catastral', t.predio], ['Ubicación', pr ? pr.ubicacion : t.provincia], ['Inspector responsable', i.inspector], ['Coordenadas GPS', i.gps]]);
+  d.heading('Verificación en campo');
+  d.table([{ h: 'Punto verificado', w: .78 }, { h: 'Resultado', w: .22 }], i.checks.map(c => [c.punto, c.ok ? 'Cumple' : 'No cumple']));
+  const dif = ((i.supVerificada - i.supDeclarada) / i.supDeclarada * 100);
+  d.heading('Mediciones y observaciones');
+  d.kv([['Superficie declarada', `${i.supDeclarada} ha`], ['Superficie verificada', `${i.supVerificada} ha (${dif >= 0 ? '+' : ''}${dif.toFixed(1)}%)`], ['Cultivo verificado', i.cultivo], ['Estado fitosanitario', i.fito],
+        ['Evidencias fotográficas', i.fotos.length ? `${i.fotos.length} archivo(s)` : 'No se adjuntaron'], ['Observaciones', i.obs || 'Sin observaciones']]);
+  d.heading('Resultado');
+  d.ensure(36); d.rect(d.M, d.y - 30, d.W - 2 * d.M, 30, i.resultado === 'Conforme' ? '#E3F2E8' : '#FDECEA');
+  d.text(d.M + 14, d.y - 19.5, `INSPECCIÓN ${i.resultado.toUpperCase()}`, { size: 12, bold: true, color: i.resultado === 'Conforme' ? '#1B6E41' : '#B42318' }); d.gap(38);
+  pdfFirma(d, i.inspector, 'Técnico inspector, Dirección de Gestión de Musáceas');
+  return d.finish();
+}
+function generarPdfInformeTecnico(t) {
+  const it = t.informeTecnico, i = t.inspeccion, d = PDF.create({ title: `Informe técnico ${it.numero}`, docType: 'INFORME TÉCNICO' });
+  d.title('Informe técnico', `N.º ${it.numero}. Fecha: ${it.fecha}.`);
+  pdfDatosTramite(d, t);
+  d.heading('Antecedentes');
+  d.para(`Informe jurídico ${t.informeJuridico ? t.informeJuridico.numero + ' (' + t.informeJuridico.fecha + ')' : 'favorable'}; acta de inspección ${i ? i.numero + ' del ' + i.fecha : ''}.`, { size: 10 });
+  if (i) {
+    d.heading('Resultados de la inspección');
+    d.table([{ h: 'Aspecto', w: .45 }, { h: 'Declarado', w: .27 }, { h: 'Verificado', w: .28 }], [
+      ['Superficie sembrada', `${i.supDeclarada} ha`, `${i.supVerificada} ha`], ['Cultivo', t.cultivo || 'No declarado', i.cultivo], ['Estado fitosanitario', '-', i.fito],
+      ['Puntos de verificación cumplidos', '-', `${i.checks.filter(c => c.ok).length} de ${i.checks.length}`], ['Resultado de la inspección', '-', i.resultado]]);
+  }
+  d.heading('Conclusión técnica'); d.para(it.conclusion, { size: 10.5, color: d.C.ink });
+  d.heading('Recomendación');
+  d.ensure(40); d.rect(d.M, d.y - 30, d.W - 2 * d.M, 30, it.recomendacion === 'Favorable' ? '#E3F2E8' : '#FDECEA');
+  d.text(d.M + 14, d.y - 19.5, it.recomendacion === 'Favorable' ? 'FAVORABLE: se recomienda emitir el registro de productor.' : 'NO FAVORABLE: no se recomienda emitir el registro.', { size: 11, bold: true, color: it.recomendacion === 'Favorable' ? '#1B6E41' : '#B42318' }); d.gap(38);
+  pdfFirma(d, it.autor, 'Técnico inspector, Dirección de Gestión de Musáceas');
+  return d.finish();
+}
+function generarPdfRegistro(t) {
+  const r = t.registro, i = t.inspeccion || {}, d = PDF.create({ title: `Registro ${r.numero}`, docType: 'REGISTRO DE PRODUCTOR' });
+  const W = d.W, M = d.M, sri = DB.sri[t.cedula + '001'], pr = Object.values(DB.registroPropiedad).find(p => p.claveCatastral === t.predio);
+  d.raw(`q 0.93 0.95 0.93 rg BT /F2 72 Tf 0.819 0.574 -0.574 0.819 150 260 Tm (SIMULACION) Tj ET Q`);
+  const top = d.y + 8, box = 520;
+  d.raw(`0.114 0.337 0.220 RG 1.6 w ${M} ${top - box} ${W - 2 * M} ${box} re S`);
+  d.raw(`0.949 0.761 0.188 RG 0.8 w ${M + 6} ${top - box + 6} ${W - 2 * M - 12} ${box - 12} re S`);
+  let y = top - 40;
+  const c = (txt, o) => { d.text(W / 2, y, txt, Object.assign({ align: 'center' }, o)); };
+  c('Ministerio de Agricultura y Ganadería · Dirección de Gestión de Musáceas', { size: 9.5, color: d.C.ink3 }); y -= 34;
+  c('REGISTRO DE PRODUCTOR DE MUSÁCEAS', { size: 19, bold: true, color: d.C.dark }); y -= 22;
+  c(`N.º ${r.numero}`, { size: 13, bold: true, color: d.C.green }); y -= 40;
+  c('Se certifica que', { size: 10.5, color: d.C.ink2 }); y -= 26;
+  c(t.productor.toUpperCase(), { size: 16, bold: true }); y -= 18;
+  c(`Cédula ${t.cedula}${sri ? '   ·   RUC ' + sri.ruc : ''}`, { size: 10, color: d.C.ink2 }); y -= 30;
+  c(`se encuentra registrado/a como productor/a de ${(i.cultivo || 'musáceas').toLowerCase()}`, { size: 11 }); y -= 16;
+  c(`en el predio ${t.predio}${pr ? ', ' + pr.ubicacion : ''},`, { size: 11 }); y -= 16;
+  c(`con una superficie verificada de ${i.supVerificada || t.superficie} hectáreas.`, { size: 11 }); y -= 40;
+  const col = (x, lab, val) => { d.text(x, y, lab, { size: 8.5, color: d.C.ink3, align: 'center' }); d.text(x, y - 15, val, { size: 10.5, bold: true, align: 'center' }); };
+  col(W * 0.28, 'Fecha de emisión', r.fecha); col(W * 0.5, 'Trámite', t.id); col(W * 0.72, 'Código de verificación', r.codigo); y -= 60;
+  d.line(W / 2 - 110, y, W / 2 + 110, y, '#45514A', 0.6); y -= 14;
+  c(r.firmante, { size: 10, bold: true }); y -= 13;
+  c('Firmado electrónicamente (simulación del prototipo)', { size: 8.5, color: d.C.ink3 });
+  d.y = top - box - 24;
+  d.para('Vigencia y condiciones: conforme a la normativa vigente del sector bananero. Documento generado por el prototipo académico AgroRegistro 360 con datos ficticios; no tiene validez oficial.', { size: 8.5, color: d.C.ink3 });
+  return d.finish();
+}
+
 function generarPdfComprobante(t) {
   const d = PDF.create({ title: `Comprobante ${t.id}`, docType: 'COMPROBANTE' });
   d.title('Comprobante de solicitud', 'La solicitud fue recibida y firmada electrónicamente (simulación del prototipo).');
@@ -2377,8 +2815,155 @@ function icon(name, size) {
 }
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+/* ======================================================================
+   ASISTENTE VIRTUAL "DON AGRO" (reglas locales, sin servicios externos)
+   ====================================================================== */
+const BOT_IMG = 'data:image/webp;base64,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';
+const BOT_FULL = 'data:image/webp;base64,UklGRswmAABXRUJQVlA4IMAmAAAQmwCdASrpALgBPm0ylUgkIqIhJtKKsIANiWVu4XKQ8F8dcjIfp3+f/j/TCt/w9Lo34V8r/j+tH9Tb4bzTebL5xHpVdW1vUWQoecP8B6N/Hn9d4j+Tb2P+9fup8Xd8/tO1MvnX4N/g/3z2nfz3fj8jtQX8k/oX+434+4XoEe5H2T/eeoh9n5t/w3+V/53uAfrR/tvLM8LygF/Mf7j/zf73/kvcz/7v9d6Lfp3/1f574Dv55/c/+x/gPbQ9kn7pf//3Rf2+/+pfecTMvkfdQUWPn+umXHbiQFUxrQ7uhmGUjI1IakdfuNcfscb0+6dBkh8k5CCR5xfFTJNSOvQw5XMXzrN8FIJu4gTS0M9CEm7VabE8VO2a/DF8UJ6Lj90y4lau7htLkbudEJNRuEJU5mrc2J74fomk2gtQuscsYZSA4RLEM8mldYOZ2R751T2NLrHSG3rLss9Qqr//R18UYt73zk4l3uI0jgmn/1uDlS50r9R0R395yxmBDgvtGtQ2JIKAY9m2oQgsC2z9oYureKGFUc3H+g87LDll0vT8JeqWw9phNenZI6JaF4Hk3cfx//6L9woUnMTo3kHCk35TmuROiq6sE+ZrMP1TMWe5WqrtqPHyIYe97imhPOa/Cy42z8xlFcVJsLGBs5lxqumroh+6pGbS1djWDiY5cZGvoY6fyzmuSvd78ILhAcrxTxR+H5nuLH8S1OMuL76T9+k51astko3KoCX1Pm3Zil81+q0Zf1Q8SQ7K9wPOxKw/x99EHLfU5rdoR0msaAqwJBVH5zcl0UqnuQOC8ijJvsGMvzi47sC0YCeowJXR6/37wgWZG+asR7goz6gkoUPx9c5pyJ4E4MlOelYWRTUoaIuZERFLmkVuLHVSxxJ19hry385mRWd+25DmqZmTsE/q0rS7iP76N1IiHUFqz0E4vtC4XMTg/CvF6L6a+jvLrsLXuv4qq8id0OGJcFbAUP3BZYl5hbLHlmGPCYetqaIq2MEef5l8UODPVpWRL3Yh6FzV9DJn5LdsgX5CeOLDOoYWSJCM1RGdY8zSWogJjFOsI88I4KGwkcmw1NeFfUU1IgbPGFQlH1+AoqX3KCrgInTgwC+ux4vwMLCTgj4jK2NwzJdTsHkjRYbXp1Rhv2kbWfIfnF09OKaDwkj1tAavybzXLo73/+gZgrNYre9CUNTOmEebZ0ud1Z0/2bjfv8/JP09p3cE9cxqh1/wgrZmSYVeGqUog9jJTBIbvPVWxcTNbDEMAd3gfxdSIh6GMbAKEEY5E9sI1n8bU8nE/80c7dsRWuCSxD0moV/sbBjS9Pv/q7SQyZVpFlb1x7SahZFKrb0Lkv7VCq2dSA74lXJRcahZFLA4Z1Tjg6NizxA8Sb3Y04muqPP4qtJqCphnTlabgbMOnUx6PvhbRNSFAYsR0VnnF1IiCMr+c76Ea8WtIT7tFAwfkf9pr47moWRSxBJ4oqqLEnkVZN30NusDrv4qtJqCyxsXm/InSWvTlJmrg0PM6eLX6/FnmcFYdNHvP9siAxVh61DSc1vbGcohITHhLJ27uUYwJG+A2PQHVKnzcvq2ZhAOJN9sn+2RBCbQ06iq38mOcfoG9NWoUI++g4z50RnXJd/z/1s1Xx21xk49eNJWkju6fxVaTc9vx3hzFcfH4x30tC8mYdj2AAP7/foDjVzdfken/oyjOkp733Rve/BpSzUT//Xz9LIeicU+LPtH5dWxe6q+s10GTddBjVxI4S+G+/4WME27V0F+YUeKVr5NYhb1AwZpImRClk3rg9GMGixXHkCH0NYGX4pCk8dv/5adxzIpXzoj/8Nl0CynTObfJ1Byt+rmAmRplJp/RV351GSMc2ibdOkP3wIEzLyTzfW6ZrsJI6OCzp8ZJvmkvygElJu3+0YtABpueCAUGhvEDOAdjsEX8u0irY5nqwgp23vN9QK1+eec5MvdC6/jQDwlfzP79YUyrC5Z9oWTrs12XzFLMlKEZEm8QquCBiakAlGyn8m49/utBTx3HpaR3wsO398i9JHLIRkSRvjfLO1j7VfPKe+zDctXaXPsw3nSQcNxeRWh1Ug+D3IUxZt+XBZTC2YWq646XbHznyCNVg/kExRf5VftiUkohb3AriJ8kDYJdQnMRTe2Oq+H3AaIdaCrEOWyq/ktmJPW3qzaGb9NBHpkV7XlOl4se9LTnw76JBj4kPgnGgDMjVj417fZlmMV/39uPLXODW9SyuP9/Ple+Y5nf5N8pjX72KkbllV5S4UusjAttC8YcIqBcEn3LoNOCn1lOalOjpxC6D+myr1yzSJ7+nT5CppBFUe7MHDshNQOWMnR/yt0zQDJ7sI/+ilAMuOFT1mjzz6NxblZx9jeL/VhU60E2ltz9JDNZMe0Z94i2wtcaox1UDKkQFZGIzsDQgm4tGvA++kE+Mf3UNBG5djdfwnew5nXqF3NNZQRlD9OfrOayRUPnxE3nRZIDMRnFsNxcArBqC3omFL1Q3jeAu+QmMq9sZs+nlaQHuroZPItwzQX6N38i/6iSQtsWSGwy9Ok+wT2NeZUvCX2cUhvFHqfA6uu8aEqyqm+MPkrd3+wOQLMkFONu9+aTjMtUQQkvD4e0x/OQgVuM5168uLJHGUANBLEbq6IwraisBpbC3mNrV7vlVEubEthFwOzwlS1+Eu2pTP335QzWwmvhp9PRJaYmZzGahlanALl7UoXb1ijXnZ9TDRw5B6EO679Gph+8W2iTvNc+BGa8Orztr5enCIu7bpt1CJSlasxm11OHtC2rsUlVMpMsHDbFNorHPkQGjdrGjtRCnkbiAoQd6OwRaYbBWIhjJq1yFagK2fejAvcTpSbU/ossLtwcHjg7IUyfPW32vRdKV1DEhFX+uDNMbggONc3jDRH+XS7b2pSYjn7vxXq/a5aliIVlYSZGwN3S9gYSnJVHJMwWJi3R5c6rj8LqAEJCuoLujd/vKLo7cIDNxAzk8rnI8RhWCx2T5jj3D6GwDuHBmzXUzEx7+9b0SyXAy7BLkTFU8XmxV7UIWd9I9npwjdrl/Pki4PWpekK3hHjLhD6u1e/JmawJYddVH0X0sYnS6uxX+BL8ZYega1UuhVWCYpIm5cvyu0VFWZllCDIP74ubNJSRWsYQ6lYDRMUimTfbKO0VMgeLAtkyeEGmEt835TWGVP/uLLhMH2Y7GUIPDWHsA8PCBL+FuSpmFxdS/m6JZPOtg+Mv09sPnHG896uicczLu6s5Leycmw/CU4jmor2iLlumTPePdLeD5Hio4OpcBgXSiH8EVitUVzpM0/oTLrwbrEe4TnFpXJMLmBKwQzTYpZ+kRCy6Yfp3LTcYpy3PT9HuFPAcJvsPga4/NVD2SDOXAsEZZVdsZXhySNF2YNrcTzFuJLfoCc/qXwEEWAnxtYv5xtryV+9Xcp4VX6Vuex5FdQwkasHJsfQXmvJRuf+fpFqoQ/uoXA3Z8cMQZWizQI2ADdb84P0dtiCuhCzQkukA7/pnobCU3QzqsngoZGpudc83thQdZiDAQ8FWYR4r//rN4rCozEBzPRXhHBQheHAHBwIfSb+3RF+DEVSvim9YziOLGRfoyi5FNY3d8UtReCG5o1fm497a/LbZbgVxtLs3p9SRB27y38h5oDpbjc1eAPjxWwW+msBkCP88SXXbgIfDa7cSt/fbD0aqh15lJqhAI8hH32PqiLQRrGRgaFDZQMkcuzDV69Djt5SzaUYMN2QO3MVwW0OYohZafdilnnqeZGZE+sQdlRaK6smdvI955yDlbVwEov7X2qjOt40cRVNUbGKyjbJj56Lmy0UqXW08ex92Ye46EGuKcR6fouhF9YhOrGVAvtHRZnn6ob4xWNclVGp//bI0JiPxSfVf7bhmenU8N85GQWsy9XlPalB/o3B6gqchGzvMnNg58RVJ7ELM3ZXg9BxCn55Z++7ZzYjYDnKk5A2K7S49R+x5LHG3XdpB9tQhJzxj71SuEGrsVOdHJe24stDZtv85CtBTU6FWQsnba7k8DMTIiQx4nRH/3aC+G+srNIogakgkS45aaNADY4DDhQeEwcEkkO1ViSsGXQVMTbjNlMSd2Vr7PV4yUiWPNvJ25ZRb1KZEIYdbBNrft9VR29hz2BwX1tJlAxXsXwnKVnmYtPZSe2bU54ddICu7TmnYFcePFE2/gkELf9+6I8QHNJ8nLh2+hWcl9CDrg2jYhr3zIxtfzldA3btanrXfzzTJM+7zleW9Y9AgXSeZKJOo02MapIZi0l2Dcgp1BsedGkEPQWdE3sbp2hKFo6vFKnjfCpsBqZkjAxFLOl6AjBUoe6TORd4N2lhNMYVoQy9ZrD+RPd1Ge8NKN2SxzVj0h9SZ06QdCgaF/ufcHWlRCsA4wIXvzIUpqxSA9K9Nd4TM6ysjDVOBYZPP8SkijbIcKOdk7DNWNgAlkpDlRojch4VC/ltoG3cSEUyikdc0j1HWDxqS7carYwqBS6zXLXXzseqAka5TAuMDAGpxf3xJnW1Ouoq148LjVgGfvwDB3mHUFK3wt5MmFIEMNhKrqE1QZ1ehKIPMC5xXeBs/F0Y65PmJefKx5leDLYVtd0zMmNJ357H/9zGDyUsK9PjDzZy4Nv/Nt0t/D6cqhsRMDrxdWz+bDoorqBpq7JT/5V0sNy/m8rlNyZ3wmBFKsFWSlviZX3W5EULsTi6ypOslJjHIQ6R6tSR+yFTCDGcEXS9WhBQK5nhcWzTZ+o4c0ZyQrRMEMAAQkZUj95A6GMb6EBlTSb3rhifeghSgjGIbfMQ3VEg5LBdjhlsBZ46qTaYs8il5O95UWjjQ28az7Lvtlfbh1nRfQSFmy1tfwGLkNf/kOU3MuAJO+IKQ0PvtOpwmZ64ztKEpAAVXi+QDR1Gw8POsTuRljhElV7Gca41stJLGhTpAW01GZ3d5Bo36oN5XOZNFjDsbu7PO47DmE+FK4lvfXTxsMaAzrgQM5FZq0i6k7pnZY23hqG+yHAzuZ36YKKP2+y5H0kI3tAak1OIvP454FALc1X46aAfOAyvBqx/QDM8SZpeTJfYD3L2TobQ4b4ZHoOv69sEUHVZ9VZRk1GJ957kbqFn6CdTya1s787j3dr7ekA85SvsUT48swmcSDWlF/fHRlb2cupNbBPoCWYRcO/ZrlutXbt9OcOfvwFUeh9vWBgyMgISSmoh+qYqWUjb7WjUNnuiNGRerMids7GpRxF39tT9OY8g/C4hYXXTebhgpFuXZdcJiE0m7K/c42j5NLuMUOcREjMtH0tCz/wK7JDk/cnMpbfgPaTyWfNkwY887QJKD5nQ7ElZQTeq9zmcjQMuA0UtvZezuMDwvDRCrXSPLMv3TqW4ywRsaU4Cgo2lnHt50bU/4XZV6v9r8VTb3c4vcZWYBu/wKIv3joATd6wajx6JO15yP/HxJ5q+j4Ib2XTr0IvQCw1OLn//ghFd+CfYhwhzIH9H2qenwCFAa245qFmQVvW/0JR6Hsz7RkutUNKVildclcIWtJW2b0TCRvLGqh4WXHvP1/aaWD+MmDiVYQBPjLvpi5dStJZYNowy5y6MVUKRNEyoL95mbMKA/f88G6eCZFXo+mdLOuKEWbz5IIv+i90g4EwIvl6v/1tfDSyojJ3LnWKLvqLh7mdAe+3h/5E5zovwyH0m0TLAD5kQ/H9iataECZYnMWsjllLt2ykCiev793lcfzPQlOUJEO5pSoMLJGyWI/t7x61Yrtrp7Q3gZRtcsPNjceezuy69ESfBWqslx+aPOOdJDHW2H/+aMTPiW1w3DUB4DiB24Pm79svM+DoomD68r3NilBYQVlCqsaWw5VoYvLXN1yHYH/9DWRFcMg11wT3+3wYHSqzXWRLR1USv/zTMIL11wm3dHA+y0JTBCPJDKylFza8MYfHih7gM//8zKxDTXEjxREZsi0smhQu0zCX35nFoeqgn59ZV8UN3KUyIVIBN+NT7NqWpfKFMr9CBDEqYHh8oLUiclZhbAq/Arotzb5TSvET2FSOpm8iY8Z4EmsK+hIfjhMGHR8n94aUEHZAMWhRBu3zsil2B73YZyAtnSTBqTH/wp9O8ePj3Ke2Aa99HNWKced2eE5lD+GuruVVB5kyLT/hYi/8QaLMpU4r17frJSkZNSlICrhxswl/OFHKRmpEmQHIDp9JBixLOPgB/7gmvPdphSbGxUEKDHYiHk8Yh9kXjpfT3x3uMQV9OazInkIMKgHN7MJA5f9xoGgdJu0FibpXaAo1IdnlY9K5MHp3Cf859YJRbSC05fok4n3y099ZZIa2sI96unqVaYQiEhzk2WXRNodwf8n1yVK4sRpo7v9w1hXxolIvtgG75chcfTmfxX1/FBAQ6vyhGXvBOu8QcHd8ulS9tGZcs4pBAwqmXWCuk8FkYsRaVjbm/+DM6PYYkf3nL073paCSWrdD7Vun7cDK1jye4S70P/nNP05pJ42yjhvjgHMim5StxAEWF8JDYbjjRJ/3g6wX5E5q2zdK3qA/pxVKkPWGmbZwV9HZ604gq5tETv4KYs8eRK/MxLTmq9bekFuvD6HTr/8l8NxbYhLHBuwiYL4Cw9nMYlOK+oa5x+yHSDyUMQmO4hBBksNOcerh4GVbKfh3rLB4tNzb1dq72KPCpAcm4O5UFAPxVtxv33mPQAqWewhX+iJgqJF/o4W9+JKY8mCFUy9NcM1w12DfdROvx8nr8Y03JjsuwMF41fKIEH0ISrZhZVrXhSEKNSmhDYX+PjwYeW2a+ba7OHCm1Q9J09UHkt9WaLUMsWgAr8gQFxvhnLiFg01/GrPq7ARsnlKYrmPe1EVuSfTKspveCsHwW/xlqOelhpBrttFLhYOC+Y+wwe5JU8W4F1wspFQMY8Iw+G3+VTZQDbRWIgty5nvXZFlj8Cm0wlUN/M6F/lKZgt777ebDZ1l0amqIM8c0jHugTMALq2AFX3eJV4mACUs2DMastpFB+cUuxF0IeBqcOOeCKX9ddczfyYvdAwrlp38A3lAXhso5YuSmEImRkaK9f4oDweBNOodfN4G0sW/UGx1vyl/Uk7crgNbOWEJSHYAcOKJVpv+NSGn4mqhr1QUxEadZDmDyEW+6yuguEPxElsTQZ7rmQ2zp351b2o1GUPS6Hvw3E2PvYeBNbJSfogH8QwrlsCojjp6RTGd3et9emkOVPt+b3rzeqwZYpGenbccFMaXDRa3mo8lu80MwwuAKyhkXG9l1DRkZkrd7jA90r22FNYi98EcLWmYUX/i5zujg76suqP2010DMOgAAo3bIqE3iLhPi2or6vVW+FxDt37ld8XoyECGuJf0tXqzxSRuHdB4fpVulIhgc0ggbJoV9TQ321wx0lCvii0q3CZKuDmrdgX3z+Ceohhdq7wTI/dR8lSwmcpu1rT8+u9miZPNWR0cLNmTPjare5Lj6kHVp/NP4uQLPyd8gUniB2ZVudFyxfDlXIMpH3Elq9eI4Ucvzefd6yrJdD84Ch7qzMN0it4+cK3g7rUc6ZuO813gkbMoI8Zz6CVmHb0GCpoVp7WQRxvgTlbDd+0e8BqaKD7TadC/rfab9oJ4fnzkgdrqOX+dGWeXnrAv+oIf/J5Nqq2tgOUUVLEF1qsAdiNfYHKRU8AFdjS/7Om2S9ek2/X6OTkIdjsdWoHoET0ZSffGArDpfMfsK4KLVBVUaMoBY+bPR/npNie51UGnX+G7zI1w0TrODAjxUJiaW4r2s5zylzCqZNhTY23GaqTaXJUdYKO5if+PHxZmA5wr17vJbjEDwgtL9ZCXAY1Ot0h6vttfLvoxZCdew1ViN7LIN76Qtm/w9wo6xGGHZB6xonkfcrnS7KiSYI19NlLRLqEqjQxWfb3B9A7d9aI+o7bTJuhEoqlab6kBwR+N3I6dhKQLUTj33mU7jhm9tbfuNeXBNrYvbz4AN5xVoD/iwI+MXEzdUJ71Syije7RGv8t+3Diq19+IPr3PjhxuO21sljeujOsyN+BAM//XxHyMdsm38isfwXnGv9qa+xeMvNS48kRpG+jgGnD8H/xA7LI77W3nn0pFN6v/xJf/Nynyz6FbuT9JHrfgZPGuvWLSVWIOSQjR9f6VRKYMaKbrC0Ouzmd+Hw8HzNqC0R+f8yMSrtPvQL/IxM/T/PdBi6WsvuSNPTFWKTOgi+CgRIsIkIf5TjIya7Y3SL2QKdlyDt1E+pzo5Fc8b6JLDTJIfEldk3mY+o7t9MfBXwXeS52XzyEzJ4Pyy2nHAy930mxNL5+EiuOeDJHM/EEGOawh/Ap98JIQxh5tOjpzuMkOGHQoa2JpX3Oluqc3kHLv6wkq3JDSeXSsYaBob0TQ08Vpp11uvCXZK/4pQnfCPw9bjxTgrxMt1WB6oeJuo7Se5adXGwnt3XYZpsa7pWyRPnBCsVqM4V9fe3ovtSC2c4UcGsgSRMFZCvyOc64CmkY6Ts6pf08D69LfWrDOK46oh3/zuyYeJ1WSaGMfa354fqgMJGyGuwTsyu+KxR3tkwDUgIl5bKbF3Dzn/jlL/HWtaaZ1+x3DZJZ8X6AOG868scw/v24XBjmJet00CCN88qV+mAetFKmDdghJz2+RaIldZIkwrjlxlH/EEYosCmLrXh/vx1UPz7+wUVX/NDlUU95W8VzWMEVwDUnRM5Fkpvc0tlfv4li1yjnMS6P7vF9MKZsgKVlJJWAKOHcWE5ZMlqcHNrqeTNihuMUrcemz7lwM4wEoB/9mRJgO53jmTd/JMYiAPkts0D1u1vuCYLVf4e79SyaKD82N+4edybFlthsSsRx6aI9OCVNlKeGX0aEVreqZvTTJauIMMFdKhNr+oyePa6YR6X5m/x+kJMg1ilrTgzBa/H5GzcVynArDYrcERLyBt2IwTH9cth72kXxe/y1FZnBe9YnVEP+nvrTTJPW42O1VExEbhvuHLaDbCrDnzocwMUvEk9gfnNntLkaX24mt2bpFYpucTyo8cr7j7RNCwkLmCoYfLp+b9pDZBCl7pYqEN3blX9y1QCnpkJqJ1PEUoTndjItFoqbMs6fjt1NoEbHy0Fp17jNkT0CYwzbMuvPt+SeEKxYfD096bB0P6coiH1M1gLalh//GBkY35to2q4ZM3Oovgu5x40ES+BbjjzjFF5cWX1SjCCau0OQR6bzCqxjQMPyaOD465hOhPnFL+MrsFibI+R9pPFh81WdgV1q7T9CpkXCcunFDrskL6EJeluhq/ZueCOBNWnMqnZKLm137C367qpATLr0ll4be5rGnxaHX0OnOiVZfqxW77r6bc3f3IcoyVrL+J+F4ou0bDeBF1Zl+Sc7q+xbaZKtQHG4ySMjZdrRTLCwhK2fH14W/UYiec1PWAErYJMy5A3dikXor29b9CY/A/Mrb7nVm3FoipF6EYWfxCqlMW2Vw6gvK5lG13i2SPLVqd5maynbT4VmiUIU4O2v8YIYJKE7+QRNCceBXOiYyOkxoyNkmNIQsLZz6ig8+NvfsEieEoNh8P7PlgAPtSL4ts5SVSRwI4JdEcjenz2HV/RW3/kvzoahbUg9ilCSBlU3wLLNEj8N4BmkF5GesvW4qg8oMszC6immCJHv6Lh5JNUyUAAbtnfIrRievLRk/2cg2336KF1SRfiiUm3b1VWmoK8f23Mhr7GR4QCm7JlK38qE4kwULkzY078P4vkAinYXXpwXYJURguECIBGeLMBeY73PwTcRtoep+H6VIxecP4yhZzPm33IAV4XpCgO86rSgtEnmzPbHYxUNvy04ZllVc+8QCZ8mKseeGXDqvEO9o5OMxVSj1EJBeTBGTEKaX6zi8Cv8g9qjmdAs3nmE34gOfZb/RsOy6KJEdFq6xcDm4iYbPGOUzgWyqLtF99G9GC7VIzGiReS5iheuLoH3w0Y2LyIYSgCX90xWrlANKjfuWhtmg4DCg5j7Xo2h0m90/tOWgfX1yVH6+d6XqTpY4Vxrso5oWy0dfJ/2iXFq1Iim+ZxjqeWFp20mr6KHQ5uFiWAkpseBR6c8gJmQCc39aLcaxZJCKx63E7TVffAforvazej07A29KqwbTqnNiDxyfEy5Cb0AATMII/50+YG/tRiNrTJ9MUzmIz4y/1Iniviqcn7Uu74mPddhtN/SJyjNYxrUFz4QiUWcu4kBrfUctMr4XtwJW7hBChP9HyGh3oYx32Dzjy1QnrTTuslTJF/MucoBnBmpVx59YwYkRdxrwnLwNFrc6FEWqS+VdPqnHh/bKfUnkXSWdzw18xmW3cLu4Dx5D1fn9ONA28A/ik5Vo/R0iHz/PD9M3pNpZJhHPJgNj5tQfZR1p5CJxJzSlz5AZ8K+IttiYLDlEukO4fZ0Ax8ujdDoUcnXf48QAT+FVXcYLDC/EO9Esm/t7gMK4GHqkgVqGXk90iQp+ahHaZBadsrUFsY+T53AjhOv51W/pZghkx1gwBI5wYtudwnaB1fNazmGuxkv/4Ci6zm6rYpWA9cLCxQMv0inWoVt39/4hnPNsUL+/B4mdxCTBoT4nsS64Y4nSxgunujtYNjwMo2pj592P7z3qv15p+Wwe6uRCVIQ3CrnPtUcFHwzZNemA52++G39xnD/+W8u0IsH8phYOhugCsuczk7iTvwTO6ikV5NxNr8bh40F8wpQDlmvfnzV/fX5NP6UdI6gbyNaTfAmyx25P4Kyb/UFrW8W1FJnIPG27hIGVkMoanjwRQzN+42BHrFSqACtD28uEwxAq2pBxLMNDQJxqT0wSsq0+UxganJ1OF/w7jAg7pYlqd4KNERMhRZCtFSwgbAjbEGg6R8cqtyLovyUFtwA6X3flw6x+v2B26U+jbrmSpiJ+EhGt4dIC7cIkLlR5zSlMVQ4RIJS/RWmD6Bx4FYBBuspuwL0sVvAfHhfNsPWUR4amObkkXIhJLWNKyX3ZEFQF2IUZ2bVU7klmhCR2u6ZOdtn+dm52CL8ofUkKLSZOcqT11q3MlMrt7KgLamPAIGsw89zsDE/blpAjABN65W1WiRsMjMKcZLQxir6XizCQQfHMfgUCuS6tSSzy4SRtN63Snbmklkn8EbHBAOSjqkEfp45Gsu/5vLSq3QRXbWoEHMbrgH75NK1qZoW1yrc8x0We5ltra18W8l/+uYdLMEt/X1F/TGpFoLHTIMWj48km1eQ5sPAAiPnAxlXi2bAXF8JGfeRphvlF4JqUlpEpCETvuh6x86fEMRbEdk6c2GfEV7c+eW3ERW2orgeryjSXyqdT3Oi0Q4VBMSNWWLt1KECpqgtdm7SGVEdrE1GEwSsUCMlIa4Ht5X23jZ4ncH9nYTUGYFy9durC8r8mqhi6gb0MDmR56DrIZ4F2vbURqWx6rvDRqzBzL6F3EMeScmjoy8DhL7Tf+iOjvLAoTqvGRtf3rFKtHbNtkoiJHDy54eQvtvUpotdX5tIaeHp551BUzL+uG7G8lDGEBmat9wvvi84MPL9zfsQZGbQSVWPkohDFUZGdEpqNGmH8wRKJbmG7hssWYJpP4YPxi/iqKNaDl9b7zt5ZfE74JYxpHCv05XFEACaZ60cOJOH2fHyHddLKIhX+es302QL2vKtUylCvqEXg7GzcOMQbOeU9b/6TuQx/IHFLM+ox4vl6CdRzAsOr/dKh1WKDTv2PKCg1NQihFk2QLN52dIs51z6LE45sUnHpkb2EtANYVqPIwnOblJLXK4RvPCpPQ/zdOElodEh8t+c2Bc2+9JdSslCHpElGq00w6QspnJNdyXXj5Rh0R3MH1Sycicw8ZkRUqFo+P1yZpRw/ghZXdCcERmf+GlsT+SXYRFq6ACvQv9TciJZyK0IaZBWekJ9tq7+IPnekwTO+GQeNbM1g6nVmmKVvTMoGoWSUiBjFU2FBoOUPqaTCA6vVwOmCXR4n2Ws6YFEm1WhMElLhOozB2SszVb2mMfceWz9yGGDsrJQrLZbF35k1FeTrrLLjySrU5aVzgwnKkuDvHaTroY7OXxbCJ43druT328/zxbPghb4M3Mj04swudHuIqptCLOntC05UUPlWnwRQYd3jREfBUetkhIkJE6BbAMuk840XiA55KTs3gglD9e5achzIkC4S/P3Q1HI7fWY+5V1Y6EZOHfzoW6rfRT9ga7mdh/m3mbeWI5mlAD/bDUoGLMkj94ancpKHDVHvyAKm7+Z0QZRZcrLFtjpTXHJpf6SArvaavDuLAQXGC2S6N7kWUT0s1bKcaAL0HpOHHl0YsSWZafAqE536dP7eiSjUQj51BuMY5lvD6N4AQIRG3UMnWSgOVqZfB/EyjRiLJt3keaPAgjM6xiyVUKS04bP/E7yrz0Va9SM4VwLzuj8xJjfXlYgODx4nWLQtvY8pvmjNoUPBvCM2+jZv9mizy33N/5/k7CVPaR3F/M5gM4ttMo4IFQexh7TwxtkqQ9lI19jNTlAKeFhYdeX4okP+bJmTMu/PVXWRzjpbtFKXTck68gmX9fi/cy9lypuyoITugAd+vc4dcz79eLVG/DQC/Rd2f/5EFCWQDDGetG9eHwdhH9v7yciMK7lgFTx+kEZ023KlrNpeeS9aXnW0KaO3rG0e/WogKEOvnErOH6BIH9GnOjGWhOKAq9Ygy8wVpX5M1Iax7YmYJvE5f7fSGQerXkDUK73uPd0WTQ+xxZWH5tcuwfjuPMgsgsTQag+BEIDPzpcu11dKmPx+B+LdAp/Ii1LzA4xAifxPma3LTFFaG5CvZySQz6HKpkIFbeY/NF+9ozw7O5DMoQQcdj3yU6QtHEPfCcUN1elZuyVRRXlZ64kW1HuMtTM/O7nhOgcrmGY33rtxFzdYLqTDe62D7+V7NummtrFUZYxz0kbDClDKsINl6rGLNTK1/7SUmL3/slRqX/ysBmYn05i+rz/ayoaoFkIyUltKliPVzqpxz0GPQAmJtsdYBNl2PJEWirMcHLj+OAmfQmTHyLZlk0x998lzyB2+vveGt2weMspoHFgtqXbOtho9xplN8iYNJusH9hmEsGnPbELR8pUhco3rmWQS/RsjC1vRX9NRRl9dW+7YTuDuUYUVjtbmY9ERCZEXjUjzY0m3xkrsGDtmBLi4rNaIvvjkpUcxAuAkf0IOzFoy0d5KWMOJQDOqUQHgmOcRxZSeUci1akjpIfZsKX2sSa0jdEuqIVRTamIuK/9BFsNz2IKsN6sir4fwPPgAAAAGeaVoX/NdkZcvjA2qATZJpsAXTjbK3EgG2OOGeL/s0GMTZeeWMY+oXEDgDGEF9fVx2yyJfqpfl3rNrDMFzu7Ai1d7GkGcYHqvvJgPxj6mLhChxyKE9ci934AkDq8BKCVnUtEAAAAAA==';
+const bot = { open: false, started: false, teaserShown: false, acts: [] };
+const norm = s => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+function botMount() {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `
+  <div class="bot-teaser hidden" id="botTeaser" role="status">
+    <button class="bot-teaser-x" type="button" onclick="botHideTeaser()" aria-label="Cerrar mensaje">${icon('x', 14)}</button>
+    <strong>¿Necesitas ayuda?</strong><span>Soy Don Agro, te guío con tu registro.</span>
+  </div>
+  <button class="bot-fab" id="botFab" type="button" onclick="botToggle()" aria-haspopup="dialog" aria-expanded="false" aria-controls="botPanel" aria-label="Abrir el asistente Don Agro">
+    <img src="${BOT_IMG}" alt="" width="64" height="64"><span class="bot-online" aria-hidden="true"></span>
+  </button>
+  <section class="bot-panel hidden" id="botPanel" role="dialog" aria-modal="false" aria-labelledby="botTitle">
+    <header class="bot-head">
+      <img src="${BOT_IMG}" alt="" width="46" height="46">
+      <div class="bot-head-text"><p class="bot-title" id="botTitle">Don Agro</p><p class="bot-sub"><span class="bot-online-dot" aria-hidden="true"></span>Asistente de AgroRegistro 360</p></div>
+      <button class="bot-close" type="button" onclick="botToggle(false)" aria-label="Cerrar asistente">${icon('x', 20)}</button>
+    </header>
+    <div class="bot-log" id="botLog" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <div class="bot-chips" id="botChips" role="group" aria-label="Preguntas sugeridas"></div>
+    <form class="bot-form" onsubmit="botSubmit(event)">
+      <label class="sr-only" for="botInput">Escribe tu pregunta</label>
+      <input id="botInput" type="text" autocomplete="off" maxlength="300" placeholder="Escribe tu pregunta…">
+      <button class="bot-send" type="submit" aria-label="Enviar">${icon('arrow-right', 18)}</button>
+    </form>
+    <p class="bot-foot">Asistente simulado del prototipo. No compartas datos reales.</p>
+  </section>`;
+  document.body.appendChild(wrap);
+  setTimeout(() => { if (!bot.open && !bot.teaserShown) { bot.teaserShown = true; document.getElementById('botTeaser').classList.remove('hidden'); } }, 3500);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && bot.open) { botToggle(false); } });
+}
+function botHideTeaser() { document.getElementById('botTeaser').classList.add('hidden'); }
+function botToggle(force) {
+  bot.open = typeof force === 'boolean' ? force : !bot.open;
+  const p = document.getElementById('botPanel'), f = document.getElementById('botFab');
+  p.classList.toggle('hidden', !bot.open);
+  f.setAttribute('aria-expanded', String(bot.open));
+  f.classList.toggle('is-open', bot.open);
+  botHideTeaser();
+  if (bot.open) {
+    if (!bot.started) { bot.started = true; botWelcome(); }
+    setTimeout(() => document.getElementById('botInput').focus(), 50);
+  } else f.focus();
+}
+function botChips(list) {
+  document.getElementById('botChips').innerHTML = list.map(q => `<button class="bchip" type="button" onclick="botAsk(this.textContent)">${esc(q)}</button>`).join('');
+}
+function chipsBase() {
+  return state.role === 'productor'
+    ? ['¿Qué requisitos necesito?', '¿Cómo inicio mi registro?', 'Estado de mi trámite', '¿Qué pasa en la inspección?', 'Descargar mi registro']
+    : ['¿Cuáles son las etapas?', 'Expedientes pendientes', '¿Cómo registro una inspección?', '¿Cómo emito el registro?'];
+}
+function botAdd(who, html, actions) {
+  const log = document.getElementById('botLog');
+  const row = document.createElement('div');
+  row.className = 'bot-row ' + who;
+  row.innerHTML = (who === 'bot' ? `<img class="bot-mini" src="${BOT_IMG}" alt="" width="28" height="28">` : '') +
+    `<div class="bmsg ${who}">${html}${actions && actions.length ? `<div class="bot-actions">${actions.map(a => { bot.acts.push(a.fn); return `<button type="button" class="bact" onclick="botDo(${bot.acts.length - 1})">${a.label}</button>`; }).join('')}</div>` : ''}</div>`;
+  log.appendChild(row);
+  log.scrollTop = log.scrollHeight;
+}
+function botDo(i) {
+  if (window.matchMedia('(max-width: 640px)').matches) botToggle(false);
+  closeMenus();
+  const fn = bot.acts[i]; if (fn) fn();
+}
+function botWelcome() {
+  const nombre = state.role === 'productor' ? '' : ' Veo que estás en la vista de funcionario.';
+  const log = document.getElementById('botLog');
+  log.innerHTML = `<div class="bot-welcome"><img src="${BOT_FULL}" alt="Ilustración de Don Agro, productor con sombrero sosteniendo un documento" width="74" height="205">
+    <div class="bmsg bot"><strong>¡Hola! Soy Don Agro.</strong> Te ayudo con el registro de productores de banano y plátano.${nombre}<br><br>Pregúntame con tus palabras o toca una opción de abajo.</div></div>`;
+  botChips(chipsBase());
+}
+function botSubmit(e) { e.preventDefault(); const i = document.getElementById('botInput'); const q = i.value.trim(); if (!q) return; i.value = ''; botAsk(q); }
+function botAsk(q) {
+  botAdd('user', esc(q));
+  const log = document.getElementById('botLog');
+  const typing = document.createElement('div');
+  typing.className = 'bot-row bot'; typing.innerHTML = `<img class="bot-mini" src="${BOT_IMG}" alt="" width="28" height="28"><div class="bmsg bot typing" aria-label="Don Agro está escribiendo"><span></span><span></span><span></span></div>`;
+  log.appendChild(typing); log.scrollTop = log.scrollHeight;
+  setTimeout(() => {
+    typing.remove();
+    const r = botReply(q);
+    botAdd('bot', r.html, r.actions);
+    botChips(r.chips || chipsBase());
+  }, REDUCED ? 100 : 550 + Math.random() * 400);
+}
+function lineaTramite(t) {
+  const e = etapaActual(t);
+  return `<strong>${t.id}</strong> · ${esc(t.tipo)}<br>Estado: <strong>${t.estado}</strong> (${t.progreso}%). ${e.idx === -1 ? 'Proceso finalizado.' : 'Paso actual: ' + esc(e.label) + '.'}`;
+}
+function verTramiteAction(t) { return state.role === 'productor' ? { label: 'Ver trámite', fn: () => nav('detalle', { currentTramite: t.id }) } : { label: 'Abrir expediente', fn: () => nav('expediente', { currentTramite: t.id }) }; }
+function botReply(raw) {
+  const q = norm(raw);
+  const has = (...w) => w.some(x => q.includes(x));
+  const prod = state.role === 'productor';
+  // Consulta de un trámite por número
+  const m = q.match(/(?:mag-?2026-?)?(\d{3,6})/);
+  if (m && (has('mag', 'tramite', 'expediente', 'estado') || /^\s*\d{3,6}\s*$/.test(q))) {
+    const t = TRAMITES.find(x => x.id.endsWith(m[1].padStart(6, '0')));
+    if (t) return { html: lineaTramite(t) + (t.estado === 'Observado' ? '<br><br>Tiene una <strong>observación</strong> por responder.' : ''), actions: [verTramiteAction(t)] };
+    return { html: `No encontré un trámite con el número <strong>${esc(m[1])}</strong>. Revisa el número en tu comprobante (formato MAG-2026-000000).`, actions: [{ label: 'Ver mis trámites', fn: () => nav('mis',{filtro:'todos'}) }] };
+  }
+  if (has('hola', 'buenas', 'buenos dias', 'buenas tardes', 'saludos') && q.length < 25) return { html: '¡Hola! ¿En qué te ayudo? Puedo explicarte los requisitos, el proceso, el estado de un trámite o cómo descargar tus documentos.' };
+  if (has('gracias', 'muy amable', 'excelente')) return { html: '¡Con gusto! Si necesitas algo más, aquí estoy. 🌱' };
+  // Preguntas de funcionarios
+  if (!prod && has('pendiente', 'bandeja', 'por revisar', 'cuantos')) {
+    const by = e => TRAMITES.filter(t => t.estado === e).length;
+    return { html: `Así está tu bandeja:<br>• Revisión jurídica: <strong>${by('En validación') + by('Observado')}</strong> (incluye observados)<br>• Inspección del predio: <strong>${by('En inspección')}</strong><br>• Informe técnico: <strong>${by('En informe técnico')}</strong><br>• Por emitir registro: <strong>${by('Por emitir registro')}</strong>`, actions: [{ label: 'Ir a la bandeja', fn: () => nav('bandeja',{filtro:'proceso'}) }] };
+  }
+  if (has('etapa', 'proceso', 'flujo', 'pasos', 'como funciona')) return { html: 'El trámite tiene estas etapas:<br>1. <strong>Solicitud en línea</strong>: el productor ingresa su cédula; el sistema consulta 5 entidades y él carga el croquis.<br>2. <strong>Revisión jurídica</strong>: se emite el informe jurídico (PDF).<br>3. <strong>Inspección del predio</strong>: el técnico registra lo verificado y se genera el acta (PDF).<br>4. <strong>Informe técnico</strong> (PDF) con la recomendación.<br>5. <strong>Emisión del registro</strong> firmado (PDF), con código de verificación.<br><br>El productor recibe un aviso en cada paso.' };
+  if (!prod && has('inspeccion', 'acta')) return { html: 'Para registrar una inspección: abre un expediente en estado <strong>En inspección</strong>, completa fecha, coordenadas, superficie verificada y la lista de verificación, elige el resultado y pulsa <em>Registrar inspección y generar acta</em>. Si es <strong>no conforme</strong>, se notifica una observación al productor.', actions: [{ label: 'Ver expedientes en inspección', fn: () => nav('bandeja',{filtro:'proceso'}) }] };
+  if (!prod && has('emit', 'firmar', 'registro')) return { html: 'El registro se emite en la etapa 4, cuando ya existen el informe jurídico, el acta de inspección y el informe técnico favorable. Abre el expediente, revisa los datos y pulsa <em>Firmar y emitir registro</em>: se genera el PDF con número y código de verificación, y se avisa al productor.' };
+  if (!prod && has('juridico', 'aprobar', 'observar', 'rechazar')) return { html: 'En la revisión jurídica puedes: <strong>emitir el informe favorable</strong> (genera el PDF y agenda la inspección), <strong>notificar una observación</strong> al productor o <strong>rechazar</strong> la solicitud.' };
+  // Preguntas de productores
+  if (has('requisit', 'que necesito', 'papeles', 'que documentos', 'documentos necesito')) return { html: 'Solo necesitas:<br>• Tu <strong>número de cédula</strong>.<br>• El <strong>croquis de tu predio</strong> (PDF, JPG o PNG, hasta 5 MB).<br>• Tu <strong>clave de firma electrónica</strong>.<br><br>Tu RUC, afiliación, título del predio y certificaciones <strong>no los tienes que llevar</strong>: los consultamos en línea al Registro Civil, SRI, IESS, Registro de la Propiedad y Agrocalidad.', actions: [{ label: 'Iniciar mi solicitud', fn: () => iniciarSolicitud('registro') }] };
+  if (has('renov')) return { html: 'Para renovar tu registro inicia una solicitud y elige <strong>Renovación de registro</strong>. Tus datos se cargan solos con tu cédula.', actions: [{ label: 'Renovar mi registro', fn: () => iniciarSolicitud('renovacion') }] };
+  if (has('actualiz', 'cambiar dato', 'modificar', 'corregir dato')) return { html: 'Puedes actualizar la superficie, el cultivo o los datos de tu predio con una solicitud de <strong>Actualización de datos</strong>.', actions: [{ label: 'Actualizar mis datos', fn: () => iniciarSolicitud('actualizacion') }] };
+  if (has('iniciar', 'empezar', 'registrarme', 'inscrib', 'nueva solicitud', 'solicitar', 'como me registro', 'como inicio')) return { html: 'Son 4 pasos, en menos de 5 minutos:<br>1. Ingresa tu cédula: consultamos tus datos.<br>2. Revisa tu predio y cultivo.<br>3. Carga el croquis.<br>4. Firma y envía. Recibirás tu comprobante en PDF.', actions: [{ label: 'Iniciar ahora', fn: () => iniciarSolicitud('registro') }] };
+  if (has('estado', 'seguimiento', 'como va', 'mi tramite', 'mis tramites', 'donde esta', 'avance')) {
+    const L = TRAMITES.slice(0, 3);
+    return { html: (prod ? 'Estos son tus trámites más recientes:' : 'Últimos expedientes:') + '<br><br>' + L.map(lineaTramite).join('<br><br>') + '<br><br>También puedes escribirme el número, por ejemplo <em>842</em>.', actions: [{ label: prod ? 'Ver mis trámites' : 'Ir a la bandeja', fn: () => prod ? nav('mis', { filtro: 'todos' }) : nav('bandeja', { filtro: 'todos' }) }], chips: L.map(t => t.id) };
+  }
+  if (has('inspeccion', 'visita', 'inspector')) return { html: 'Después del informe jurídico favorable, el MAG <strong>agenda la inspección</strong> de tu predio y te avisa la fecha. El técnico verifica ubicación, superficie, linderos, cultivo y manejo fitosanitario. Al terminar se genera el <strong>acta de inspección en PDF</strong>, que puedes descargar desde tu trámite.<br><br>Consejo: ten a mano tu cédula y permite el acceso al predio.' };
+  if (has('descarg', 'pdf', 'comprobante', 'certificado', 'mi registro', 'acta', 'informe')) {
+    const t = TRAMITES.find(x => docDe(x, 'registro'));
+    return { html: 'Desde <strong>Mis trámites</strong>, abre tu trámite y ve a <em>Documentos</em>. Ahí descargas el comprobante, el informe jurídico, el acta de inspección, el informe técnico y tu <strong>registro emitido</strong>, cuando cada uno esté listo.', actions: t ? [{ label: `Descargar registro ${t.id}`, fn: () => descargarDocTipo(t.id, 'registro') }, { label: 'Ver mis trámites', fn: () => nav('mis',{filtro:'todos'}) }] : [{ label: 'Ver mis trámites', fn: () => nav('mis',{filtro:'todos'}) }] };
+  }
+  if (has('observ', 'subsan', 'devol', 'me pidieron', 'corregir')) return { html: 'Si tu trámite tiene una <strong>observación</strong>, te llegará un aviso. Abre el trámite, lee la observación, adjunta el documento solicitado y pulsa <em>Enviar respuesta</em>. No necesitas ir a una oficina.', actions: [{ label: 'Ver trámites con observación', fn: () => nav('mis',{filtro:'accion'}) }] };
+  if (has('demora', 'cuanto tiempo', 'tarda', 'cuantos dias', 'cuando')) return { html: 'El tiempo depende sobre todo de la fecha de inspección. Lo que sí puedo decirte es que verás <strong>cada paso en línea</strong> y recibirás un aviso cuando avance. Este prototipo no da plazos oficiales.' };
+  if (has('firma')) return { html: 'La solicitud se firma con tu <strong>firma electrónica</strong>, que tiene validez legal en Ecuador. En este prototipo la clave de demostración ya viene completada.' };
+  if (has('costo', 'pago', 'pagar', 'precio', 'cuanto cuesta', 'valor')) return { html: 'Este prototipo no gestiona pagos. Para conocer si hay algún valor vigente, consulta directamente con el MAG.' };
+  if (has('asesor', 'persona', 'humano', 'oficina', 'contacto', 'telefono', 'asistid', 'no tengo internet', 'no se usar', 'ayuda presencial')) return { html: 'Si prefieres ayuda en persona, la propuesta incluye un <strong>canal asistido</strong> en los puntos de atención del MAG y en asociaciones de productores, donde un funcionario te ayuda a completar la solicitud.' };
+  if (has('dato', 'privacidad', 'seguridad', 'proteccion')) return { html: 'Tus datos se consultan solo para tu trámite y se tratan conforme a la <strong>Ley Orgánica de Protección de Datos Personales</strong>. En este prototipo todos los datos son ficticios.' };
+  if (has('sri', 'iess', 'registro civil', 'agrocalidad', 'entidad', 'interoperab', 'propiedad')) return { html: 'AgroRegistro 360 consulta en línea a <strong>5 entidades</strong>: Registro Civil (identidad), SRI (RUC), IESS (afiliación), Registro de la Propiedad (predio) y Agrocalidad (certificaciones). Por eso no tienes que llevar esos documentos.' };
+  if (has('indicador', 'tablero', 'estadistica')) return { html: 'En <strong>Indicadores</strong> verás el comparativo antes y después del prototipo. Son valores proyectados, no estadísticas oficiales.', actions: [{ label: 'Ver indicadores', fn: () => nav('tablero') }] };
+  if (has('emitido', 'registro')) return { html: 'Cuando el informe técnico es favorable, el MAG firma y emite tu <strong>registro de productor en PDF</strong>, con número y código de verificación. Te llega un aviso y lo descargas desde tu trámite.' };
+  return { html: 'Mmm, no estoy seguro de haber entendido. Puedo ayudarte con <strong>requisitos</strong>, <strong>cómo iniciar</strong>, <strong>estado de un trámite</strong> (escríbeme el número), <strong>inspección</strong>, <strong>observaciones</strong> o <strong>descargar documentos</strong>.' };
+}
+
 initDownloads();
+sembrarDemo();
 render();
+botMount();
 </script>
 </body>
 </html>
