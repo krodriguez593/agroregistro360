@@ -1,0 +1,11 @@
+.gradle/
+build/
+local.properties
+*.apk
+*.idx
+*.ap_
+captures/
+diagnostics-output/
+# Claves de firma: nunca al repositorio
+*.jks
+*.keystore

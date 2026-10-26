@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Objetivos táctiles grandes para uso en conducción (mínimo 76dp). -->
+    <dimen name="touch_min">76dp</dimen>
+    <dimen name="bottom_bar_height">84dp</dimen>
+    <dimen name="gap">12dp</dimen>
+    <dimen name="card_radius">20dp</dimen>
+    <dimen name="icon">28dp</dimen>
+</resources>

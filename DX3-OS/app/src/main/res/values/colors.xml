@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta DX3 OS: grafito + cian. Contraste de texto principal sobre fondo ≈ 17:1. -->
+    <color name="bg">#0B0D10</color>
+    <color name="surface">#15191E</color>
+    <color name="surface_high">#1E242B</color>
+    <color name="stroke">#2A323C</color>
+    <color name="accent">#22D3EE</color>
+    <color name="accent_blue">#3B82F6</color>
+    <color name="accent_dim">#1A22D3EE</color>
+    <color name="text">#F2F5F8</color>
+    <color name="text_secondary">#9AA4B2</color>
+    <color name="ok">#34D399</color>
+    <color name="warning">#F59E0B</color>
+    <color name="error">#F87171</color>
+    <color name="simulated">#C4B5FD</color>
+    <color name="ripple">#3322D3EE</color>
+</resources>
